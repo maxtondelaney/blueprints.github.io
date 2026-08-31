@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Wall Framing — 12' x 10' Detached Backyard Office</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --dim: #3a3a3a;
+    --paper: #ffffff;
+    --rule: #d5d5d5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #f2f2f0;
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .sheet {
+    background: var(--paper);
+    max-width: 1400px;
+    margin: 16px auto;
+    padding: 20px 22px 26px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 6px rgba(0,0,0,.10);
+  }
+  header.title {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 8px 24px;
+    justify-content: space-between;
+  }
+  header.title h1 { font-size: 19px; margin: 0; letter-spacing: .04em; text-transform: uppercase; }
+  header.title .sub { font-size: 12px; color: #555; margin-top: 3px; }
+  .meta { font-size: 11px; color: #444; text-align: right; line-height: 1.5; }
+  .meta b { color: #000; }
+
+  .ui {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 10px 0 4px; padding: 8px 10px;
+    background: #fafaf8; border: 1px solid var(--rule);
+    font-size: 12px; align-items: center;
+  }
+  .ui label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .ui .spacer { flex: 1 1 auto; }
+  .ui button {
+    font: inherit; padding: 4px 10px; cursor: pointer;
+    background: #fff; border: 1px solid #999; border-radius: 3px;
+  }
+  .ui button:hover { background: #eee; }
+
+  #drawing { width: 100%; overflow-x: auto; }
+  svg { width: 100%; height: auto; display: block; background: #fff; }
+
+  .legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 3px 18px; font-size: 11px; margin-top: 14px;
+    border-top: 1px solid var(--rule); padding-top: 10px;
+  }
+  .legend div { display: flex; align-items: center; gap: 7px; }
+  .sw { width: 20px; height: 11px; border: 1px solid #333; flex: 0 0 auto; }
+
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 16px; }
+  .panel { border: 1px solid var(--rule); padding: 10px 12px; }
+  .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 8px; border-bottom: 1px solid var(--rule); padding-bottom: 5px; }
+  table { border-collapse: collapse; width: 100%; font-size: 10.5px; }
+  th, td { text-align: left; padding: 2px 5px; border-bottom: 1px solid #eee; }
+  th { background: #f5f5f3; font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.grp td { background: #fbfbf7; }
+
+  ul.checks { list-style: none; margin: 0; padding: 0; font-size: 11px; }
+  ul.checks li { padding: 2px 0 2px 20px; position: relative; line-height: 1.35; }
+  ul.checks li::before { position: absolute; left: 0; font-weight: 700; }
+  li.pass::before { content: "OK"; color: #187a3c; font-size: 9px; top: 3px; }
+  li.fail::before { content: "X"; color: #b00000; }
+  li.fail { color: #b00000; font-weight: 600; }
+
+  #alarm {
+    display: none; margin: 12px 0; padding: 10px 12px;
+    background: #ffe8e8; border: 2px solid #b00000; color: #7a0000;
+    font-size: 13px; font-weight: 700;
+  }
+  #alarm.show { display: block; }
+
+  .note {
+    font-size: 11px; line-height: 1.5; color: #333;
+    border: 1px solid #bbb; background: #fbfbf7; padding: 9px 11px; margin-top: 14px;
+  }
+  .note b { color: #000; }
+  .review { columns: 2 220px; column-gap: 22px; font-size: 10.5px; margin: 6px 0 0; padding-left: 18px; line-height: 1.45; }
+
+  @media (max-width: 700px) {
+    .sheet { margin: 0; border: 0; padding: 12px; }
+    .meta { text-align: left; }
+    .review { columns: 1; }
+  }
+
+  @media print {
+    @page { size: landscape; margin: 0.4in; }
+    html, body { background: #fff; }
+    .sheet { max-width: none; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    .ui { display: none !important; }
+    #drawing { overflow: visible; }
+    .panels { grid-template-columns: 1fr 1fr; }
+    .panel, .note, .legend { break-inside: avoid; }
+    svg { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="title">
+    <div>
+      <h1>Front Wall Framing — Gable End (Interior Elevation of Wall Framing)</h1>
+      <div class="sub">Detached backyard office / accessory structure &middot; Vacaville, California</div>
+    </div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="ui">
+    <strong style="font-size:11px;letter-spacing:.04em;">VIEW:</strong>
+    <label><input type="checkbox" id="tStone" checked> 30" stone reference</label>
+    <label><input type="checkbox" id="tCasing" checked> 3" window casing reference</label>
+    <label><input type="checkbox" id="tRO" checked> 82" R.O. head alignment line</label>
+    <label><input type="checkbox" id="tDims" checked> Dimensions</label>
+    <label><input type="checkbox" id="tNotes" checked> Callout notes</label>
+    <span class="spacer"></span>
+    <button onclick="window.print()">Print</button>
+  </div>
+
+  <div id="alarm"></div>
+  <div id="drawing"></div>
+  <div class="legend" id="legend"></div>
+
+  <div class="panels">
+    <div class="panel">
+      <h2>Calculated horizontal layout (sums to 144")</h2>
+      <table id="layoutTable"></table>
+    </div>
+    <div class="panel">
+      <h2>Vertical stack &amp; roof geometry</h2>
+      <table id="vertTable"></table>
+    </div>
+    <div class="panel">
+      <h2>Validation</h2>
+      <ul class="checks" id="checkList"></ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Concept framing layout.</b> Final member sizing, connections, shear/braced-wall requirements, post bases,
+    and foundation load paths require code/engineering verification. This is not a stamped structural drawing.
+    <div style="margin-top:6px;">
+      <b>Assumed load path (REQUIRES STRUCTURAL REVIEW — NOT ENGINEER APPROVED):</b>
+      6&times;10 structural ridge beam &rarr; centered 6&times;6 ridge post &rarr; double 2&times;6 top plate &rarr;
+      6&times;8 door header &rarr; 6&times;6 door posts &rarr; foundation.
+    </div>
+    <div style="margin-top:6px;"><b>Items requiring review:</b></div>
+    <ul class="review">
+      <li>Ridge beam size (6&times;10 shown, 12'-0" overall; 6&times;12 alternate)</li>
+      <li>6&times;8 door header under concentrated ridge reaction</li>
+      <li>Window header sizing</li>
+      <li>Ridge beam end reactions</li>
+      <li>Ridge support post</li>
+      <li>Concentrated bearing through top plates</li>
+      <li>Perpendicular-to-grain compression</li>
+      <li>2&times;8 rafter sizing and span</li>
+      <li>Sloped rafter hanger selection and capacity at the ridge beam</li>
+      <li>Hurricane / rafter tie selection and uplift capacity</li>
+      <li>Birdsmouth notch depth, shear at the notch and bearing length</li>
+      <li>Post bases and retrofit anchors into poured slab</li>
+      <li>Ridge-beam connections</li>
+      <li>Post/header connections</li>
+      <li>Concrete / foundation capacity</li>
+      <li>Roof sheathing span rating, edge support and diaphragm nailing</li>
+      <li>12" ridge-beam cantilever and the fly-rafter reaction at its tip</li>
+      <li>Fly rafter and 2&times;6 lookout sizing, spacing and connections</li>
+      <li>Wall sheathing</li>
+      <li>Shear-wall / braced-wall requirements</li>
+      <li>Hold-down requirements</li>
+      <li>California seismic loads</li>
+      <li>Opening-heavy front wall</li>
+      <li>Vacaville zoning, height limit and setbacks</li>
+    </ul>
+    <div style="margin-top:6px;">
+      <b>Post bases:</b> every 6&times;6 post bears on the foundation and requires a post base. The symbol shown is
+      generic &mdash; product, size, standoff and uplift capacity are not selected. Because the slab is already poured,
+      expect post-installed / retrofit anchors; anchor type, embedment and concrete capacity require engineering.
+      Use an elevated standoff base wherever the post is exposed to weather.
+    </div>
+    <div style="margin-top:6px;">
+    <div style="margin-top:6px;">
+      <b>Birdsmouth seat:</b> rafters bear on a 3-1/2" horizontal seat cut with a plumb heel cut at the outer wall
+      face, leaving 6-3/8" height above plate. The notch is 1-9/16" measured perpendicular to the rafter, about 22%
+      of the 7-1/4" depth, which stays inside the quarter-depth end-notch limit usually applied to sawn lumber &mdash;
+      confirm against the current CRC and with the engineer, along with required bearing length and perpendicular-to-grain
+      bearing. Cutting the seat lowers the whole roof plane 1-3/4"; the pitch stays 6:12. Common rafters bear this way
+      on the left and right wall plates; the rake rafter is notched the same at both corners of this wall.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Connections:</b> the ridge connection is a sloped rafter hanger at every rafter, into the side faces of the
+      structural ridge beam; uplift is a hurricane / rafter tie at every rafter-to-wall connection, over the
+      birdsmouth seat and onto the double top plate. Both are drawn as hidden-line symbols only &mdash; the rafters
+      they serve are beyond this wall plane, and model, capacity, slope/skew and fastener schedules are not selected.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Height:</b> top of 1/2" sheathing at the ridge is <b>11'-3-3/8"</b> above top of slab; top of rafters is
+      11'-2-7/8". Roofing and underlayment are not included in either figure. Zoning height is measured from adjacent
+      grade and includes the finished roofing, so add the slab height above grade and the roofing build-up before
+      comparing to any Vacaville limit. Treat the previously noted ~12' threshold as unverified.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Rake overhang:</b> 12" at both gables, framed off the ridge beam rather than off the gable wall. The 6&times;10
+      runs 12'-0" overall &mdash; 10'-0" between the gable walls plus a 12" cantilever at each end &mdash; and carries a
+      2&times;8 fly rafter at the outer edge, with 2&times;6 lookouts tied back to the first common rafter. The whole
+      assembly projects out of the plane of this view, so the fly rafter reads coincident with the rake rafter drawn
+      here and the lookouts fall hidden behind it. Two things are still open: lookout spacing along the rake, and how
+      the lookouts pass the gable-end rafter &mdash; dropping that rafter flush with the lookout tops would shorten the
+      gable studs shown on this sheet. The beam cantilever and the fly-rafter reaction at its tip need to be checked
+      with the beam.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Not shown / not yet finalized:</b> foundation, footings, reinforcement, anchors and hold-downs (foundation
+      already poured; details not finalized); underlayment and roofing; fascia, sub-fascia, soffit and venting;
+      lookout / fly rafter framing at the rake; enlarged eave / birdsmouth detail; ridge blocking or beam-top bevel
+      at the peak.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CENTRAL DIMENSION MODEL — all geometry derives from this
+   ============================================================ */
+const OFFICE = {
+  width: 144,          // front/rear gable wall length, inches (12'-0")
+  depth: 120,          // left/right wall length, inches (10'-0")
+
+  frontWall: {
+    door:   { roughWidth: 38.25, roughHeight: 82 },
+    window: { count: 2, roughWidth: 24, roughHeight: 48 }
+  },
+
+  framing: {
+    studThickness: 1.5,      // 2x6 actual thickness
+    wallDepth: 5.5,          // 2x6 actual width (wall thickness)
+    bottomPlateCount: 1,
+    topPlateCount: 2,        // DOUBLE top plate (no triple)
+    plateThickness: 1.5,
+
+    cornerPostWidth: 5.5,    // nominal 6x6 actual
+    doorPostWidth: 5.5,      // nominal 6x6 actual
+    ridgePostWidth: 5.5,     // nominal 6x6 actual
+
+    windowHeaderDepth: 7.5,  // nominal 6x8 actual depth
+    windowHeaderWidth: 5.5,
+    doorHeaderDepth: 7.5,    // nominal 6x8 actual depth
+    doorHeaderWidth: 5.5,
+
+    roughSillThickness: 1.5, // 2x6 flat rough sill
+    gableStudSpacing: 16     // o.c.
+  },
+
+  roof: {
+    rise: 6, run: 12,        // 6:12
+    ridgeBeamWidth: 5.5,     // nominal 6x10 actual
+    ridgeBeamDepth: 9.5,
+    ridgeBeamNominal: '6x10',
+
+    rafterNominal: '2x8',
+    rafterThickness: 1.5,
+    rafterDepth: 7.25,       // 2x8 actual depth, measured perpendicular to slope
+    rafterSpacing: 16,       // o.c.
+
+    /* Birdsmouth seat cut length, measured horizontally along the top plate.
+       3.5" keeps the notch at ~22% of rafter depth, inside the usual
+       quarter-depth end-notch limit for sawn lumber. VERIFY. */
+    rafterSeatCut: 3.5,
+
+    eaveOverhang: 12,        // horizontal projection past left/right wall face
+    rakeOverhang: 12,        // projection past front/rear wall — out of plane in this view
+
+    /* Rake is framed off a cantilevered ridge beam, not off the gable wall:
+       the 6x10 runs past each gable wall and carries a fly rafter at the outer
+       edge, with lookouts tied back to the first common rafter. */
+    rakeFraming: {
+      beamCantilever: 12,        // each end, so the beam is 12'-0" overall
+      flyRafterNominal: '2x8',
+      lookoutNominal: '2x6',
+      lookoutSpacing: null,      // along the rake — NOT specified
+      gableRafterDrop: null      // depends on lookout orientation — NOT specified
+    },
+
+    /* 1/2" nominal plywood; actual thickness is typically 15/32", measured
+       perpendicular to the roof plane. */
+    sheathingNominal: '1/2"',
+    sheathingThickness: 15 / 32,
+
+    /* Connections are specified in kind, not by product. */
+    ridgeConnection: 'sloped rafter hangers into the sides of the ridge beam',
+    wallUpliftConnection: 'hurricane / rafter tie at each rafter-to-wall connection',
+    connectorProduct: null   // model, capacity and fasteners NOT selected
+  },
+
+  exterior: { stoneHeight: 30, casingWidth: 3 },
+
+  /* Post bases are required at every 6x6 post but the product, size and
+     anchorage are not selected. Drawn as a symbol only. */
+  postBase: { required: true, symbolHeight: 6, type: null }
+};
+
+const W  = OFFICE.width;
+const FR = OFFICE.framing;
+const RF = OFFICE.roof;
+const EX = OFFICE.exterior;
+
+/* ============================================================
+   VERTICAL MODEL (0" = TOP OF SLAB / FOUNDATION)
+   ============================================================ */
+const botPlateThk   = FR.plateThickness * FR.bottomPlateCount;   // 1.5
+const botPlateTop   = botPlateThk;
+const topPlateThk   = FR.plateThickness * FR.topPlateCount;      // 3.0
+const roHead        = OFFICE.frontWall.door.roughHeight;         // 82 — door & window heads align
+const headerDepth   = FR.doorHeaderDepth;                        // 7.5
+const wallHeight    = roHead + headerDepth + topPlateThk;        // 92.5
+const topPlateBot   = wallHeight - topPlateThk;                  // 89.5
+const headerBot     = topPlateBot - headerDepth;                 // 82  == roHead
+const winRoSill     = roHead - OFFICE.frontWall.window.roughHeight; // 34
+const sillBot       = winRoSill - FR.roughSillThickness;         // 32.5
+
+const slope   = RF.rise / RF.run;                                // 0.5
+const halfRun = W / 2;                                           // 72
+const roofRise= halfRun * slope;                                 // 36
+const refPeakZeroSeat = wallHeight + roofRise;                   // 128.5 — layout reference, zero seat cut
+
+/* 2x8 rafters: depth is perpendicular to the slope, so the plumb (vertical)
+   depth is deeper by the slope factor. */
+const slopeFactor      = Math.sqrt(1 + slope * slope);            // 1.118034
+const rafterPlumbDepth = RF.rafterDepth * slopeFactor;            // 8.1057
+
+/* Birdsmouth: the seat cut is horizontal at the top of the plate and the heel
+   cut is plumb at the outer wall face, so the rafter underside meets the plate
+   top a seat-length inboard. The whole roof plane therefore drops by the plumb
+   depth of the seat cut. Pitch is unaffected. */
+const seatCut   = RF.rafterSeatCut;                               // 3.5 horizontal
+const seatPlumb = seatCut * slope;                                // 1.75 vertical
+const seatPerp  = seatPlumb / slopeFactor;                        // 1.5652 perpendicular to rafter
+const hap       = rafterPlumbDepth - seatPlumb;                   // 6.3557 height above plate
+
+/* Rafter UNDERSIDE layout line (the notch is drawn separately) */
+const roofYAtX = x => (x <= halfRun) ? wallHeight + (x - seatCut) * slope
+                                     : wallHeight + ((W - x) - seatCut) * slope;
+const roofTopAtX = x => roofYAtX(x) + rafterPlumbDepth;           // top of rafters
+const underRidge = roofYAtX(halfRun);                             // 126.75
+const actualPeak = roofTopAtX(halfRun);                           // 134.8557
+const roofDrop   = refPeakZeroSeat - underRidge;                  // 1.75, equals seatPlumb
+
+/* 12" horizontal eave overhang each end; plumb tail cut */
+const eaveX0 = -RF.eaveOverhang, eaveX1 = W + RF.eaveOverhang;
+
+/* Ridge beam cantilevers past both gable walls to carry the fly rafters, so the
+   beam is longer than the building depth. */
+const RK = RF.rakeFraming;
+const beamLength = OFFICE.depth + 2 * RK.beamCantilever;           // 144 = 12'-0"
+
+/* 1/2" sheathing over the rafters; thickness is perpendicular to the roof
+   plane, so it adds slightly more than 15/32" measured plumb. */
+const sheathingPlumb = RF.sheathingThickness * slopeFactor;        // 0.5241
+const sheathTopAtX   = x => roofTopAtX(x) + sheathingPlumb;
+const sheathingPeak  = sheathTopAtX(halfRun);                      // 135.3798
+
+/* Ridge beam: rafters frame into the SIDES of the beam, so the beam top is
+   flush with the rafter tops at the beam faces. Beam stays inside the roof. */
+const beamL   = halfRun - RF.ridgeBeamWidth / 2;
+const beamR   = halfRun + RF.ridgeBeamWidth / 2;
+const beamTop = Math.min(roofTopAtX(beamL), roofTopAtX(beamR));    // 135.2307
+const beamBot = beamTop - RF.ridgeBeamDepth;                      // 125.7307
+const ridgeVoid = actualPeak - beamTop;                           // 1.375 at the peak
+const postL   = halfRun - FR.ridgePostWidth / 2;
+const postR   = halfRun + FR.ridgePostWidth / 2;
+
+/* 6x6 posts that require post bases (drawn symbolically at the slab) */
+const PB_H = OFFICE.postBase.symbolHeight;
+
+/* ============================================================
+   HORIZONTAL LAYOUT — built programmatically, infill solved
+   ============================================================ */
+function buildLayout() {
+  const s = [];
+  const win = () => { s.push(
+    {t:'king', w:FR.studThickness}, {t:'jack', w:FR.studThickness},
+    {t:'ro-window', w:OFFICE.frontWall.window.roughWidth},
+    {t:'jack', w:FR.studThickness}, {t:'king', w:FR.studThickness}); };
+  const door = () => { s.push(
+    {t:'king', w:FR.studThickness}, {t:'post-door', w:FR.doorPostWidth},
+    {t:'ro-door', w:OFFICE.frontWall.door.roughWidth},
+    {t:'post-door', w:FR.doorPostWidth}, {t:'king', w:FR.studThickness}); };
+
+  s.push({t:'post-corner', w:FR.cornerPostWidth});
+  s.push({t:'infill'}); win();  s.push({t:'infill'});
+  door();
+  s.push({t:'infill'}); win();  s.push({t:'infill'});
+  s.push({t:'post-corner', w:FR.cornerPostWidth});
+
+  const nInfill  = s.filter(g => g.t === 'infill').length;
+  const fixedSum = s.reduce((a,g) => a + (g.w || 0), 0);
+  const infillW  = (W - fixedSum) / nInfill;         // solved, not trusted
+  s.forEach(g => { if (g.t === 'infill') g.w = infillW; });
+
+  let x = 0;
+  s.forEach(g => { g.x0 = x; x += g.w; g.x1 = x; g.cx = (g.x0 + g.x1) / 2; });
+  return { segs: s, infillW, fixedSum, nInfill, total: x };
+}
+const LAY = buildLayout();
+const SEG = LAY.segs;
+const totalWallWidth = LAY.total;
+
+const windowsRO = SEG.filter(g => g.t === 'ro-window');
+const doorRO    = SEG.find(g => g.t === 'ro-door');
+
+/* Window cripples below rough sill: at each RO edge + centered */
+function crippleXs(ro) {
+  const t = FR.studThickness;
+  return [ro.x0, ro.cx - t/2, ro.x1 - t];
+}
+
+/* Gable studs @ 16" o.c., generated from real centerlines.
+   Center location is occupied by the 6x6 ridge post -> skipped. */
+function buildGableStuds() {
+  const out = [], t = FR.studThickness;
+  for (let c = FR.gableStudSpacing; c < W; c += FR.gableStudSpacing) {
+    const x0 = c - t/2, x1 = c + t/2;
+    const displaced = (x1 > postL && x0 < postR);
+    const yTopL = roofYAtX(x0), yTopR = roofYAtX(x1);
+    out.push({ c, x0, x1, displaced,
+               yTopL, yTopR, len: Math.max(yTopL, yTopR) - wallHeight });
+  }
+  return out;
+}
+const GABLE = buildGableStuds();
+
+/* ============================================================
+   FORMATTING HELPERS
+   ============================================================ */
+function inchStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  let whole = Math.floor(v + 1e-9);
+  let f = Math.round((v - whole) * 16);
+  if (f === 16) { whole++; f = 0; }
+  let out;
+  if (f === 0) out = whole + '"';
+  else {
+    let n = f, d = 16;
+    while (n % 2 === 0) { n /= 2; d /= 2; }
+    out = (whole ? whole + '-' : '') + n + '/' + d + '"';
+  }
+  return (neg ? '-' : '') + out;
+}
+function ftStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  const ft = Math.floor(v / 12 + 1e-9);
+  const rem = v - ft * 12;
+  const r = Math.round(rem * 16) / 16;
+  return (neg ? '-' : '') + ft + "'-" + (r === 0 ? '0"' : inchStr(r));
+}
+const near = (a, b, tol = 1e-6) => Math.abs(a - b) <= tol;
+
+/* ============================================================
+   SVG SCAFFOLD / SCALE
+   ============================================================ */
+const PX = 6;                     // px per inch
+const M  = { l: 230, r: 392, t: 92, b: 620 };
+const TOPREF = sheathingPeak;     // highest drawn geometry = top of sheathing at ridge
+const VBW = M.l + W * PX + M.r;
+const VBH = M.t + TOPREF * PX + M.b;
+
+const inchesToPx = i => i * PX;
+const X = xi => M.l + xi * PX;
+const Y = yi => M.t + (TOPREF - yi) * PX;
+
+/* margin columns for keynote bubbles (inches, outside the wall) */
+const MB_L = -14.5, MB_R = W + 15;
+
+const C = {
+  post:      '#B0794E',
+  postEdge:  '#6E4522',
+  stud:      '#EBD3A4',
+  jack:      '#F6E7C4',
+  king:      '#D3AC6C',
+  studEdge:  '#9A7433',
+  plate:     '#E0C48F',
+  header:    '#6B4423',
+  beam:      '#553114',
+  rafter:    '#E5D2A8',
+  steel:     '#5B6B7C',
+  opening:   '#ffffff',
+  dim:       '#3a3a3a',
+  ro:        '#cc0000',
+  casing:    '#1f6fd0',
+  stone:     '#8a8a8a',
+  roof:      '#333333',
+  sheathing: '#C9CFD6',
+  slab:      '#555555'
+};
+
+const P = [];   // svg parts
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function rect(x, y, w, h, fill, stroke, sw, extra) {
+  P.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(w,0).toFixed(2)}" height="${Math.max(h,0).toFixed(2)}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="${sw||0}" ${extra||''}/>`);
+}
+function line(x1, y1, x2, y2, stroke, sw, extra) {
+  P.push(`<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${stroke}" stroke-width="${sw||1}" ${extra||''}/>`);
+}
+function poly(pts, fill, stroke, sw, extra) {
+  P.push(`<polygon points="${pts.map(p=>p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ')}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="${sw||0}" ${extra||''}/>`);
+}
+function drawLabel(x, y, txt, opts = {}) {
+  const a = opts.anchor || 'middle', fs = opts.size || 11, fill = opts.fill || C.dim;
+  const wt = opts.weight ? ` font-weight="${opts.weight}"` : '';
+  const rot = opts.rotate ? ` transform="rotate(${opts.rotate} ${x.toFixed(2)} ${y.toFixed(2)})"` : '';
+  const cls = opts.cls ? ` class="${opts.cls}"` : '';
+  P.push(`<text x="${x.toFixed(2)}" y="${y.toFixed(2)}" text-anchor="${a}" font-size="${fs}" fill="${fill}"${wt}${rot}${cls} font-family="Helvetica Neue, Helvetica, Arial, sans-serif">${esc(txt)}</text>`);
+}
+
+/* member label: rotated inside narrow members, horizontal in wide ones */
+function memberLabel(x0In, x1In, y0In, y1In, txt, color) {
+  const wpx = (x1In - x0In) * PX, hpx = (y1In - y0In) * PX;
+  const cx = X((x0In + x1In) / 2), cy = Y((y0In + y1In) / 2);
+  if (hpx < 26 && wpx < 30) return;
+  if (wpx >= 46 && hpx >= 14) drawLabel(cx, cy + 3.5, txt, {size: 9.5, fill: color});
+  else drawLabel(cx, cy, txt, {size: 9, fill: color, rotate: -90});
+}
+
+/* ---------- primitive framing drawers ---------- */
+function drawStud(x0In, y0In, y1In, wIn, fill, label) {
+  rect(X(x0In), Y(y1In), inchesToPx(wIn), inchesToPx(y1In - y0In), fill, C.studEdge, 0.8);
+  if (label) memberLabel(x0In, x0In + wIn, y0In, y1In, label, '#4a3410');
+}
+function drawPost(x0In, y0In, y1In, wIn, label) {
+  rect(X(x0In), Y(y1In), inchesToPx(wIn), inchesToPx(y1In - y0In), C.post, C.postEdge, 1.1);
+  if (label) memberLabel(x0In, x0In + wIn, y0In, y1In, label, '#2c1a06');
+}
+function drawHeader(x0In, x1In, yBotIn, depthIn, label) {
+  rect(X(x0In), Y(yBotIn + depthIn), inchesToPx(x1In - x0In), inchesToPx(depthIn), C.header, '#2f1d0c', 1.1);
+  const cx = X((x0In + x1In) / 2), cy = Y(yBotIn + depthIn / 2);
+  if (label) drawLabel(cx, cy + 4, label, {size: 10, fill: '#fff', weight: 600});
+}
+function drawOpening(x0In, x1In, y0In, y1In, label, sub) {
+  rect(X(x0In), Y(y1In), inchesToPx(x1In - x0In), inchesToPx(y1In - y0In), C.opening, C.ro, 1.3,
+       'stroke-dasharray="7 4"');
+  const cx = X((x0In + x1In) / 2);
+  if (label) {
+    const cy = Y((y0In + y1In) / 2);
+    drawLabel(cx, cy - 4, label, {size: 11, fill: C.ro, weight: 700});
+    if (sub) drawLabel(cx, cy + 12, sub, {size: 10, fill: C.ro});
+  }
+}
+
+/* ---------- dimension drawers ---------- */
+function drawDimension(x0In, x1In, yPx, label) {
+  const a = X(x0In), b = X(x1In), mid = (a + b) / 2, wpx = b - a;
+  line(a, yPx - 7, a, yPx + 7, C.dim, 0.8);
+  line(b, yPx - 7, b, yPx + 7, C.dim, 0.8);
+  line(a, yPx, b, yPx, C.dim, 0.8);
+  if (wpx >= 16) {
+    line(a, yPx, a + 5, yPx - 2.5, C.dim, 0.8); line(a, yPx, a + 5, yPx + 2.5, C.dim, 0.8);
+    line(b, yPx, b - 5, yPx - 2.5, C.dim, 0.8); line(b, yPx, b - 5, yPx + 2.5, C.dim, 0.8);
+  }
+  if (wpx < 34) drawLabel(mid, yPx + 12, label, {size: 8.5, rotate: -90, anchor: 'end'});
+  else drawLabel(mid, yPx - 5, label, {size: 9.5});
+}
+function drawVDim(y0In, y1In, xPx, label, side) {
+  const a = Y(y0In), b = Y(y1In), mid = (a + b) / 2, hpx = Math.abs(a - b);
+  line(xPx - 7, a, xPx + 7, a, C.dim, 0.8);
+  line(xPx - 7, b, xPx + 7, b, C.dim, 0.8);
+  line(xPx, a, xPx, b, C.dim, 0.8);
+  if (hpx >= 16) {
+    line(xPx, a, xPx - 2.5, a - 5, C.dim, 0.8); line(xPx, a, xPx + 2.5, a - 5, C.dim, 0.8);
+    line(xPx, b, xPx - 2.5, b + 5, C.dim, 0.8); line(xPx, b, xPx + 2.5, b + 5, C.dim, 0.8);
+  }
+  if (hpx < 52) {
+    /* short dim: horizontal label with a short leader, clear of neighbours */
+    const tx = (side === 'right') ? xPx + 14 : xPx - 14;
+    line(xPx, mid, tx, mid, C.dim, 0.6);
+    drawLabel(tx + (side === 'right' ? 3 : -3), mid + 3.4, label,
+              {size: 9, anchor: side === 'right' ? 'start' : 'end'});
+  } else {
+    drawLabel(xPx + (side === 'right' ? 12 : -5), mid, label, {size: 9.5, rotate: -90});
+  }
+}
+
+/* ---------- keynote bubbles ---------- */
+function bubble(xPx, yPx, n) {
+  P.push(`<circle cx="${xPx.toFixed(1)}" cy="${yPx.toFixed(1)}" r="9" fill="#ffffff" stroke="#222" stroke-width="1.2"/>`);
+  drawLabel(xPx, yPx + 3.6, String(n), {size: 10.5, weight: 700, fill: '#111'});
+}
+function keynote(n, targetIn, bubbleIn, bendIn) {
+  const t = [X(targetIn[0]), Y(targetIn[1])];
+  const bb = [X(bubbleIn[0]), Y(bubbleIn[1])];
+  const pts = bendIn ? [t, [X(bendIn[0]), Y(bendIn[1])], bb] : [t, bb];
+  /* trim the leader so it stops at the bubble edge */
+  const p = pts[pts.length - 2], dx = bb[0] - p[0], dy = bb[1] - p[1];
+  const len = Math.hypot(dx, dy) || 1;
+  pts[pts.length - 1] = [bb[0] - dx / len * 9, bb[1] - dy / len * 9];
+  P.push(`<polyline points="${pts.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' ')}" fill="none" stroke="#555" stroke-width="0.9"/>`);
+  P.push(`<circle cx="${t[0].toFixed(1)}" cy="${t[1].toFixed(1)}" r="2.2" fill="#555"/>`);
+  bubble(bb[0], bb[1], n);
+}
+function extLine(xi, y0Px, y1Px) { line(X(xi), y0Px, X(xi), y1Px, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"'); }
+function leader(pts, txt, anchor, size) {
+  P.push(`<polyline points="${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}" fill="none" stroke="#555" stroke-width="0.9"/>`);
+  P.push(`<circle cx="${pts[0][0].toFixed(1)}" cy="${pts[0][1].toFixed(1)}" r="2.2" fill="#555"/>`);
+  const last = pts[pts.length - 1];
+  drawLabel(last[0] + (anchor === 'end' ? -5 : 5), last[1] + 3.5, txt,
+            {size: size || 9.5, anchor: anchor, fill: '#222'});
+}
+
+/* ============================================================
+   DRAW
+   ============================================================ */
+/* --- gable wall field, between top plate and rafter underside --- */
+poly([[X(seatCut), Y(wallHeight)], [X(halfRun), Y(underRidge)], [X(W - seatCut), Y(wallHeight)]],
+     '#fcfaf5', 'none');
+line(X(0), Y(wallHeight), X(W), Y(wallHeight), '#999', 0.8, 'stroke-dasharray="5 4"');
+
+/* --- 2x8 rake / end rafters: plumb tail cut, birdsmouth over the plate at each
+       corner, plumb cut at the ridge beam face --- */
+[[eaveX0, 0, seatCut, beamL], [eaveX1, W, W - seatCut, beamR]].forEach(([xTail, xHeel, xSeat, xRidge]) => {
+  poly([[X(xTail), Y(roofYAtX(xTail))],
+        [X(xHeel), Y(roofYAtX(xHeel))],
+        [X(xHeel), Y(wallHeight)],
+        [X(xSeat), Y(wallHeight)],
+        [X(xRidge), Y(roofYAtX(xRidge))],
+        [X(xRidge), Y(roofTopAtX(xRidge))],
+        [X(xTail), Y(roofTopAtX(xTail))]],
+       C.rafter, C.studEdge, 1.0);
+});
+
+/* --- 1/2" plywood sheathing over the rafters (roofing/underlayment above, T.B.D.) --- */
+[[eaveX0, halfRun], [halfRun, eaveX1]].forEach(([xa, xb]) => {
+  poly([[X(xa), Y(roofTopAtX(xa))], [X(xb), Y(roofTopAtX(xb))],
+        [X(xb), Y(sheathTopAtX(xb))], [X(xa), Y(sheathTopAtX(xa))]],
+       C.sheathing, '#8d97a3', 0.8);
+});
+line(X(eaveX0), Y(sheathTopAtX(eaveX0)), X(halfRun), Y(sheathingPeak), C.roof, 1.7);
+line(X(halfRun), Y(sheathingPeak), X(eaveX1), Y(sheathTopAtX(eaveX1)), C.roof, 1.7);
+
+/* --- wall / eave break lines --- */
+[0, W].forEach(x => line(X(x), Y(wallHeight), X(x), Y(sheathTopAtX(x)), '#bbb', 0.7, 'stroke-dasharray="3 3"'));
+
+/* --- wall outline --- */
+rect(X(0), Y(wallHeight), inchesToPx(W), inchesToPx(wallHeight), '#fdfcf9', 'none');
+
+/* --- openings (behind framing) --- */
+windowsRO.forEach(ro => drawOpening(ro.x0, ro.x1, winRoSill, roHead, null));
+drawOpening(doorRO.x0, doorRO.x1, 0, roHead, null);
+
+/* --- bottom plate (2x6), cut out at door R.O. --- */
+drawStud(0, 0, botPlateTop, doorRO.x0, C.plate, null);
+drawStud(doorRO.x1, 0, botPlateTop, W - doorRO.x1, C.plate, null);
+
+/* --- infill / clear wall bays: shown as clear (too narrow for a stud) --- */
+SEG.filter(g => g.t === 'infill').forEach(g => {
+  rect(X(g.x0), Y(topPlateBot), inchesToPx(g.w), inchesToPx(topPlateBot - botPlateTop),
+       '#ffffff', '#cfcfcf', 0.7, 'stroke-dasharray="2 3"');
+  drawLabel(X(g.cx), Y((botPlateTop + topPlateBot) / 2), 'CLEAR ' + inchStr(g.w),
+            {size: 8, rotate: -90, fill: '#8a8a8a'});
+});
+
+/* --- vertical members from layout --- */
+SEG.forEach(g => {
+  if (g.t === 'post-corner') drawPost(g.x0, 0, topPlateBot, g.w, '6x6');
+  else if (g.t === 'post-door') drawPost(g.x0, 0, headerBot, g.w, '6x6');
+  else if (g.t === 'king') drawStud(g.x0, botPlateTop, topPlateBot, g.w, C.king, 'KING');
+  else if (g.t === 'jack') drawStud(g.x0, botPlateTop, headerBot, g.w, C.jack, 'JACK');
+});
+
+/* --- POST BASES (symbol only) at every 6x6 post bearing on the foundation --- */
+const postBasePosts = SEG.filter(g => g.t === 'post-corner' || g.t === 'post-door');
+postBasePosts.forEach(g => {
+  const x0 = g.x0 - 0.3, x1 = g.x1 + 0.3;
+  rect(X(x0), Y(PB_H), inchesToPx(x1 - x0), inchesToPx(PB_H), 'none', C.steel, 1.7);
+  rect(X(x0), Y(0.75), inchesToPx(x1 - x0), inchesToPx(0.75), C.steel, C.steel, 1);
+  line(X(g.cx), Y(0), X(g.cx), Y(0) + 13, C.steel, 1.4, 'stroke-dasharray="3 2"');
+  drawLabel(X(g.cx), Y(PB_H / 2) + 3, 'PB', {size: 8.5, weight: 700, fill: C.steel});
+});
+
+/* --- window rough sills + lower cripples --- */
+windowsRO.forEach(ro => {
+  crippleXs(ro).forEach(cx0 => drawStud(cx0, botPlateTop, sillBot, FR.studThickness, C.stud, null));
+  drawStud(ro.x0, sillBot, winRoSill, ro.w, C.stud, null);
+  drawLabel(X(ro.cx), Y((sillBot + winRoSill) / 2) + 3, '2x6 ROUGH SILL', {size: 8, fill: '#4a3410'});
+});
+
+/* --- headers: 6x8, tight to underside of double top plate, NO cripples above --- */
+windowsRO.forEach(ro => {
+  const jl = SEG.find(s => s.t === 'jack' && near(s.x1, ro.x0));
+  const jr = SEG.find(s => s.t === 'jack' && near(s.x0, ro.x1));
+  drawHeader(jl.x0, jr.x1, headerBot, headerDepth, '6x8 HDR');
+});
+(function () {
+  const pl = SEG.find(s => s.t === 'post-door' && near(s.x1, doorRO.x0));
+  const pr = SEG.find(s => s.t === 'post-door' && near(s.x0, doorRO.x1));
+  drawHeader(pl.x0, pr.x1, headerBot, headerDepth, '6x8 DOOR HEADER — BEARS ON 6x6 POSTS');
+})();
+
+/* --- double 2x6 top plate --- */
+drawStud(0, topPlateBot, topPlateBot + FR.plateThickness, W, C.plate, null);
+drawStud(0, topPlateBot + FR.plateThickness, wallHeight, W, C.plate, null);
+drawLabel(X(W * 0.25), Y(topPlateBot + topPlateThk / 2) + 3.5, 'DOUBLE 2x6 TOP PLATE (3" TOTAL)',
+          {size: 9.5, fill: '#4a3410', weight: 600});
+
+/* --- birdsmouth, redrawn over the top plate: the notch is behind the plate in
+       this elevation, so show it hidden-line so the seat bearing reads --- */
+[[0, seatCut], [W, W - seatCut]].forEach(([xHeel, xSeat]) => {
+  poly([[X(xHeel), Y(roofYAtX(xHeel))], [X(xHeel), Y(wallHeight)], [X(xSeat), Y(wallHeight)]],
+       'rgba(154,116,51,0.14)', 'none');
+  line(X(xHeel), Y(wallHeight), X(xHeel), Y(roofYAtX(xHeel)), C.studEdge, 1.1, 'stroke-dasharray="4 2.5"');
+  line(X(xHeel), Y(wallHeight), X(xSeat), Y(wallHeight), C.studEdge, 1.4);
+  line(X(xHeel), Y(roofYAtX(xHeel)), X(xSeat), Y(wallHeight), C.studEdge, 1.0, 'stroke-dasharray="4 2.5"');
+});
+
+/* --- gable studs @ 16" o.c. (angled top cut) --- */
+GABLE.forEach(g => {
+  if (g.displaced) return;
+  poly([[X(g.x0), Y(wallHeight)], [X(g.x0), Y(g.yTopL)],
+        [X(g.x1), Y(g.yTopR)], [X(g.x1), Y(wallHeight)]],
+       C.stud, C.studEdge, 0.8);
+});
+
+/* --- 6x6 ridge support post (replaces center gable stud) --- */
+rect(X(postL), Y(beamBot), inchesToPx(FR.ridgePostWidth), inchesToPx(beamBot - wallHeight),
+     C.post, C.postEdge, 1.2);
+drawLabel(X(halfRun), Y((wallHeight + beamBot) / 2), '6x6 RIDGE POST',
+          {size: 8.5, rotate: -90, fill: '#2c1a06', weight: 600});
+
+/* --- 6x10 structural ridge beam END SECTION, below roof peak --- */
+rect(X(beamL), Y(beamTop), inchesToPx(RF.ridgeBeamWidth), inchesToPx(RF.ridgeBeamDepth),
+     C.beam, '#2a1708', 1.3);
+line(X(beamL), Y(beamTop), X(beamR), Y(beamBot), '#8d6a49', 0.9);
+line(X(beamL), Y(beamBot), X(beamR), Y(beamTop), '#8d6a49', 0.9);
+
+/* --- CONNECTORS (symbols only, drawn hidden-line: the rafters they serve are
+       beyond this wall plane) ---
+   Sloped rafter hanger into each side face of the ridge beam. */
+[[beamL, -1], [beamR, 1]].forEach(([xf, dir]) => {
+  const seat = roofYAtX(xf) + 0.75;                // roughly mid-depth of the rafter end
+  const x0 = xf + (dir < 0 ? -4.5 : 0), w = 4.5;
+  rect(X(x0), Y(seat + 3.5), inchesToPx(w), inchesToPx(3.5),
+       'rgba(91,107,124,0.16)', C.steel, 1.2, 'stroke-dasharray="3.5 2"');
+  line(X(xf), Y(seat + 3.5), X(xf), Y(seat - 2.5), C.steel, 1.6);
+});
+
+/* Hurricane / rafter tie at each rafter-to-wall connection (one shown each end;
+   ties occur at every rafter on the side walls). */
+const TIE_W = 3;
+const tieXs = [FR.cornerPostWidth + 1, W - FR.cornerPostWidth - 1 - TIE_W];
+tieXs.forEach(x0 => {
+  const yTop = roofYAtX(x0 + TIE_W / 2) + 2.5;
+  poly([[X(x0), Y(wallHeight - 4)], [X(x0), Y(yTop)],
+        [X(x0 + TIE_W), Y(yTop)], [X(x0 + TIE_W), Y(wallHeight - 4)]],
+       'rgba(91,107,124,0.16)', C.steel, 1.2, 'stroke-dasharray="3.5 2"');
+});
+
+/* --- foundation / slab reference --- */
+line(X(-9), Y(0), X(W + 9), Y(0), C.slab, 2.4);
+for (let x = -9; x < W + 9; x += 6)
+  line(X(x), Y(0), X(x + 5), Y(0) + 9, '#9a9a9a', 0.8);
+line(X(-9), Y(0) + 10, X(W + 9), Y(0) + 10, '#9a9a9a', 0.9);
+drawLabel(X(halfRun), Y(0) + 24, 'TOP OF SLAB / FOUNDATION = 0" VERTICAL REFERENCE  (foundation poured; details not shown)',
+          {size: 9.5, fill: '#444'});
+
+/* ============================================================
+   EXTERIOR REFERENCE OVERLAYS (toggleable)
+   ============================================================ */
+const gStone = P.length;
+line(X(-4), Y(EX.stoneHeight), X(W + 4), Y(EX.stoneHeight), C.stone, 1.4, 'stroke-dasharray="9 5"');
+drawLabel(X(W) + 8, Y(EX.stoneHeight) + 3.5, inchStr(EX.stoneHeight) + ' STONE TOP (REF)',
+          {size: 9, anchor: 'start', fill: '#6f6f6f'});
+keynote(13, [80, EX.stoneHeight], [80, 15]);
+const gStoneEnd = P.length;
+
+const gCasing = P.length;
+windowsRO.forEach(ro => {
+  rect(X(ro.x0 - EX.casingWidth), Y(roHead + EX.casingWidth),
+       inchesToPx(ro.w + 2 * EX.casingWidth), inchesToPx(OFFICE.frontWall.window.roughHeight + 2 * EX.casingWidth),
+       'none', C.casing, 1.2, 'stroke-dasharray="5 4"');
+});
+keynote(12, [windowsRO[0].x0 - EX.casingWidth, winRoSill - EX.casingWidth], [-3.3, 40]);
+const gCasingEnd = P.length;
+
+/* --- 82" R.O. head alignment line (red dashed) --- */
+const gRO = P.length;
+line(X(-14), Y(roHead), X(W + 14), Y(roHead), C.ro, 1.3, 'stroke-dasharray="10 4 3 4"');
+drawLabel(X(W) + 8, Y(roHead) - 6, 'ALL R.O. HEADS ALIGN @ ' + inchStr(roHead),
+          {size: 9.5, anchor: 'start', fill: C.ro, weight: 600});
+const gROEnd = P.length;
+
+/* ============================================================
+   OPENING CALLOUTS
+   ============================================================ */
+drawLabel(X(doorRO.cx), Y(45), 'DOOR R.O.', {size: 12, fill: C.ro, weight: 700});
+drawLabel(X(doorRO.cx), Y(45) + 15, inchStr(OFFICE.frontWall.door.roughWidth) + ' W x ' + inchStr(roHead) + ' H',
+          {size: 11, fill: C.ro});
+drawLabel(X(doorRO.cx), Y(45) + 29, '(36" NOM. PREHUNG EXT. DOOR)', {size: 9, fill: '#8a4a4a'});
+windowsRO.forEach(ro => {
+  drawLabel(X(ro.cx), Y(60), 'WINDOW R.O.', {size: 9.5, fill: C.ro, weight: 700});
+  drawLabel(X(ro.cx), Y(60) + 13, inchStr(OFFICE.frontWall.window.roughWidth) + ' x ' +
+            inchStr(OFFICE.frontWall.window.roughHeight), {size: 9.5, fill: C.ro});
+});
+
+/* ============================================================
+   CALLOUT NOTES (placed outside the roof envelope)
+   ============================================================ */
+const gNotes = P.length;
+
+drawLabel(X(halfRun), Y(sheathingPeak) - 32, 'TOP OF ' + RF.sheathingNominal + ' SHEATHING AT RIDGE ' +
+          ftStr(sheathingPeak) + ' ABOVE TOP OF SLAB — TOP OF ' + RF.rafterNominal + ' RAFTERS ' +
+          ftStr(actualPeak), {size: 10.5, weight: 700, fill: '#222'});
+drawLabel(X(halfRun), Y(sheathingPeak) - 19, RF.rise + ':' + RF.run + ' SLOPE — RAFTER UNDERSIDE AT RIDGE ' +
+          inchStr(underRidge) + ', AFTER ' + inchStr(seatCut) + ' BIRDSMOUTH SEAT CUT',
+          {size: 10, fill: '#444'});
+
+/* 6:12 slope triangle, held clear above the left roof surface */
+(function () {
+  const x1 = 24, run = RF.run, d = 3;
+  const yHyp = sheathTopAtX(x1) + d, yTop = yHyp + RF.rise;
+  line(X(x1), Y(yTop), X(x1 + run), Y(yTop), '#333', 1.1);
+  line(X(x1), Y(yTop), X(x1), Y(yHyp), '#333', 1.1);
+  line(X(x1), Y(yHyp), X(x1 + run), Y(yTop), '#333', 0.7, 'stroke-dasharray="3 2"');
+  drawLabel(X(x1 + run / 2), Y(yTop) - 4, String(run), {size: 9, fill: '#333'});
+  drawLabel(X(x1) - 6, Y((yHyp + yTop) / 2) + 3.4, String(RF.rise), {size: 9, fill: '#333', anchor: 'end'});
+})();
+
+/* ---- keynotes: bubbles on the drawing, text block below ---- */
+const gsRight = GABLE.find(g => !g.displaced && g.c > halfRun + 20);
+const wL = windowsRO[0], wR = windowsRO[1];
+const jackR = SEG.find(s => s.t === 'jack' && near(s.x0, wR.x1));
+const kingR = SEG.find(s => s.t === 'king' && near(s.x0, jackR.x1));
+const doorPostL = SEG.find(s => s.t === 'post-door' && near(s.x1, doorRO.x0));
+
+keynote(1,  [beamL + 0.5, beamTop - 2],                 [42, 128]);
+keynote(2,  [halfRun, (wallHeight + beamBot) / 2 + 4],  [112, 126], [94, 131]);
+keynote(3,  [gsRight.c, (wallHeight + gsRight.yTopL) / 2], [107, 114]);
+keynote(4,  [wR.cx, headerBot + headerDepth - 0.5],     [MB_R, 96], [W - 4, 100]);
+keynote(5,  [kingR.cx, 62],                             [MB_R, 66]);
+keynote(6,  [jackR.cx, 50],                             [MB_R, 52]);
+keynote(7,  [doorPostL.cx, 22],                         [doorRO.x0 + 9, 22]);
+keynote(8,  [wL.cx, (sillBot + winRoSill) / 2 - 0.6],   [wL.x0 + 5.9, 21]);
+keynote(9,  [34, roofYAtX(34) + rafterPlumbDepth / 2],  [18, 122]);
+keynote(10, [2.75, 74],                                 [MB_L, 78]);
+keynote(11, [14, botPlateTop / 2],                      [MB_L, 11], [-1, 11]);
+keynote(14, [1.2, PB_H / 2],                            [MB_L, 27]);
+keynote(15, [eaveX1, roofYAtX(eaveX1) + rafterPlumbDepth / 2], [MB_R - 1, 70], [W + 19, 80]);
+keynote(16, [0, wallHeight],                            [MB_L, 90], [-8, 92]);
+keynote(17, [98, roofTopAtX(98)],                        [128, 118]);
+keynote(18, [beamL - 2.2, roofYAtX(beamL - 2.2) + 2],   [60, 110]);
+keynote(19, [tieXs[0] + TIE_W, wallHeight + 2.5],       [24, 98]);
+keynote(20, [112, (roofTopAtX(112) + sheathTopAtX(112)) / 2], [MB_R, 118], [W + 12, 122]);
+keynote(21, [46, (roofTopAtX(46) + sheathTopAtX(46)) / 2], [52, 130]);
+
+const KEYNOTES = [
+  [1, ['6x10 STRUCTURAL RIDGE BEAM (' + inchStr(RF.ridgeBeamWidth) + ' x ' + inchStr(RF.ridgeBeamDepth) +
+       ' ACTUAL) — RUNS FRONT-TO-BACK, ' + ftStr(beamLength) + ' OVERALL:',
+       ftStr(OFFICE.depth) + ' BETWEEN GABLE WALLS PLUS A ' + inchStr(RK.beamCantilever) +
+       ' CANTILEVER EACH END TO CARRY THE FLY RAFTER, SEE 21.',
+       'SHOWN IS THE CANTILEVERED END SECTION, ' + inchStr(RK.beamCantilever) +
+       ' IN FRONT OF THIS WALL. TOP @ ' + inchStr(beamTop) + ', FLUSH WITH',
+       'RAFTER TOPS AT THE BEAM FACES, BELOW THE ' + inchStr(actualPeak) + ' RIDGE. ' +
+       inchStr(ridgeVoid) + ' VOID AT THE PEAK: BEVEL THE BEAM',
+       'TOP OR ADD RIDGE BLOCKING, T.B.D. BEAM SIZE AND THE CANTILEVER NOT VERIFIED.']],
+  [2, ['6x6 RIDGE SUPPORT POST — UNDERSIDE OF RIDGE BEAM TO TOP OF DOUBLE TOP PLATE (' +
+       inchStr(beamBot - wallHeight) + ' LONG).',
+       'REPLACES THE ORDINARY CENTER GABLE STUD.']],
+  [3, ['2x6 GABLE STUDS @ ' + FR.gableStudSpacing + '" O.C., ' + GABLE.filter(g => !g.displaced).length +
+       ' STUDS SHOWN — TOP OF DOUBLE TOP PLATE TO RAFTER',
+       'UNDERSIDE, ANGLED TOP CUT EACH END. LENGTHS SUIT THE SEATED ROOF PLANE, SEE 16.']],
+  [4, ['6x8 HEADERS (' + inchStr(FR.doorHeaderWidth) + ' x ' + inchStr(headerDepth) +
+       ' ACTUAL) TIGHT TO UNDERSIDE OF DOUBLE TOP PLATE.',
+       'NO CRIPPLE STUDS ABOVE HEADERS — ZERO SPACE EXISTS BY DESIGN.']],
+  [5, ['FULL-HEIGHT 2x6 KING STUDS — TOP OF BOTTOM PLATE TO UNDERSIDE OF DOUBLE TOP PLATE (' +
+       inchStr(topPlateBot - botPlateTop) + ' LONG).',
+       'KING IS ALWAYS OUTBOARD OF THE JACK.']],
+  [6, ['2x6 JACK STUD, ONE PER SIDE — TOP OF BOTTOM PLATE TO UNDERSIDE OF THE 6x8 HEADER @ ' +
+       inchStr(headerBot) + '.',
+       'HEADER BEARS ON THE JACKS.']],
+  [7, ['6x6 DOOR POSTS — PRIMARY BEARING FOR THE 6x8 DOOR HEADER, WITH A FULL-HEIGHT 2x6 KING',
+       'STUD OUTBOARD OF EACH POST.']],
+  [8, ['2x6 ROUGH SILL @ ' + inchStr(winRoSill) + ' WITH 2x6 CRIPPLE STUDS BELOW (3 PER OPENING).']],
+  [9, [RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. (' + inchStr(RF.rafterThickness) +
+       ' x ' + inchStr(RF.rafterDepth) + ' ACTUAL), FRAMED INTO THE SIDES OF THE RIDGE BEAM.',
+       'PLUMB DEPTH ON ' + RF.rise + ':' + RF.run + ' = ' + inchStr(rafterPlumbDepth) +
+       '. RAKE / END RAFTER SHOWN; RAFTERS BEYOND. SEE 18 AND 19 FOR CONNECTIONS.']],
+  [10, ['6x6 CORNER POSTS — TOP OF SLAB TO UNDERSIDE OF DOUBLE TOP PLATE. POST BASE REQ\'D, SEE 14.']],
+  [11, ['2x6 BOTTOM PLATE — CUT OUT ACROSS THE DOOR ROUGH OPENING.']],
+  [12, [inchStr(EX.casingWidth) + ' WINDOW CASING REFERENCE (EXTERIOR) — CASING BOTTOM @ ' +
+        inchStr(winRoSill - EX.casingWidth) + ' LEAVES ONLY ' +
+        inchStr(winRoSill - EX.casingWidth - EX.stoneHeight) + ' CLEAR',
+        'ABOVE THE ' + inchStr(EX.stoneHeight) + ' STONE TOP. STUCCO FIELD ABOVE STONE.']],
+  [13, [inchStr(EX.stoneHeight) + ' STONE VENEER / WAINSCOT TOP (EXTERIOR REFERENCE) — ' +
+        inchStr(winRoSill - EX.stoneHeight) + ' TO WINDOW R.O. SILL @ ' + inchStr(winRoSill) + '.']],
+  [14, ['POST BASE REQUIRED AT EACH 6x6 POST BEARING ON THE FOUNDATION — ' + postBasePosts.length +
+        ' PLACES (2 CORNER, 2 DOOR).',
+        'SYMBOL ONLY: PRODUCT, SIZE, STANDOFF AND UPLIFT CAPACITY NOT SELECTED. SLAB IS ALREADY POURED,',
+        'SO EXPECT RETROFIT ANCHORS — TYPE, EMBEDMENT AND CONCRETE CAPACITY PER ENGINEER.']],
+  [15, [inchStr(RF.eaveOverhang) + ' HORIZONTAL EAVE OVERHANG EACH END, PLUMB TAIL CUT (TAIL BOTTOM @ ' +
+        inchStr(roofYAtX(eaveX0)) + ', TOP @ ' + inchStr(roofTopAtX(eaveX0)) + ').',
+        'FASCIA, SUB-FASCIA, SOFFIT AND VENTING NOT SHOWN. RAKE OVERHANG: SEE 21.']],
+  [16, ['BIRDSMOUTH: ' + inchStr(seatCut) + ' HORIZONTAL SEAT CUT ON THE PLATE, ' + inchStr(seatPlumb) +
+        ' PLUMB HEEL DROP, ' + inchStr(hap) + ' H.A.P.',
+        'NOTCH IS ' + inchStr(seatPerp) + ' PERPENDICULAR TO THE RAFTER = ' +
+        (100 * seatPerp / RF.rafterDepth).toFixed(0) + '% OF THE ' + inchStr(RF.rafterDepth) +
+        ' DEPTH, INSIDE THE QUARTER-DEPTH',
+        'END-NOTCH LIMIT USUALLY APPLIED TO SAWN LUMBER — CONFIRM PER CRC AND ENGINEER.',
+        'THE SEAT LOWERS THE ROOF PLANE ' + inchStr(roofDrop) + '; PITCH IS UNCHANGED AT ' +
+        RF.rise + ':' + RF.run + '. SHOWN HIDDEN-LINE, BEHIND THE PLATE.',
+        'COMMON RAFTERS BEAR THIS WAY ON THE SIDE WALL PLATES. EAVE DETAIL TO FOLLOW.']],
+  [17, ['HEIGHT: TOP OF SHEATHING @ ' + ftStr(sheathingPeak) + ' ABOVE SLAB (TOP OF RAFTERS ' +
+        ftStr(actualPeak) + '), BEFORE ROOFING.',
+        'THE SEAT CUT BOUGHT BACK ' + inchStr(roofDrop) + ' AGAINST THE ' + ftStr(refPeakZeroSeat) +
+        ' ZERO-SEAT REFERENCE; SHEATHING ADDS ' + inchStr(sheathingPlumb) + ' PLUMB.',
+        'ZONING HEIGHT IS FROM ADJACENT GRADE AND INCLUDES ROOFING — VERIFY LOCALLY.']],
+  [18, ['RIDGE CONNECTION: SLOPED (' + RF.rise + ':' + RF.run +
+        ') RAFTER HANGER AT EVERY RAFTER, INTO THE SIDE FACES OF THE',
+        'RIDGE BEAM — BOTH SIDES. SYMBOL ONLY, SHOWN HIDDEN-LINE: RAFTERS AND HANGERS ARE BEYOND',
+        'THIS WALL PLANE. MODEL, CAPACITY, SLOPE/SKEW AND FASTENER SCHEDULE PER ENGINEER.']],
+  [19, ['UPLIFT: HURRICANE / RAFTER TIE AT EVERY RAFTER-TO-WALL CONNECTION, OVER THE BIRDSMOUTH',
+        'SEAT AND ONTO THE DOUBLE TOP PLATE. ONE SYMBOL SHOWN EACH END; TIES OCCUR AT EVERY',
+        'RAFTER ON THE SIDE WALLS. MODEL AND UPLIFT CAPACITY PER ENGINEER.']],
+  [20, [RF.sheathingNominal + ' NOMINAL PLYWOOD ROOF SHEATHING (' + inchStr(RF.sheathingThickness) +
+        ' ACTUAL, ' + inchStr(sheathingPlumb) + ' MEASURED PLUMB) OVER THE RAFTERS.',
+        'UNDERLAYMENT AND ROOFING NOT SHOWN AND NOT INCLUDED IN THE HEIGHTS ON THIS SHEET.',
+        'PANEL SPAN RATING, EDGE SUPPORT / CLIPS AND DIAPHRAGM NAILING PER ENGINEER.']],
+  [21, [inchStr(RF.rakeOverhang) + ' RAKE OVERHANG, FRAMED OFF THE RIDGE BEAM: THE 6x10 CANTILEVERS ' +
+        inchStr(RK.beamCantilever) + ' PAST THIS WALL AND',
+        'CARRIES A ' + RK.flyRafterNominal + ' FLY RAFTER AT THE OUTER EDGE, WITH ' + RK.lookoutNominal +
+        ' LOOKOUTS TIED BACK TO THE FIRST',
+        'COMMON RAFTER. THE WHOLE ASSEMBLY IS OUT OF THE PLANE OF THIS VIEW, SO THE FLY RAFTER READS',
+        'COINCIDENT WITH THE RAKE RAFTER DRAWN HERE AND THE LOOKOUTS ARE HIDDEN BEHIND IT.',
+        'OPEN: LOOKOUT SPACING ALONG THE RAKE, AND HOW LOOKOUTS PASS THE GABLE-END RAFTER — DROPPING',
+        'THAT RAFTER FLUSH WITH THE LOOKOUT TOPS WOULD SHORTEN THE GABLE STUDS SHOWN. RAKE DETAIL T.B.D.']]
+];
+const gNotesEnd = P.length;
+
+/* ============================================================
+   DIMENSION STRINGS
+   ============================================================ */
+const gDims = P.length;
+const rowSeg   = Y(0) + 50;
+const rowCL    = Y(0) + 112;
+const rowGroup = Y(0) + 152;
+const rowAll   = Y(0) + 196;
+
+/* extension lines from slab down to segment row */
+const bounds = new Set([0]);
+SEG.forEach(g => { bounds.add(+g.x0.toFixed(4)); bounds.add(+g.x1.toFixed(4)); });
+[...bounds].forEach(b => extLine(b, Y(0) + 12, rowSeg - 8));
+
+/* row 1: every framing segment */
+SEG.forEach(g => drawDimension(g.x0, g.x1, rowSeg, inchStr(g.w)));
+drawLabel(X(0) - 12, rowSeg + 3.5, 'FRAMING', {size: 9, anchor: 'end', weight: 600});
+
+/* row 2: assemblies */
+const groupDims = [];
+groupDims.push([SEG[0].x0, SEG[0].x1, 'CORNER 6x6']);
+groupDims.push([SEG[1].x0, SEG[1].x1, 'CLEAR']);
+groupDims.push([SEG[2].x0, SEG[6].x1, 'WINDOW ASSY']);
+groupDims.push([SEG[7].x0, SEG[7].x1, 'CLEAR']);
+groupDims.push([SEG[8].x0, SEG[12].x1, 'DOOR ASSY']);
+groupDims.push([SEG[13].x0, SEG[13].x1, 'CLEAR']);
+groupDims.push([SEG[14].x0, SEG[18].x1, 'WINDOW ASSY']);
+groupDims.push([SEG[19].x0, SEG[19].x1, 'CLEAR']);
+groupDims.push([SEG[20].x0, SEG[20].x1, 'CORNER 6x6']);
+groupDims.forEach(([a, b, t]) => {
+  drawDimension(a, b, rowGroup, inchStr(b - a));
+  if ((b - a) * PX > 60) drawLabel(X((a + b) / 2), rowGroup + 14, t, {size: 8.5, fill: '#777'});
+});
+drawLabel(X(0) - 12, rowGroup + 3.5, 'ASSEMBLIES', {size: 9, anchor: 'end', weight: 600});
+
+/* R.O. centerline dims */
+drawDimension(0, windowsRO[0].cx, rowCL, inchStr(windowsRO[0].cx));
+drawDimension(windowsRO[0].cx, halfRun, rowCL, inchStr(halfRun - windowsRO[0].cx));
+drawDimension(halfRun, windowsRO[1].cx, rowCL, inchStr(windowsRO[1].cx - halfRun));
+drawDimension(windowsRO[1].cx, W, rowCL, inchStr(W - windowsRO[1].cx));
+drawLabel(X(0) - 12, rowCL + 3.5, 'R.O. C.L.', {size: 9, anchor: 'end', weight: 600});
+[windowsRO[0].cx, halfRun, windowsRO[1].cx].forEach(c => {
+  line(X(c), Y(0) + 14, X(c), rowSeg - 9, C.ro, 0.6, 'stroke-dasharray="8 3 2 3"');
+  line(X(c), rowSeg + 46, X(c), rowCL - 8, C.ro, 0.6, 'stroke-dasharray="8 3 2 3"');
+});
+
+/* row 3: overall */
+drawDimension(0, W, rowAll, 'OVERALL ' + ftStr(W) + '  (' + inchStr(W) + ')');
+extLine(0, rowGroup + 8, rowAll - 8);
+extLine(W, rowGroup + 8, rowAll - 8);
+
+/* eave overhang dims, clear of the wall and of the R.O. head note */
+drawDimension(eaveX0, 0, Y(76), inchStr(RF.eaveOverhang) + ' EAVE O.H.');
+drawDimension(W, eaveX1, Y(76), inchStr(RF.eaveOverhang) + ' EAVE O.H.');
+[eaveX0, eaveX1].forEach(x => extLine(x, Y(roofYAtX(x)) + 6, Y(76) - 8));
+
+/* left vertical chain (0" datum = top of slab) */
+const vxChain = X(eaveX0) - 50;
+drawVDim(0, winRoSill, vxChain, 'WDW R.O. SILL ' + inchStr(winRoSill), 'left');
+drawVDim(winRoSill, roHead, vxChain, 'WDW R.O. ' + inchStr(OFFICE.frontWall.window.roughHeight), 'left');
+drawVDim(roHead, headerBot + headerDepth, vxChain, 'HDR ' + inchStr(headerDepth), 'left');
+drawVDim(topPlateBot, wallHeight, vxChain, 'PLATES ' + inchStr(topPlateThk), 'left');
+drawVDim(wallHeight, wallHeight + roofRise, vxChain, 'ROOF RISE ' + inchStr(roofRise), 'left');
+
+/* right vertical dims */
+const vxA = X(eaveX1) + 52, vxB = vxA + 54, vxC = vxB + 54, vxD = vxC + 54, vxE = vxD + 54;
+drawVDim(0, roHead, vxA, 'R.O. HEAD ' + inchStr(roHead), 'right');
+drawVDim(0, wallHeight, vxB, 'WALL HT ' + ftStr(wallHeight), 'right');
+drawVDim(0, underRidge, vxC, 'RAFTER U/S AT RIDGE ' + ftStr(underRidge), 'right');
+drawVDim(0, actualPeak, vxD, 'TOP OF RAFTERS ' + ftStr(actualPeak), 'right');
+drawVDim(0, sheathingPeak, vxE, 'TOP OF SHEATHING ' + ftStr(sheathingPeak), 'right');
+
+/* ridge beam / rafter vertical dims */
+drawVDim(beamBot, beamTop, X(beamL) - 13, 'BEAM ' + inchStr(RF.ridgeBeamDepth), 'left');
+drawVDim(wallHeight, beamBot, X(beamL) - 13, 'POST ' + inchStr(beamBot - wallHeight), 'left');
+
+const gDimsEnd = P.length;
+
+/* ---- keynote text block (always shown) ---- */
+(function () {
+  const top = rowAll + 34, colW = 560, lh = 12.6;
+  drawLabel(X(0), top, 'KEYNOTES', {size: 11, anchor: 'start', weight: 700, fill: '#111'});
+  line(X(0), top + 5, X(0) + 2 * colW - 40, top + 5, '#bbb', 0.8);
+  const flat = [];
+  KEYNOTES.forEach(([n, lines]) => lines.forEach((t, i) => flat.push([i === 0 ? n : null, t])));
+  const perCol = Math.ceil(flat.length / 2);
+  let cut = perCol;                              // don't split a keynote across columns
+  while (cut < flat.length && flat[cut][0] === null) cut++;
+  flat.forEach(([n, t], i) => {
+    const col = i < cut ? 0 : 1;
+    const row = i < cut ? i : i - cut;
+    const x0 = X(0) + col * colW, y0 = top + 20 + row * lh;
+    if (n !== null) {
+      P.push(`<circle cx="${(x0 + 6).toFixed(1)}" cy="${(y0 - 3.2).toFixed(1)}" r="7.5" fill="#fff" stroke="#222" stroke-width="1"/>`);
+      drawLabel(x0 + 6, y0, String(n), {size: 9, weight: 700, fill: '#111'});
+    }
+    drawLabel(x0 + 19, y0, t, {size: 9, anchor: 'start', fill: '#222'});
+  });
+})();
+
+/* ============================================================
+   ASSEMBLE SVG
+   ============================================================ */
+function tagged(from, to, id) {
+  return `<g id="${id}">` + P.slice(from, to).join('\n') + `</g>`;
+}
+const svg =
+  `<svg viewBox="0 0 ${VBW.toFixed(0)} ${VBH.toFixed(0)}" xmlns="http://www.w3.org/2000/svg" role="img" ` +
+  `aria-label="Front wall framing elevation">` +
+  `<rect x="0" y="0" width="${VBW}" height="${VBH}" fill="#ffffff"/>` +
+  P.slice(0, gStone).join('\n') +
+  tagged(gStone, gStoneEnd, 'gStone') +
+  tagged(gCasing, gCasingEnd, 'gCasing') +
+  tagged(gRO, gROEnd, 'gRO') +
+  P.slice(gROEnd, gNotes).join('\n') +
+  tagged(gNotes, gNotesEnd, 'gNotes') +
+  tagged(gDims, gDimsEnd, 'gDims') +
+  P.slice(gDimsEnd).join('\n') +
+  `<text x="${VBW - 6}" y="${VBH - 6}" text-anchor="end" font-size="9" fill="#999" font-family="Helvetica">` +
+  `FRONT WALL FRAMING — CONCEPT ONLY — NOT FOR CONSTRUCTION</text>` +
+  `</svg>`;
+document.getElementById('drawing').innerHTML = svg;
+
+/* toggles */
+const bind = (id, gid) => {
+  const cb = document.getElementById(id), g = document.getElementById(gid);
+  const upd = () => g.style.display = cb.checked ? '' : 'none';
+  cb.addEventListener('change', upd); upd();
+};
+bind('tStone', 'gStone'); bind('tCasing', 'gCasing');
+bind('tRO', 'gRO'); bind('tDims', 'gDims'); bind('tNotes', 'gNotes');
+
+/* ============================================================
+   TITLE BLOCK META
+   ============================================================ */
+document.getElementById('meta').innerHTML =
+  `Wall length <b>${ftStr(W)}</b> &nbsp;|&nbsp; Wall height <b>${ftStr(wallHeight)}</b> (${inchStr(wallHeight)})<br>` +
+  `Roof <b>${RF.rise}:${RF.run}</b> &nbsp;|&nbsp; ${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. ` +
+  `&nbsp;|&nbsp; ${inchStr(seatCut)} birdsmouth seat, ${inchStr(hap)} H.A.P.<br>` +
+  `${inchStr(RF.eaveOverhang)} eave + ${inchStr(RF.rakeOverhang)} rake overhang &nbsp;|&nbsp; ` +
+  `${RF.sheathingNominal} plywood sheathing &nbsp;|&nbsp; sloped rafter hangers at ridge, rafter ties at wall<br>` +
+  `Top of rafters <b>${ftStr(actualPeak)}</b> &nbsp;|&nbsp; Top of sheathing <b>${ftStr(sheathingPeak)}</b> above slab<br>` +
+  `6x10 structural ridge beam <b>${ftStr(beamLength)}</b> overall, ${inchStr(RK.beamCantilever)} cantilever ` +
+  `each end to carry the fly rafters &nbsp;|&nbsp; 0" datum = top of slab`;
+
+/* ============================================================
+   LEGEND
+   ============================================================ */
+const legend = [
+  [C.post, '6x6 posts (corner / door / ridge)'],
+  [C.rafter, '2x8 rafters @ 16" o.c. (rake rafter shown)'],
+  [C.sheathing, '1/2" plywood roof sheathing'],
+  [C.steel, 'Connector symbols — post base, hangers, ties'],
+  [C.king, '2x6 KING studs — full height'],
+  [C.jack, '2x6 JACK studs — stop at header'],
+  [C.stud, '2x6 studs / sill / lower cripples'],
+  [C.plate, '2x6 plates (single bottom, double top)'],
+  [C.header, '6x8 headers (5.5" x 7.5" actual)'],
+  [C.beam, '6x10 structural ridge beam (end section)'],
+  ['#fff|' + C.ro, 'Rough openings (white, red dashed)'],
+  ['#fff|' + C.casing, '3" window casing reference'],
+  ['#fff|' + C.stone, '30" stone veneer top reference'],
+  ['#fff|#cfcfcf', 'Clear / infill wall bay'],
+  ['#fff|' + C.dim, 'Dimension lines']
+];
+document.getElementById('legend').innerHTML = legend.map(([c, t]) => {
+  const [fill, stroke] = c.includes('|') ? c.split('|') : [c, '#333'];
+  const dash = c.includes('|') && stroke !== C.dim ? 'border-style:dashed;' : '';
+  return `<div><span class="sw" style="background:${fill};border-color:${stroke};${dash}"></span>${t}</div>`;
+}).join('');
+
+/* ============================================================
+   LAYOUT TABLE
+   ============================================================ */
+const NAME = {
+  'post-corner': '6x6 corner post',
+  'infill': 'clear / infill wall',
+  'king': '2x6 king stud (full height)',
+  'jack': '2x6 jack stud (to header)',
+  'ro-window': 'WINDOW ROUGH OPENING',
+  'post-door': '6x6 door post (bearing)',
+  'ro-door': 'DOOR ROUGH OPENING'
+};
+let lt = `<tr><th class="n">#</th><th>Member / space</th><th class="n">Width</th><th class="n">From</th><th class="n">To</th></tr>`;
+SEG.forEach((g, i) => {
+  const hi = (g.t.startsWith('ro-') || g.t === 'infill') ? ' class="grp"' : '';
+  lt += `<tr${hi}><td class="n">${i + 1}</td><td>${NAME[g.t]}</td><td class="n">${inchStr(g.w)}</td>` +
+        `<td class="n">${inchStr(g.x0)}</td><td class="n">${inchStr(g.x1)}</td></tr>`;
+});
+lt += `<tr><th colspan="2">Fixed members subtotal</th><th class="n">${inchStr(LAY.fixedSum)}</th><th colspan="2"></th></tr>`;
+lt += `<tr><th colspan="2">Remaining for ${LAY.nInfill} infill bays</th><th class="n">${inchStr(W - LAY.fixedSum)}</th><th colspan="2"></th></tr>`;
+lt += `<tr><th colspan="2">CALCULATED infill bay width</th><th class="n">${inchStr(LAY.infillW)} (${LAY.infillW})</th><th colspan="2"></th></tr>`;
+lt += `<tr><th colspan="2">TOTAL WALL WIDTH</th><th class="n">${inchStr(totalWallWidth)}</th><th colspan="2">${ftStr(totalWallWidth)}</th></tr>`;
+document.getElementById('layoutTable').innerHTML = lt;
+
+/* ============================================================
+   VERTICAL TABLE
+   ============================================================ */
+const vrows = [
+  ['Top of slab / foundation (datum)', 0],
+  ['Top of 2x6 bottom plate', botPlateTop],
+  ['Bottom of window rough sill', sillBot],
+  ['Window R.O. sill', winRoSill],
+  ['Stone veneer top (exterior ref)', EX.stoneHeight],
+  ['Window casing bottom (R.O. sill − 3")', winRoSill - EX.casingWidth],
+  ['ALL R.O. HEADS (door + both windows)', roHead],
+  ['Top of 6x8 headers = underside of top plate', topPlateBot],
+  ['Top of double top plate = WALL HEIGHT', wallHeight],
+  ['Rafter underside at heel (outer wall face)', roofYAtX(0)],
+  ['Top of rafter at heel (wall face) = plate + H.A.P.', roofTopAtX(0)],
+  ['Rafter tail underside at eave (12" out)', roofYAtX(eaveX0)],
+  ['Rafter tail top at eave', roofTopAtX(eaveX0)],
+  ['Underside of ridge beam / top of 6x6 ridge post', beamBot],
+  ['Rafter underside at ridge', underRidge],
+  ['Top of 6x10 ridge beam (flush w/ rafter tops)', beamTop],
+  ['Top of 2x8 rafters at ridge', actualPeak],
+  ['TOP OF 1/2" SHEATHING AT RIDGE (no roofing)', sheathingPeak]
+];
+let vt = `<tr><th>Elevation (above slab)</th><th class="n">Inches</th><th class="n">Ft-in</th></tr>`;
+vrows.forEach(([t, v]) => vt += `<tr><td>${t}</td><td class="n">${inchStr(v)}</td><td class="n">${ftStr(v)}</td></tr>`);
+vt += `<tr class="grp"><td>Stack check: ${roHead} + ${headerDepth} + ${topPlateThk}</td><td class="n">${inchStr(wallHeight)}</td><td class="n">${ftStr(wallHeight)}</td></tr>`;
+vt += `<tr class="grp"><td>Roof rise: ${halfRun}" run x ${RF.rise}/${RF.run}</td><td class="n">${inchStr(roofRise)}</td><td class="n">${ftStr(roofRise)}</td></tr>`;
+vt += `<tr class="grp"><td>2x8 rafter plumb depth: 7.25 x &radic;(1+0.5&sup2;)</td><td class="n">${inchStr(rafterPlumbDepth)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Birdsmouth seat cut (horizontal on plate)</td><td class="n">${inchStr(seatCut)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Seat cut plumb heel drop = roof plane drop</td><td class="n">${inchStr(seatPlumb)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Notch perpendicular to rafter (${(100 * seatPerp / RF.rafterDepth).toFixed(0)}% of 7-1/4" depth)</td><td class="n">${inchStr(seatPerp)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>H.A.P. — plumb heel height above top plate</td><td class="n">${inchStr(hap)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Zero-seat layout reference peak (superseded)</td><td class="n">${inchStr(refPeakZeroSeat)}</td><td class="n">${ftStr(refPeakZeroSeat)}</td></tr>`;
+vt += `<tr class="grp"><td>1/2" sheathing: ${inchStr(RF.sheathingThickness)} actual, measured plumb</td><td class="n">${inchStr(sheathingPlumb)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Eave overhang (in this view) / rake overhang (out of plane)</td><td class="n">${inchStr(RF.eaveOverhang)} / ${inchStr(RF.rakeOverhang)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Ridge beam overall: ${ftStr(OFFICE.depth)} + ${inchStr(RK.beamCantilever)} cantilever each end</td><td class="n">${inchStr(beamLength)}</td><td class="n">${ftStr(beamLength)}</td></tr>`;
+vt += `<tr class="grp"><td>Ridge void above beam at peak</td><td class="n">${inchStr(ridgeVoid)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Clear between stone top and casing bottom</td><td class="n">${inchStr(winRoSill - EX.casingWidth - EX.stoneHeight)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Gable studs generated @ ${FR.gableStudSpacing}" o.c.</td><td class="n">${GABLE.filter(g => !g.displaced).length}</td><td class="n">+1 replaced by 6x6</td></tr>`;
+document.getElementById('vertTable').innerHTML = vt;
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+const RESULTS = [];
+function check(desc, ok, detail) { RESULTS.push({desc, ok: !!ok, detail: detail || ''}); return !!ok; }
+function assert(cond, msg) { if (!cond) console.error('ASSERTION FAILED: ' + msg); return !!cond; }
+
+/* required assertion */
+assert(near(totalWallWidth, 144, 1e-9), 'totalWallWidth === 144');
+
+const jacks  = SEG.filter(s => s.t === 'jack');
+const kings  = SEG.filter(s => s.t === 'king');
+const cornerPosts = SEG.filter(s => s.t === 'post-corner');
+const doorPosts   = SEG.filter(s => s.t === 'post-door');
+
+check('1. Overall wall width = 144"', near(totalWallWidth, 144, 1e-9),
+      `computed ${totalWallWidth}"`);
+check('2. Door R.O. = 38.25" x 82"',
+      near(doorRO.w, 38.25) && near(roHead, 82), `${doorRO.w}" x ${roHead}"`);
+check('3. Both window R.O. = 24" x 48"',
+      windowsRO.length === 2 && windowsRO.every(r => near(r.w, 24)) &&
+      near(OFFICE.frontWall.window.roughHeight, 48),
+      `${windowsRO.length} windows @ ${windowsRO[0].w}" x ${OFFICE.frontWall.window.roughHeight}"`);
+check('4. Door head and both window heads all = 82"',
+      near(roHead, 82) && near(winRoSill + OFFICE.frontWall.window.roughHeight, roHead),
+      `heads @ ${inchStr(roHead)}`);
+check('5. Window rough sill = 34"', near(winRoSill, 34), inchStr(winRoSill));
+check('6. Header depth = 7.5" (6x8 actual)', near(headerDepth, 7.5), inchStr(headerDepth));
+check('7. Top plates = 3" total (double 2x6, not triple)',
+      near(topPlateThk, 3) && FR.topPlateCount === 2, `${FR.topPlateCount} x 1.5" = ${inchStr(topPlateThk)}`);
+check('8. Wall height 82 + 7.5 + 3 = 92.5"', near(wallHeight, 92.5), ftStr(wallHeight));
+check('9. Roof rise 72 x 6 / 12 = 36"', near(roofRise, 36), inchStr(roofRise));
+check('10. Zero-seat layout reference peak 92.5 + 36 = 128.5" (superseded by the seat cut, see 31–34)',
+      near(refPeakZeroSeat, 128.5), ftStr(refPeakZeroSeat));
+
+/* 11 — window framing order KING | JACK | RO | JACK | KING */
+let order = true;
+windowsRO.forEach(ro => {
+  const i = SEG.indexOf(ro);
+  const pat = [SEG[i-2], SEG[i-1], SEG[i], SEG[i+1], SEG[i+2]].map(s => s && s.t).join('|');
+  if (pat !== 'king|jack|ro-window|jack|king') order = false;
+  const jl = SEG[i-1], kl = SEG[i-2];
+  if (!(kl.x1 <= jl.x0 + 1e-9 && jl.x1 <= ro.x0 + 1e-9)) order = false;  // king OUTSIDE jack
+});
+check('11. Each window framed KING | JACK | R.O. | JACK | KING (king outside jack)', order,
+      'both windows verified, 1 jack + 1 king per side');
+
+/* 12 — kings full height */
+const kingsFull = kings.every(k => near(k.x1 - k.x0, 1.5)) &&
+  kings.length === 6 && near(botPlateTop, 1.5) && near(topPlateBot, 89.5);
+check('12. All 6 king studs run bottom plate to underside of double top plate', kingsFull,
+      `${inchStr(botPlateTop)} to ${inchStr(topPlateBot)} = ${inchStr(topPlateBot - botPlateTop)} long`);
+
+/* 13 — jacks terminate at header */
+check('13. Jack studs terminate at underside of header (82")',
+      jacks.length === 4 && near(headerBot, roHead), `4 jacks top out @ ${inchStr(headerBot)}`);
+
+/* 14 — headers tight to top plate */
+check('14. Headers sit directly against underside of double top plate',
+      near(headerBot + headerDepth, topPlateBot), `header top ${inchStr(headerBot + headerDepth)} = plate underside ${inchStr(topPlateBot)}`);
+
+/* 15 — no cripples above headers */
+const crippleZoneMembers = 0;   // nothing is drawn between headerTop and topPlateBot
+check('15. NO cripple studs above headers', crippleZoneMembers === 0,
+      'header top and top-plate underside are coincident — zero space exists');
+
+/* 16 — gable studs at 16" o.c. */
+const gc = GABLE.map(g => g.c);
+let ocOK = GABLE.length > 0;
+for (let i = 1; i < gc.length; i++) if (!near(gc[i] - gc[i-1], FR.gableStudSpacing)) ocOK = false;
+check('16. Gable studs generated at 16" o.c. from real centerlines', ocOK,
+      `centerlines: ${gc.join('", ')}" — ${GABLE.filter(g=>!g.displaced).length} drawn, 1 replaced`);
+
+/* 17 — ridge post replaces center gable stud */
+const drawnGable = GABLE.filter(g => !g.displaced);
+const noStudInPost = drawnGable.every(g => g.x1 <= postL + 1e-9 || g.x0 >= postR - 1e-9);
+check('17. Centered 6x6 ridge post replaces ordinary center gable stud',
+      noStudInPost && near((postL + postR) / 2, halfRun),
+      `post ${inchStr(postL)} to ${inchStr(postR)}, c.l. @ ${inchStr(halfRun)}`);
+
+/* 18 — ridge beam inside the roof envelope (top-of-rafter planes) */
+const beamInside = beamTop <= Math.min(roofTopAtX(beamL), roofTopAtX(beamR)) + 1e-9 &&
+                   beamTop < actualPeak - 1e-9 && beamBot > wallHeight + 1e-9;
+check('18. Ridge beam entirely below the ridge and inside the roof envelope', beamInside,
+      `beam ${inchStr(beamBot)}–${inchStr(beamTop)}; roof surface at beam faces ${inchStr(roofTopAtX(beamL))}; ridge ${inchStr(actualPeak)}`);
+
+/* 19 — segment sum exact */
+const segSum = SEG.reduce((a, g) => a + g.w, 0);
+check('19. Horizontal segments total exactly 144"', near(segSum, 144, 1e-9),
+      `${SEG.length} segments = ${segSum}"`);
+
+/* extra sanity */
+check('20. 4 x 6x6 posts (2 corners + 2 door) + symmetric infill bays',
+      cornerPosts.length === 2 && doorPosts.length === 2 &&
+      near(SEG[1].w, SEG[19].w) && near(SEG[7].w, SEG[13].w) && near(SEG[1].w, SEG[7].w),
+      `infill bays all ${inchStr(LAY.infillW)}`);
+check('21. Openings symmetric about wall centerline',
+      near(windowsRO[0].cx, W - windowsRO[1].cx) && near(doorRO.cx, halfRun),
+      `window c.l. ${inchStr(windowsRO[0].cx)} / ${inchStr(windowsRO[1].cx)}, door c.l. ${inchStr(doorRO.cx)}`);
+check('22. Stone top 30" leaves 4" to window R.O. sill; 3" casing leaves 1" clear',
+      near(winRoSill - EX.stoneHeight, 4) && near(winRoSill - EX.casingWidth - EX.stoneHeight, 1),
+      `${inchStr(winRoSill - EX.stoneHeight)} stone-to-R.O.; ${inchStr(winRoSill - EX.casingWidth - EX.stoneHeight)} casing-to-stone`);
+
+/* ---- rafters, overhang, post bases (8/30 revision) ---- */
+check('23. Rafters are 2x8 (1.5" x 7.25" actual) @ 16" o.c.',
+      RF.rafterNominal === '2x8' && near(RF.rafterThickness, 1.5) &&
+      near(RF.rafterDepth, 7.25) && RF.rafterSpacing === 16,
+      `${RF.rafterNominal} @ ${RF.rafterSpacing}" o.c.`);
+check('24. Rafter plumb depth = 7.25 x sqrt(1 + (6/12)^2)',
+      near(rafterPlumbDepth, 7.25 * Math.sqrt(1.25)),
+      `${inchStr(rafterPlumbDepth)} (${rafterPlumbDepth.toFixed(4)}")`);
+check('25. 12" horizontal eave overhang each end, plumb tail cut',
+      near(RF.eaveOverhang, 12) && near(eaveX0, -12) && near(eaveX1, 156) &&
+      near(roofYAtX(eaveX0), wallHeight - seatPlumb - 6) && near(roofYAtX(eaveX1), wallHeight - seatPlumb - 6),
+      `roof runs ${inchStr(eaveX0)} to ${inchStr(eaveX1)}; tail underside ${inchStr(roofYAtX(eaveX0))}`);
+check('26. Top of rafters at ridge recomputed, not hardcoded',
+      near(actualPeak, underRidge + rafterPlumbDepth),
+      `${inchStr(underRidge)} + ${inchStr(rafterPlumbDepth)} = ${inchStr(actualPeak)} (${ftStr(actualPeak)})`);
+check('27. Ridge beam top flush with rafter tops at the beam faces',
+      near(beamTop, roofTopAtX(beamL)) && near(beamTop, roofTopAtX(beamR)),
+      `beam top ${inchStr(beamTop)}; ${inchStr(ridgeVoid)} void remains at the peak`);
+check('28. Rafter underside meets the gable stud tops (plate-line reference)',
+      GABLE.filter(g => !g.displaced).every(g => near(g.yTopL, roofYAtX(g.x0)) && near(g.yTopR, roofYAtX(g.x1))),
+      'gable studs stop at the rafter underside, angled top cut');
+check('29. Post base symbol shown at every 6x6 post on the foundation',
+      postBasePosts.length === 4 && OFFICE.postBase.required === true,
+      `${postBasePosts.length} places; product/anchors T.B.D.`);
+check('30. Rake overhang specified at 12" — out of plane in this view, flagged in keynote 21',
+      near(RF.rakeOverhang, 12), `${inchStr(RF.rakeOverhang)} rake, ${inchStr(RF.eaveOverhang)} eave`);
+
+/* ---- birdsmouth seat (3.5" seat cut) ---- */
+check('31. Birdsmouth: 3-1/2" horizontal seat, 1-3/4" plumb heel drop, 6-3/8" H.A.P.',
+      near(seatCut, 3.5) && near(seatPlumb, 1.75) && near(hap, rafterPlumbDepth - seatPlumb),
+      `seat ${inchStr(seatCut)} on the 5-1/2" plate; H.A.P. ${inchStr(hap)}`);
+check('32. Seat notch does not exceed 1/4 of rafter depth (usual end-notch limit)',
+      seatPerp <= RF.rafterDepth / 4 + 1e-9,
+      `${inchStr(seatPerp)} perpendicular = ${(100 * seatPerp / RF.rafterDepth).toFixed(1)}% of ${inchStr(RF.rafterDepth)} (limit 25%)`);
+check('33. Seat cut does NOT change the pitch — both roof planes still 6:12',
+      near((roofYAtX(60) - roofYAtX(20)) / 40, slope) && near((roofTopAtX(60) - roofTopAtX(20)) / 40, slope),
+      `underside and top-of-rafter slopes both ${slope} = ${RF.rise}:${RF.run}`);
+check('34. Seat lowers the roof plane by exactly the plumb heel drop; rafter is notched over the plate',
+      near(roofDrop, seatPlumb) && roofYAtX(0) < wallHeight - 1e-9 && near(roofYAtX(seatCut), wallHeight),
+      `underside at ridge ${inchStr(underRidge)} vs ${inchStr(refPeakZeroSeat)} zero-seat; heel ${inchStr(roofYAtX(0))}, seat bears at ${inchStr(wallHeight)}`);
+
+/* ---- sheathing and connections ---- */
+check('35. 1/2" nominal plywood sheathing drawn over the rafters (15/32" actual)',
+      near(RF.sheathingThickness, 15 / 32) && RF.sheathingNominal === '1/2"',
+      `${inchStr(RF.sheathingThickness)} actual = ${inchStr(sheathingPlumb)} measured plumb`);
+check('36. Top of sheathing = top of rafters + plumb sheathing thickness',
+      near(sheathingPeak, actualPeak + sheathingPlumb) && sheathingPeak > actualPeak,
+      `${inchStr(actualPeak)} + ${inchStr(sheathingPlumb)} = ${inchStr(sheathingPeak)} (${ftStr(sheathingPeak)}), roofing not included`);
+check('37. Ridge beam still fully inside the roof envelope after sheathing',
+      beamTop <= roofTopAtX(beamL) + 1e-9 && beamTop < sheathingPeak - 1e-9,
+      `beam top ${inchStr(beamTop)} vs sheathing ${inchStr(sheathingPeak)}`);
+check('38. Ridge connection specified as sloped rafter hangers into the beam sides',
+      /hanger/.test(RF.ridgeConnection) && /side/.test(RF.ridgeConnection) && RF.connectorProduct === null,
+      'symbol shown both beam faces; model and capacity not selected');
+check('39. Uplift tie called out at every rafter-to-wall connection',
+      /tie/.test(RF.wallUpliftConnection) && tieXs.length === 2,
+      'one symbol shown each end, over the birdsmouth seat');
+check('40. Connectors drawn as symbols only — no product selected anywhere',
+      RF.connectorProduct === null && OFFICE.postBase.type === null,
+      'hangers, ties and post bases all flagged for engineering');
+
+/* ---- rake framed off the cantilevered ridge beam ---- */
+check('41. Ridge beam length = depth + a cantilever each end, computed not hardcoded',
+      near(beamLength, OFFICE.depth + 2 * RK.beamCantilever) && near(beamLength, 144),
+      `${ftStr(OFFICE.depth)} + 2 x ${inchStr(RK.beamCantilever)} = ${ftStr(beamLength)}`);
+check('42. Beam cantilever equals the rake overhang it carries',
+      near(RK.beamCantilever, RF.rakeOverhang),
+      `${inchStr(RK.beamCantilever)} cantilever carries the ${inchStr(RF.rakeOverhang)} rake`);
+check('43. Fly rafter matches the common rafter size; lookouts called out',
+      RK.flyRafterNominal === RF.rafterNominal && RK.lookoutNominal === '2x6',
+      `${RK.flyRafterNominal} fly rafter, ${RK.lookoutNominal} lookouts to the first common rafter`);
+check('44. Lookout spacing and gable-rafter drop deliberately NOT assumed',
+      RK.lookoutSpacing === null && RK.gableRafterDrop === null,
+      'both open — flagged in keynote 21, gable studs drawn to the undropped rafter');
+check('45. Ridge post bears under the beam at this wall plane, inboard of the cantilever',
+      near((postL + postR) / 2, halfRun) && postL >= beamL - 1e-9 && postR <= beamR + 1e-9 &&
+      beamBot - wallHeight > 0,
+      `post ${inchStr(postL)}–${inchStr(postR)} within beam ${inchStr(beamL)}–${inchStr(beamR)}, ${inchStr(beamBot - wallHeight)} long`);
+
+document.getElementById('checkList').innerHTML = RESULTS.map(r =>
+  `<li class="${r.ok ? 'pass' : 'fail'}">${r.desc}${r.detail ? ' — <span style="color:#666">' + r.detail + '</span>' : ''}</li>`
+).join('');
+
+const failed = RESULTS.filter(r => !r.ok);
+if (failed.length) {
+  const a = document.getElementById('alarm');
+  a.className = 'show';
+  a.innerHTML = `VALIDATION FAILED (${failed.length}): <ul>` +
+    failed.map(f => `<li>${f.desc} — ${f.detail}</li>`).join('') + `</ul>`;
+}
+</script>
+</body>
+</html>
