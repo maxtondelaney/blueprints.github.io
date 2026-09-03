@@ -1,0 +1,2000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Left Wall Framing — 12' x 10' Detached Backyard Office</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --dim: #3a3a3a;
+    --paper: #ffffff;
+    --rule: #d5d5d5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #f2f2f0;
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .sheet {
+    background: var(--paper);
+    max-width: 1400px;
+    margin: 16px auto;
+    padding: 20px 22px 26px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 6px rgba(0,0,0,.10);
+  }
+  header.title {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 8px 24px;
+    justify-content: space-between;
+  }
+  header.title h1 { font-size: 19px; margin: 0; letter-spacing: .04em; text-transform: uppercase; }
+  header.title .sub { font-size: 12px; color: #555; margin-top: 3px; }
+  .meta { font-size: 11px; color: #444; text-align: right; line-height: 1.5; }
+  .meta b { color: #000; }
+
+  .ui {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 10px 0 4px; padding: 8px 10px;
+    background: #fafaf8; border: 1px solid var(--rule);
+    font-size: 12px; align-items: center;
+  }
+  .ui label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .ui .spacer { flex: 1 1 auto; }
+  .ui button {
+    font: inherit; padding: 4px 10px; cursor: pointer;
+    background: #fff; border: 1px solid #999; border-radius: 3px;
+  }
+  .ui button:hover { background: #eee; }
+
+  .flag {
+    margin: 10px 0 0; padding: 9px 11px;
+    background: #fff6e0; border: 2px solid #c98a00; color: #6b4600;
+    font-size: 11.5px; line-height: 1.5;
+  }
+  .flag b { color: #4a3000; }
+  .flag ul { margin: 5px 0 0; padding-left: 18px; }
+
+  #drawing { width: 100%; overflow-x: auto; }
+  svg { width: 100%; height: auto; display: block; background: #fff; }
+
+  .legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 3px 18px; font-size: 11px; margin-top: 14px;
+    border-top: 1px solid var(--rule); padding-top: 10px;
+  }
+  .legend div { display: flex; align-items: center; gap: 7px; }
+  .sw { width: 20px; height: 11px; border: 1px solid #333; flex: 0 0 auto; }
+
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 16px; }
+  .panel { border: 1px solid var(--rule); padding: 10px 12px; }
+  .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 8px; border-bottom: 1px solid var(--rule); padding-bottom: 5px; }
+  table { border-collapse: collapse; width: 100%; font-size: 10.5px; }
+  th, td { text-align: left; padding: 2px 5px; border-bottom: 1px solid #eee; }
+  th { background: #f5f5f3; font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.grp td { background: #fbfbf7; }
+
+  ul.checks { list-style: none; margin: 0; padding: 0; font-size: 11px; }
+  ul.checks li { padding: 2px 0 2px 20px; position: relative; line-height: 1.35; }
+  ul.checks li::before { position: absolute; left: 0; font-weight: 700; }
+  li.pass::before { content: "OK"; color: #187a3c; font-size: 9px; top: 3px; }
+  li.fail::before { content: "X"; color: #b00000; }
+  li.fail { color: #b00000; font-weight: 600; }
+
+  #alarm {
+    display: none; margin: 12px 0; padding: 10px 12px;
+    background: #ffe8e8; border: 2px solid #b00000; color: #7a0000;
+    font-size: 13px; font-weight: 700;
+  }
+  #alarm.show { display: block; }
+
+  .note {
+    font-size: 11px; line-height: 1.5; color: #333;
+    border: 1px solid #bbb; background: #fbfbf7; padding: 9px 11px; margin-top: 14px;
+  }
+  .note b { color: #000; }
+  .review { columns: 2 220px; column-gap: 22px; font-size: 10.5px; margin: 6px 0 0; padding-left: 18px; line-height: 1.45; }
+
+  @media (max-width: 700px) {
+    .sheet { margin: 0; border: 0; padding: 12px; }
+    .meta { text-align: left; }
+    .review { columns: 1; }
+  }
+
+  @media print {
+    @page { size: landscape; margin: 0.4in; }
+    html, body { background: #fff; }
+    .sheet { max-width: none; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    .ui { display: none !important; }
+    #drawing { overflow: visible; }
+    .panels { grid-template-columns: 1fr 1fr; }
+    .panel, .note, .legend, .flag { break-inside: avoid; }
+    svg { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="title">
+    <div>
+      <h1>Left Wall Framing — Eave / Bearing Wall (Interior Elevation of Wall Framing)</h1>
+      <div class="sub">Detached backyard office / accessory structure &middot; Vacaville, California &middot;
+        looking at the left wall, front of building at left</div>
+    </div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="ui">
+    <strong style="font-size:11px;letter-spacing:.04em;">VIEW:</strong>
+    <label><input type="checkbox" id="tStone" checked> 30" stone reference</label>
+    <label><input type="checkbox" id="tCasing" checked> 3" window casing reference</label>
+    <label><input type="checkbox" id="tRO" checked> 82" R.O. head alignment line</label>
+    <label><input type="checkbox" id="tDims" checked> Dimensions</label>
+    <label><input type="checkbox" id="tNotes" checked> Callout notes</label>
+    <span class="spacer"></span>
+    <button onclick="window.print()">Print</button>
+  </div>
+
+  <div class="flag" id="flag"></div>
+  <div id="alarm"></div>
+  <div id="drawing"></div>
+  <div class="legend" id="legend"></div>
+
+  <div class="panels">
+    <div class="panel">
+      <h2>Calculated horizontal layout (sums to 120")</h2>
+      <table id="layoutTable"></table>
+    </div>
+    <div class="panel">
+      <h2>Vertical stack &amp; roof geometry</h2>
+      <table id="vertTable"></table>
+    </div>
+    <div class="panel">
+      <h2>Validation</h2>
+      <ul class="checks" id="checkList"></ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Concept framing layout.</b> Final member sizing, connections, shear/braced-wall requirements, base-of-wall
+    anchorage, and foundation load paths require code/engineering verification. This is not a stamped structural
+    drawing.
+    <div style="margin-top:6px;">
+      <b>This wall is a bearing wall.</b> Unlike the front and rear gable walls, the left wall carries the rafters:
+      each rafter bears on its double top plate with a 3-1/2" birdsmouth seat, and the tributary load is half the
+      12'-0" roof span, so roughly 6'-0" of roof depth per foot of wall. Four rafters land within the window
+      opening, so the header carries real roof load rather than just wall weight.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Assumed load path (REQUIRES STRUCTURAL REVIEW — NOT ENGINEER APPROVED):</b>
+      2&times;8 rafters &rarr; birdsmouth seat on double 2&times;6 top plate &rarr; studs / 6&times;8 window header
+      &rarr; jack studs &rarr; continuous pressure-treated bottom plate &rarr; slab. There is no post anywhere in
+      this wall: the header bears on the jack studs, and the three-stud framed corners at each end land on that
+      same plate rather than on the slab. Uplift is resisted by a hurricane / rafter tie at every rafter,
+      and at the base by hold-downs at the framed corners.
+    </div>
+    <div style="margin-top:6px;"><b>Items requiring review:</b></div>
+    <ul class="review">
+      <li id="revHeader"></li>
+      <li>Four rafters landing on that header as point loads</li>
+      <li>Jack count and bearing length at the header (2 per side shown)</li>
+      <li>Stud sizing and spacing for combined axial and wind load</li>
+      <li>Birdsmouth notch depth, shear at the notch and bearing length</li>
+      <li>Perpendicular-to-grain compression at the plate</li>
+      <li>Hurricane / rafter tie selection and uplift capacity</li>
+      <li>Sill anchorage: post-installed anchor type, size, spacing, edge distance and embedment</li>
+      <li>Framed corner to wall, corner-to-plate bearing and plate-to-slab connections</li>
+      <li>Ganging the three 2&times;6 at each framed corner so a hold-down can develop tension</li>
+      <li>Concrete / foundation capacity</li>
+      <li>Sheathing nailing schedule and panel blocking (21/32" plywood, full wrap)</li>
+      <li id="revPier"></li>
+      <li id="revPortalRequired"></li>
+      <li id="revPortalHeader"></li>
+      <li id="revPortalPanel"></li>
+      <li id="revPortalStrap"></li>
+      <li id="revPortalTieDown"></li>
+      <li>Anchor bolts through the bottom plate within each portal frame panel: count, size and plate washers
+        (keynote only &mdash; schedule not determined, so nothing is drawn at an assumed spacing)</li>
+      <li>Hold-downs at the pier ends: quantity, model, capacity and anchorage (symbols only on this sheet)</li>
+      <li>Roof diaphragm blocking, edge nailing and load path into these piers</li>
+      <li>California seismic loads</li>
+      <li>Vacaville zoning, height limit and setbacks</li>
+    </ul>
+    <div style="margin-top:6px;" id="winPosNote"></div>
+    <div style="margin-top:6px;" id="shearNote"></div>
+    <div style="margin-top:6px;">
+      <b>Base of wall:</b> the framed corners bear on a continuous pressure-treated bottom plate rather than landing
+      on the slab in standoff bases. Every bottom plate in this building is pressure treated, over a capillary
+      break. Both arrangements are conventional. This one was chosen because the slab is
+      already poured: a continuous plate lets the anchors be placed inboard and spread out instead of forcing one
+      into the corner of the slab where edge distance and breakout are worst, it lets the plate be set and drilled
+      through in place, and it gives the sheathing a continuous member to deliver shear into. Bearing is not the
+      deciding factor at these loads &mdash; a three-stud corner puts about 20-1/4 sq in of wood on the plate
+      rather than the 30-1/4 sq in a 6&times;6 would, and the load at the end of this wall is a fraction of the
+      concentrated ridge reaction the front wall carries, so crushing the plate is not the governing concern here.
+      The trade is that the plate must be pressure treated over a capillary
+      break, hardware in contact with it must be corrosion resistant, and a member toe-nailed to a plate has no
+      uplift value &mdash; so hold-downs, shown as symbols only, do that work at the corners. Those are the same
+      pier-end hold-downs called for in the shear / bracing note above: each of the two sheathed piers ends at a
+      framed corner, so the corner symbols and the bracing note's pier-end hold-downs describe one requirement,
+      not two.
+      <b>The portal frame tie-downs at the two king studs beside the window are a separate requirement</b>, at the
+      opening-side edge of each panel rather than at the pier end, and they are additional to the corner
+      hold-downs, not an alternative to them &mdash; four base tie-down symbols in all. All of them, and the plate
+      anchors, are post-installed because the slab is already poured. The base detail and the 30"
+      stone veneer detail have to be resolved together, since the veneer needs a weep screed and drainage gap and
+      the bottom of the framing needs clearance above finished grade. Load estimate is approximate and for context
+      only; anchor type, spacing, edge distance, embedment, hold-down selection and concrete capacity are all per
+      engineer.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Corners:</b> both ends of this wall are standard three-stud 2&times;6 framed corners rather than solid
+      6&times;6 posts, which leaves no post anywhere in this wall &mdash; the 6&times;8 window header bears on the
+      jack studs, not on posts, so there is no beam-to-post bracket on this sheet. The corner block still takes up
+      5-1/2" of wall length, because that is the thickness of the wall returning at right angles, so nothing in the
+      horizontal layout moved: the wall still totals 120", the stud infill between the corners is still 109", the
+      infill bays are unchanged, and the sheathed pier widths and aspect ratios are unchanged because a pier is
+      measured from the end of the wall to the edge of the opening and always contained the corner. Inside the
+      block sit a 2&times;6 on edge at each end and a 2&times;6 laid flat at the interior face between them, backing
+      the drywall return on the end wall, with the void behind the flat member left for insulation. One consequence
+      is worth naming, and it lands directly on the portal frame detail: the pier chord at each corner is now three
+      separate 2&times;6 instead of one solid post, so those members have to be nailed or bolted together to act as
+      one before a hold-down can develop tension in them. A single 2&times;6 will not. The portal frame's outboard
+      chord and pier-end tie-down location at each end of this wall is one of these framed corners, so the ganging
+      is part of what makes the portal frame work rather than a separate carpentry detail. Ganging and hold-down
+      attachment are per engineer.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Sheathing:</b> the building gets a full plywood wrap &mdash; every wall sheathed in 21/32" (5/8" nominal)
+      plywood, and the roof deck the same panel. On this sheet the wall sheathing is noted rather than drawn,
+      because in an elevation the panel faces the viewer and has no visible thickness; only the roof deck carries
+      its 21/32" into a dimension, in the top-of-sheathing height at the ridge. Worth being clear about what this
+      does and does not buy: 21/32" is thicker than the 7/16" or 15/32" normally run for shear, so panel shear
+      capacity is not what constrains this wall. The constraints are the pier lengths and aspect ratios described
+      below, and a thicker panel does not relax either rule &mdash; which matters here, because these piers are
+      over the 3.5:1 limit and that is the whole reason the portal frame detailing is on the sheet. Span rating,
+      edge nailing, blocking and the bracing schedule are per engineer.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Height:</b> top of sheathing at the ridge is <b><span id="hSheath"></span></b> above top of slab; top of
+      rafters is <span id="hRafter"></span>. Roofing and underlayment are not included in either figure. Going from
+      15/32" to 21/32" panels raised the ridge <span id="hDelta"></span>. Zoning height is measured from adjacent
+      grade and includes the finished roofing, so add the slab height above grade and the roofing build-up before
+      comparing to any Vacaville limit.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Roof shown beyond:</b> the roof slopes up and away from this wall at 6:12, so it projects edge-on in this
+      view as the light dashed area above the plate. The 12" eave overhang projects toward the viewer and is not a
+      length on this sheet; the 12" rake overhang at each gable extends the roof 12" past each end of this wall.
+    </div>
+    <div style="margin-top:6px;">
+      <b>Not shown / not yet finalized:</b> foundation, footings, reinforcement, and sill anchors (foundation
+      already poured; details not finalized); hold-downs beyond the symbols at the framed corners; sheathing
+      nailing schedule and panel blocking; stucco and stone assembly over the sheathing; underlayment and roofing;
+      fascia, sub-fascia, soffit and venting; window unit, flashing and trim; enlarged eave / birdsmouth detail;
+      electrical and interior finishes.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CENTRAL DIMENSION MODEL — all geometry derives from this.
+   Shared values match front_wall_framing.html.
+   ============================================================ */
+const OFFICE = {
+  width: 144,          // front/rear gable wall length (roof span), inches
+  depth: 120,          // left/right wall length, inches (10'-0")
+
+  /* The front and rear walls run the full 12'-0" width and contain the shared
+     framed corners, so this wall's own framing sits between them. */
+  endWallThickness: 5.5,
+
+  leftWall: {
+    window: { roughWidth: 72, roughHeight: 48 },
+    /* Not specified by the client — centered on the wall, flagged on the sheet. */
+    windowCentered: true
+  },
+
+  framing: {
+    studThickness: 1.5,      // 2x6 actual thickness
+    wallDepth: 5.5,          // 2x6 actual width (wall thickness)
+    bottomPlateCount: 1,
+    topPlateCount: 2,        // DOUBLE top plate (no triple)
+    plateThickness: 1.5,
+    studSpacing: 16,         // o.c.
+
+    /* Corners are standard three-stud 2x6 framed corners, not solid 6x6 posts.
+       The corner block still consumes 5.5" of wall length — that is the
+       thickness of the wall returning at right angles — so the horizontal
+       layout below is unchanged. Inside the block: a 2x6 on edge at each end,
+       and a third 2x6 laid flat at the interior face between them, backing the
+       drywall return on the side wall. The space behind the flat nailer is the
+       insulated void. */
+    corner: {
+      studs: 3,
+      blockWidth: 5.5,       // wall length consumed = wall thickness
+      studWidth: 1.5,        // the two 2x6 on edge, one at each end of the block
+      nailerFlat: true       // third 2x6, laid flat, interior face, cut to fit
+    },
+
+    /* Two jacks per side: this is a bearing wall and the opening is 6'-0",
+       so the header bears 3" on each side instead of 1.5". */
+    jacksPerSide: 2,
+
+    headerDepth: 7.5,        // nominal 6x8 actual depth — same as front wall
+    headerWidth: 5.5,
+    headerNominal: '6x8',
+
+    roughSillThickness: 1.5  // 2x6 flat rough sill
+  },
+
+  roof: {
+    rise: 6, run: 12,        // 6:12
+    rafterNominal: '2x8',
+    rafterThickness: 1.5,
+    rafterDepth: 7.25,       // 2x8 actual, perpendicular to slope
+    rafterSpacing: 16,       // o.c. along this wall
+
+    rafterSeatCut: 3.5,      // birdsmouth seat, horizontal on the plate
+
+    eaveOverhang: 12,        // projects toward the viewer in this view
+    rakeOverhang: 12,        // extends the roof past each end of this wall
+
+    /* 5/8" nominal plywood, 21/32" actual, matching the wall wrap. Thickness is
+       perpendicular to the roof plane, so it reads slightly deeper plumb. */
+    sheathingNominal: '5/8"',
+    sheathingThickness: 21 / 32,
+
+    ridgeConnection: 'sloped rafter hangers into the sides of the ridge beam',
+    wallUpliftConnection: 'hurricane / rafter tie at each rafter-to-wall connection',
+    connectorProduct: null   // model, capacity and fasteners NOT selected
+  },
+
+  exterior: { stoneHeight: 30, casingWidth: 3 },
+
+  /* Full plywood wrap: every wall is sheathed in 21/32" (5/8" nominal) plywood,
+     and the roof uses the same panel. That is thicker than the 7/16" or 15/32"
+     usually run for shear, so panel shear capacity is not what constrains this
+     building — pier length and aspect ratio are, and thicker panels do not
+     relax either rule. */
+  wallSheathing: {
+    nominal: '5/8"',
+    thickness: 21 / 32,
+    fullWrap: true,
+    nailing: null            // panel / edge nailing schedule per engineer
+  },
+
+  /* BASE OF WALL. The framed corners bear on a continuous pressure-treated
+     bottom plate rather than landing on the slab in standoff bases. Nothing
+     bears directly on the slab except the plate. */
+  base: {
+    bottomPlateContinuous: true,
+    bottomPlateTreated: true,
+    capillaryBreak: true,      // sill sealer / gasket under the plate
+    anchorType: null,          // post-installed; type, size, spacing T.B.D.
+    holdDownRequired: true,    // at the corners acting as shear pier chords
+    holdDownType: null,
+    symbolHeight: 6
+  },
+
+  /* PRESCRIPTIVE PORTAL FRAME — METHOD PFH, "PORTAL FRAME WITH HOLD-DOWNS".
+     This is the braced-wall method used where a panel would otherwise be too
+     narrow to qualify, which is exactly the condition the 72" window creates
+     here. EVERYTHING NUMERIC BELOW IS THE GENERAL FORM OF THE REQUIREMENT.
+     None of it is a lookup against the CRC edition Vacaville has adopted: each
+     value is to be read off the adopted figure and confirmed by the engineer.
+     Nothing here makes the panels as drawn compliant, and nothing on this sheet
+     is a shear wall design. */
+  portalFrame: {
+    method: 'PFH',
+    methodName: 'portal frame with hold-downs',
+
+    /* Whether a portal frame is actually REQUIRED at this opening is an open
+       question, not a settled one — see the alternative in the bracing note. */
+    required: null,
+
+    minPanelWidth: 16,        // commonly the single-storey figure minimum — CONFIRM
+    minStudsAtPanelEdge: 2,   // minimum studs (or a post) at the opening-side edge — CONFIRM
+    sheetLength: 96,          // standard wood structural panel sheet, for the one-piece check
+    edgeNailing: '8d common @ 3" o.c.',   // commonly specified at panel edges — CONFIRM
+
+    strapCapacity: 1000,      // lb, commonly the minimum header strap — CONFIRM
+    strapProduct: null,       // model and capacity NOT selected
+    tieDownCapacity: 3500,    // lb, commonly the minimum tie-down at each panel — CONFIRM
+    tieDownProduct: null,     // model and capacity NOT selected
+
+    panelAnchorSchedule: null,  // bolts through the bottom plate inside each panel — count/size T.B.D.
+    minHeader: null,            // minimum header size / type per the figure — NOT looked up
+
+    figureConfirmed: false,   // nothing here has been checked against the adopted CRC figure
+    strapSymbolDepth: 2       // drawn symbol depth only — not a product dimension
+  }
+};
+
+const L  = OFFICE.depth;          // wall length being drawn, 120
+const FR = OFFICE.framing;
+const RF = OFFICE.roof;
+const EX = OFFICE.exterior;
+const CN = FR.corner;
+const WS = OFFICE.wallSheathing;
+const BASE = OFFICE.base;
+const WIN = OFFICE.leftWall.window;
+const PF  = OFFICE.portalFrame;
+
+/* ============================================================
+   VERTICAL MODEL (0" = TOP OF SLAB / FOUNDATION)
+   ============================================================ */
+const botPlateTop = FR.plateThickness * FR.bottomPlateCount;      // 1.5
+const topPlateThk = FR.plateThickness * FR.topPlateCount;         // 3.0
+const roHead      = 82;                                           // matches the front wall heads
+const headerDepth = FR.headerDepth;                               // 7.5
+const wallHeight  = roHead + headerDepth + topPlateThk;           // 92.5
+const topPlateBot = wallHeight - topPlateThk;                     // 89.5
+const headerBot   = topPlateBot - headerDepth;                    // 82 == roHead
+const winRoSill   = roHead - WIN.roughHeight;                     // 34
+const sillBot     = winRoSill - FR.roughSillThickness;            // 32.5
+
+/* Full-height members all start on top of the continuous bottom plate, so the
+   framed-corner studs are exactly as long as the full-height king studs. */
+const kingStudLen  = topPlateBot - botPlateTop;                   // 88
+const cornerBot    = botPlateTop;                                 // 1.5 — bears on the plate
+const cornerTop    = topPlateBot;                                 // 89.5
+const cornerStudLen = cornerTop - cornerBot;                      // 88 == kingStudLen
+
+/* Three-stud framed corner, resolved inside the 5.5" corner block: a 2x6 on
+   edge at each end and the balance filled by the flat interior nailer. The
+   three widths are solved from the block, not typed in. */
+const cornerBlockW  = CN.blockWidth;                              // 5.5
+const cornerNailerW = cornerBlockW - 2 * CN.studWidth;            // 2.5 flat nailer
+/* Member runs within a corner block starting at xBlock. The arrangement is
+   symmetric about the block, so it reads the same at either end of the wall. */
+function cornerMembers(xBlock) {
+  let x = xBlock;
+  return [{k: 'stud', w: CN.studWidth}, {k: 'nailer', w: cornerNailerW},
+          {k: 'stud', w: CN.studWidth}]
+    .map(r => { const o = {k: r.k, x0: x, x1: x + r.w, w: r.w}; x += r.w; return o; });
+}
+
+/* ============================================================
+   ROOF MODEL — d is horizontal distance from this wall's outer face
+   toward the ridge, so d = 0 at the wall face and d = 72 at the ridge.
+   ============================================================ */
+const slope       = RF.rise / RF.run;                             // 0.5
+const halfRun     = OFFICE.width / 2;                             // 72
+const slopeFactor = Math.sqrt(1 + slope * slope);                 // 1.118034
+const rafterPlumbDepth = RF.rafterDepth * slopeFactor;            // 8.1057
+
+const seatCut   = RF.rafterSeatCut;                               // 3.5
+const seatPlumb = seatCut * slope;                                // 1.75
+const seatPerp  = seatPlumb / slopeFactor;                        // 1.5652
+const hap       = rafterPlumbDepth - seatPlumb;                   // 6.3557
+
+const underAtD  = d => wallHeight + (d - seatCut) * slope;        // rafter underside
+const topAtD    = d => underAtD(d) + rafterPlumbDepth;            // top of rafter
+/* 21/32" sheathing over the rafters; thickness is perpendicular to the roof
+   plane, so it adds slightly more than 15/32" measured plumb. */
+const sheathingPlumb = RF.sheathingThickness * slopeFactor;       // 0.7337
+const sheathAtD = d => topAtD(d) + sheathingPlumb;
+
+const heelTop   = topAtD(0);                                      // 98.8557 = plate + H.A.P.
+const tailUnder = underAtD(-RF.eaveOverhang);                     // 84.75
+const tailTop   = topAtD(-RF.eaveOverhang);                       // 92.8557
+const eaveEdge  = sheathAtD(-RF.eaveOverhang);                    // 93.5894 — low edge of roof surface
+const ridgeTop  = sheathAtD(halfRun);                             // 135.5894 — top of sheathing at ridge
+const ridgeRafterTop = topAtD(halfRun);                           // 134.8557
+
+/* roof extends past both ends of this wall by the rake overhang */
+const rakeX0 = -RF.rakeOverhang, rakeX1 = L + RF.rakeOverhang;
+
+/* ============================================================
+   HORIZONTAL LAYOUT — built programmatically, sums to 120"
+   ============================================================ */
+const t = FR.studThickness;
+const roX0 = (L - WIN.roughWidth) / 2;              // 24 — centered
+const roX1 = roX0 + WIN.roughWidth;                 // 96
+
+/* inboard faces of the two shared framed corner blocks */
+const postFaceX0 = OFFICE.endWallThickness;         // 5.5
+const postFaceX1 = L - OFFICE.endWallThickness;     // 114.5
+const betweenPostsLen = postFaceX1 - postFaceX0;    // 109 — this wall's own stud infill
+
+/* The bottom plate is CONTINUOUS the full wall length and the corners bear on
+   top of it. No door in this wall, so there is no cut-out. */
+const botPlateX0 = 0;
+const botPlateX1 = L;
+const botPlateLen = botPlateX1 - botPlateX0;        // 120
+
+/* Stud / rafter module runs 16" o.c. from the front wall face so that roof
+   sheathing panel edges at 48" and 96" land on a rafter. */
+const moduleCLs = [];
+for (let c = FR.studSpacing; c < L; c += FR.studSpacing) moduleCLs.push(c);
+
+/* KING | JACK x n | R.O. | JACK x n | KING, king always outboard */
+const nJ = FR.jacksPerSide;
+const jacksL = Array.from({length: nJ}, (_, i) => ({x0: roX0 - (i + 1) * t, x1: roX0 - i * t}))
+                    .sort((a, b) => a.x0 - b.x0);
+const jacksR = Array.from({length: nJ}, (_, i) => ({x0: roX1 + i * t, x1: roX1 + (i + 1) * t}));
+const kingL = {x0: jacksL[0].x0 - t, x1: jacksL[0].x0};
+const kingR = {x0: jacksR[nJ - 1].x1, x1: jacksR[nJ - 1].x1 + t};
+
+/* infill zones: between the framed corners and the window kings */
+const zones = [[postFaceX0, kingL.x0], [kingR.x1, postFaceX1]];
+
+/* module studs that fall clear inside an infill zone */
+const studs = moduleCLs
+  .map(c => ({c, x0: c - t / 2, x1: c + t / 2}))
+  .filter(s => zones.some(z => s.x0 >= z[0] - 1e-9 && s.x1 <= z[1] + 1e-9));
+
+function buildLayout() {
+  const fixed = [
+    {t: 'corner', x0: 0, x1: cornerBlockW, note: 'shared with front wall'},
+    {t: 'king', x0: kingL.x0, x1: kingL.x1},
+    ...jacksL.map(j => ({t: 'jack', x0: j.x0, x1: j.x1})),
+    {t: 'ro-window', x0: roX0, x1: roX1},
+    ...jacksR.map(j => ({t: 'jack', x0: j.x0, x1: j.x1})),
+    {t: 'king', x0: kingR.x0, x1: kingR.x1},
+    {t: 'corner', x0: postFaceX1, x1: L, note: 'shared with rear wall'},
+    ...studs.map(s => ({t: 'stud', x0: s.x0, x1: s.x1, cl: s.c}))
+  ].sort((a, b) => a.x0 - b.x0);
+
+  /* fill every remaining gap with a clear / infill bay */
+  const out = [];
+  let cursor = 0;
+  fixed.forEach(m => {
+    if (m.x0 - cursor > 1e-9) out.push({t: 'infill', x0: cursor, x1: m.x0});
+    out.push(m);
+    cursor = m.x1;
+  });
+  if (L - cursor > 1e-9) out.push({t: 'infill', x0: cursor, x1: L});
+  out.forEach(g => { g.w = g.x1 - g.x0; g.cx = (g.x0 + g.x1) / 2; });
+  return out;
+}
+const SEG = buildLayout();
+const totalWallLength = SEG.reduce((a, g) => a + g.w, 0);
+
+/* header spans the full jack group each side and bears on all of them */
+const headerX0 = jacksL[0].x0, headerX1 = jacksR[nJ - 1].x1;
+const headerBearing = nJ * t;                        // 3" each side
+const headerClearSpan = roX1 - roX0;                 // 72
+
+/* SHEAR / BRACING. Once the wall is sheathed, the bracing segments are the
+   full-height sheathed piers each side of the opening, measured from the end of
+   the wall to the edge of the rough opening. Sheathing above and below the
+   opening does not add segment width. */
+const PIER_ASPECT_LIMIT = 3.5;                  // SDPWS h:b limit, wood structural panel
+const piers = [{x0: 0, x1: roX0}, {x0: roX1, x1: L}]
+  .map(p => ({...p, w: p.x1 - p.x0, aspect: wallHeight / (p.x1 - p.x0)}));
+const pierMinWidth = wallHeight / PIER_ASPECT_LIMIT;          // 26.43" = 26-7/16"
+/* A chord location already stands at the outboard end of both piers — a framed
+   corner — so no bracing scheme has to introduce new vertical members there.
+   The corners are now three ganged/blocked 2x6 rather than a solid 6x6, which
+   is a normal hold-down chord but a different one. */
+const cornerBlocks = SEG.filter(g => g.t === 'corner');
+const chords = SEG.filter(g => g.t === 'corner');
+const piersWithChord = piers.filter(p =>
+  chords.some(q => q.x0 >= p.x0 - 1e-9 && q.x1 <= p.x1 + 1e-9));
+
+/* the resolved members inside each corner block, kept for validation */
+const cornerAssemblies = cornerBlocks.map(g => ({block: g, parts: cornerMembers(g.x0)}));
+/* widest R.O. that would still leave both piers at or under the limit, if
+   centered — the 72" opening is wider than this, which is the whole reason the
+   portal frame detailing below is on the sheet */
+const roWidthAtLimit = L - 2 * pierMinWidth;                  // 67.14" = 67-1/8"
+const roWidthOverLimitBy = WIN.roughWidth - roWidthAtLimit;   // 4.86" = 4-7/8"
+
+/* ============================================================
+   PORTAL FRAME — PRESCRIPTIVE METHOD PFH
+   The two full-height sheathed piers are the portal frame panels. At 24" on a
+   92-1/2" wall they are past the 3.5:1 aspect limit that governs an engineered
+   wood structural panel shear wall, but well inside the much smaller minimum
+   panel width the portal frame method permits: the method substitutes
+   prescribed strapping and tie-down detailing for panel width. Everything
+   numeric here is the general form of the requirement, to be read off the
+   adopted CRC figure and confirmed by the engineer.
+   ============================================================ */
+const pfPanels = piers.map((p, i) => ({
+  ...p,
+  cx: (p.x0 + p.x1) / 2,
+  overLimit: p.aspect > PIER_ASPECT_LIMIT + 1e-9,
+  /* the panel edge adjacent to the opening, the king stud standing at it, and
+     the direction that points away from the opening */
+  openingEdge: i === 0 ? p.x1 : p.x0,
+  edgeKing:    i === 0 ? kingL : kingR,
+  outward:     i === 0 ? -1 : 1
+}));
+const piersOverLimit = pfPanels.filter(p => p.overLimit);
+/* one-piece sheathing: bottom plate up over the header, no horizontal joint */
+const pfSheetSpare  = PF.sheetLength - wallHeight;            // 3.5" to spare
+const pfOnePiece    = pfSheetSpare >= -1e-9;
+/* studs standing at each opening-side panel edge: the king plus the jack group */
+const pfEdgeStuds   = 1 + nJ;                                 // 3
+const pfPanelsAtMinWidth = pfPanels.filter(p => p.w >= PF.minPanelWidth - 1e-9);
+/* header strap symbol reach each way from the R.O. edge — the king plus the
+   jack group, so the symbol visibly crosses the panel edge it ties to */
+const pfStrapReach  = (nJ + 1) * t;                           // 4.5"
+const pfStraps = [roX0, roX1].map(x => ({
+  x0: x - pfStrapReach, x1: x + pfStrapReach,
+  y0: headerBot + (headerDepth - PF.strapSymbolDepth) / 2,
+  y1: headerBot + (headerDepth + PF.strapSymbolDepth) / 2
+}));
+
+/* cripples under the sill: rough-opening edges plus the 16" module. A module
+   cripple that would overlap an R.O.-edge cripple is dropped, so o.c. spacing
+   can exceed the module there; the clear space between cripples cannot. */
+const crippleXs = [roX0, ...moduleCLs.filter(c => c - t / 2 > roX0 + t && c + t / 2 < roX1 - t)
+                                     .map(c => c - t / 2), roX1 - t];
+const crippleClear = crippleXs.slice(1).map((x, i) => x - (crippleXs[i] + t));
+const crippleMaxClear = Math.max(...crippleClear);
+
+/* rafter stations along this wall: a rafter over each gable end wall, then the
+   16" module in between */
+const RAFTERS = [
+  {x0: 0, x1: t, cl: t / 2, kind: 'gable-end'},
+  ...moduleCLs.map(c => ({x0: c - t / 2, x1: c + t / 2, cl: c, kind: 'common'})),
+  {x0: L - t, x1: L, cl: L - t / 2, kind: 'gable-end'}
+];
+/* Measured against the ROUGH OPENING extents, not the header extents: a rafter
+   landing over a jack group bears on the jacks, not on the header span. */
+const raftersOverHeader = RAFTERS.filter(r => r.x0 >= roX0 && r.x1 <= roX1);
+
+/* ============================================================
+   FORMATTING HELPERS
+   ============================================================ */
+function inchStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  const whole = Math.floor(v + 1e-9);
+  let frac = v - whole;
+  const sixteenths = Math.round(frac * 16);
+  const g = (a, b) => b ? g(b, a % b) : a;
+  /* a value under 1" reads as a bare fraction, so the 21/32" panel does not
+     print as 0-11/16" */
+  let s = whole ? String(whole) : (sixteenths > 0 && sixteenths < 16 ? '' : '0');
+  if (sixteenths > 0 && sixteenths < 16) {
+    const d = g(sixteenths, 16);
+    s += (whole ? '-' : '') + (sixteenths / d) + '/' + (16 / d);
+  } else if (sixteenths === 16) s = String(whole + 1);
+  return (neg ? '-' : '') + s + '"';
+}
+function ftStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  const ft = Math.floor(v / 12 + 1e-9);
+  const rem = v - ft * 12;
+  const r = Math.round(rem * 16) / 16;
+  return (neg ? '-' : '') + ft + "'-" + (r === 0 ? '0"' : inchStr(r));
+}
+/* Dimensions round to 1/16 above, which is the right drafting convention but
+   cannot represent the 21/32" sheathing actual — 21/32 would print as 11/16.
+   Panel thicknesses therefore get a 32nd formatter. */
+function fracStr(v, den = 32) {
+  const neg = v < 0; v = Math.abs(v);
+  let whole = Math.floor(v + 1e-9);
+  let n = Math.round((v - whole) * den), d = den;
+  if (n === d) { whole++; n = 0; }
+  if (n === 0) return (neg ? '-' : '') + whole + '"';
+  while (n % 2 === 0) { n /= 2; d /= 2; }
+  return (neg ? '-' : '') + (whole ? whole + '-' : '') + n + '/' + d + '"';
+}
+const near = (a, b, tol = 1e-6) => Math.abs(a - b) <= tol;
+
+/* ============================================================
+   SVG SCAFFOLD / SCALE
+   ============================================================ */
+const PX = 6;                     // px per inch
+const M  = { l: 210, r: 370, t: 92, b: 710 };
+const TOPREF = ridgeTop;          // highest drawn geometry
+const VBW = M.l + L * PX + M.r;
+/* VBH is finished after the keynote block is laid out, so the sheet grows with
+   the keynote list instead of the list running off the bottom of the viewBox. */
+let keynoteBlockBottom = 0;
+
+const inchesToPx = i => i * PX;
+const X = xi => M.l + xi * PX;
+const Y = yi => M.t + (TOPREF - yi) * PX;
+
+/* Keynote bubble columns (inches), parked between the wall and the vertical
+   dimension chains on each side so bubbles never land on a dimension. */
+const MB_L = -16, MB_R = L + 16;
+
+const C = {
+  stud:      '#EBD3A4',
+  jack:      '#F6E7C4',
+  king:      '#D3AC6C',
+  studEdge:  '#9A7433',
+  plate:     '#E0C48F',
+  header:    '#6B4423',
+  rafter:    '#E5D2A8',
+  steel:     '#5B6B7C',
+  pf:        '#7B3FA0',
+  opening:   '#ffffff',
+  dim:       '#3a3a3a',
+  ro:        '#cc0000',
+  casing:    '#1f6fd0',
+  stone:     '#8a8a8a',
+  roof:      '#333333',
+  sheathing: '#C9CFD6',
+  slab:      '#555555'
+};
+
+const P = [];   // svg parts
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function rect(x, y, w, h, fill, stroke, sw, extra) {
+  P.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(w,0).toFixed(2)}" height="${Math.max(h,0).toFixed(2)}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="${sw||0}" ${extra||''}/>`);
+}
+function line(x1, y1, x2, y2, stroke, sw, extra) {
+  P.push(`<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${stroke}" stroke-width="${sw||1}" ${extra||''}/>`);
+}
+function poly(pts, fill, stroke, sw, extra) {
+  P.push(`<polygon points="${pts.map(p=>p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ')}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="${sw||0}" ${extra||''}/>`);
+}
+function drawLabel(x, y, txt, opts = {}) {
+  const a = opts.anchor || 'middle', fs = opts.size || 11, fill = opts.fill || C.dim;
+  const wt = opts.weight ? ` font-weight="${opts.weight}"` : '';
+  const rot = opts.rotate ? ` transform="rotate(${opts.rotate} ${x.toFixed(2)} ${y.toFixed(2)})"` : '';
+  P.push(`<text x="${x.toFixed(2)}" y="${y.toFixed(2)}" text-anchor="${a}" font-size="${fs}" fill="${fill}"${wt}${rot} font-family="Helvetica Neue, Helvetica, Arial, sans-serif">${esc(txt)}</text>`);
+}
+
+/* member label: rotated inside narrow members, horizontal in wide ones */
+function memberLabel(x0In, x1In, y0In, y1In, txt, color) {
+  const wpx = (x1In - x0In) * PX, hpx = (y1In - y0In) * PX;
+  const cx = X((x0In + x1In) / 2), cy = Y((y0In + y1In) / 2);
+  if (hpx < 26 && wpx < 30) return;
+  if (wpx >= 46 && hpx >= 14) drawLabel(cx, cy + 3.5, txt, {size: 9.5, fill: color});
+  else drawLabel(cx, cy, txt, {size: 9, fill: color, rotate: -90});
+}
+
+/* ---------- primitive framing drawers ---------- */
+function drawStud(x0In, y0In, y1In, wIn, fill, label) {
+  rect(X(x0In), Y(y1In), inchesToPx(wIn), inchesToPx(y1In - y0In), fill, C.studEdge, 0.8);
+  if (label) memberLabel(x0In, x0In + wIn, y0In, y1In, label, '#4a3410');
+}
+/* Three-stud framed corner inside the 5.5" corner block: a 2x6 on edge at each
+   end, and a 2x6 laid flat at the interior face between them. The flat nailer
+   is on the far side of the wall in this elevation, so it is hatched rather
+   than drawn solid, and the void behind it is the insulated space. */
+function drawFramedCorner(xBlockIn, y0In, y1In) {
+  const parts = cornerMembers(xBlockIn);
+  parts.forEach(m => {
+    if (m.k === 'stud') {
+      rect(X(m.x0), Y(y1In), inchesToPx(m.w), inchesToPx(y1In - y0In), C.king, C.studEdge, 0.9);
+    } else {
+      rect(X(m.x0), Y(y1In), inchesToPx(m.w), inchesToPx(y1In - y0In), C.stud, C.studEdge, 0.8);
+      const xa = X(m.x0), xb = X(m.x1), yt = Y(y1In), yb = Y(y0In), span = xb - xa;
+      for (let yy = yt + 7; yy < yb; yy += 12)
+        line(xa, yy, xb, Math.min(yy + span, yb), '#b09a6a', 0.6);
+    }
+  });
+  drawLabel(X(xBlockIn + cornerBlockW / 2), Y((y0In + y1In) / 2), '3-STUD CORNER',
+            {size: 8.5, rotate: -90, fill: '#4a3410', weight: 600});
+  return parts;
+}
+function drawHeader(x0In, x1In, yBotIn, depthIn, label) {
+  rect(X(x0In), Y(yBotIn + depthIn), inchesToPx(x1In - x0In), inchesToPx(depthIn), C.header, '#2f1d0c', 1.1);
+  /* label sits in the upper half of the header, clear of the casing reference
+     line that crosses the lower half */
+  const cx = X((x0In + x1In) / 2), cy = Y(yBotIn + depthIn * 0.62);
+  if (label) drawLabel(cx, cy + 3.5, label, {size: 10, fill: '#fff', weight: 600});
+}
+function drawOpening(x0In, x1In, y0In, y1In) {
+  rect(X(x0In), Y(y1In), inchesToPx(x1In - x0In), inchesToPx(y1In - y0In), C.opening, C.ro, 1.3,
+       'stroke-dasharray="7 4"');
+}
+
+/* ---------- dimension drawers ---------- */
+/* A dimension too narrow for a horizontal value carries it rotated below the
+   line. Adjacent 1-1/2" members put those labels only 9px apart, so a narrow
+   label drops to a second tier — with a leader back to its own dimension —
+   whenever the last label on the same row is too close to share the first. */
+const DIM_NARROW   = 34;   // px: below this width the value goes rotated, below the line
+const DIM_TIER     = 32;   // px: vertical pitch between the two label tiers
+const DIM_TIER_GAP = 13;   // px: labels closer than this on centre cannot share a tier
+const dimTiers = new Map();   // dimension row (y px) -> last label centre per tier
+
+function narrowLabelTier(yPx, mid) {
+  const key = yPx.toFixed(1);
+  const used = dimTiers.get(key) || [-1e9, -1e9];
+  let tier = 0;
+  while (tier < used.length - 1 && Math.abs(mid - used[tier]) < DIM_TIER_GAP) tier++;
+  used[tier] = mid;
+  dimTiers.set(key, used);
+  return tier;
+}
+function drawDimension(x0In, x1In, yPx, label) {
+  const a = X(x0In), b = X(x1In), mid = (a + b) / 2, wpx = b - a;
+  line(a, yPx - 7, a, yPx + 7, C.dim, 0.8);
+  line(b, yPx - 7, b, yPx + 7, C.dim, 0.8);
+  line(a, yPx, b, yPx, C.dim, 0.8);
+  if (wpx >= 16) {
+    line(a, yPx, a + 5, yPx - 2.5, C.dim, 0.8); line(a, yPx, a + 5, yPx + 2.5, C.dim, 0.8);
+    line(b, yPx, b - 5, yPx - 2.5, C.dim, 0.8); line(b, yPx, b - 5, yPx + 2.5, C.dim, 0.8);
+  }
+  if (wpx < DIM_NARROW) {
+    const tier = narrowLabelTier(yPx, mid);
+    const ly = yPx + 12 + tier * DIM_TIER;
+    if (tier) line(mid, yPx + 8, mid, ly - 3, C.dim, 0.6);
+    drawLabel(mid, ly, label, {size: 8.5, rotate: -90, anchor: 'end'});
+  }
+  else drawLabel(mid, yPx - 5, label, {size: 9.5});
+}
+function drawVDim(y0In, y1In, xPx, label, side) {
+  const a = Y(y0In), b = Y(y1In), mid = (a + b) / 2, hpx = Math.abs(a - b);
+  line(xPx - 7, a, xPx + 7, a, C.dim, 0.8);
+  line(xPx - 7, b, xPx + 7, b, C.dim, 0.8);
+  line(xPx, a, xPx, b, C.dim, 0.8);
+  if (hpx >= 16) {
+    line(xPx, a, xPx - 2.5, a - 5, C.dim, 0.8); line(xPx, a, xPx + 2.5, a - 5, C.dim, 0.8);
+    line(xPx, b, xPx - 2.5, b + 5, C.dim, 0.8); line(xPx, b, xPx + 2.5, b + 5, C.dim, 0.8);
+  }
+  if (hpx < 52) {
+    const tx = (side === 'right') ? xPx + 14 : xPx - 14;
+    line(xPx, mid, tx, mid, C.dim, 0.6);
+    drawLabel(tx + (side === 'right' ? 3 : -3), mid + 3.4, label,
+              {size: 9, anchor: side === 'right' ? 'start' : 'end'});
+  } else {
+    drawLabel(xPx + (side === 'right' ? 12 : -5), mid, label, {size: 9.5, rotate: -90});
+  }
+}
+
+/* ---------- keynote bubbles ---------- */
+function bubble(xPx, yPx, n) {
+  P.push(`<circle cx="${xPx.toFixed(1)}" cy="${yPx.toFixed(1)}" r="9" fill="#ffffff" stroke="#222" stroke-width="1.2"/>`);
+  drawLabel(xPx, yPx + 3.6, String(n), {size: 10.5, weight: 700, fill: '#111'});
+}
+function keynote(n, targetIn, bubbleIn, bendIn) {
+  const tg = [X(targetIn[0]), Y(targetIn[1])];
+  const bb = [X(bubbleIn[0]), Y(bubbleIn[1])];
+  const pts = bendIn ? [tg, [X(bendIn[0]), Y(bendIn[1])], bb] : [tg, bb];
+  const p = pts[pts.length - 2], dx = bb[0] - p[0], dy = bb[1] - p[1];
+  const len = Math.hypot(dx, dy) || 1;
+  pts[pts.length - 1] = [bb[0] - dx / len * 9, bb[1] - dy / len * 9];
+  P.push(`<polyline points="${pts.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' ')}" fill="none" stroke="#555" stroke-width="0.9"/>`);
+  P.push(`<circle cx="${tg[0].toFixed(1)}" cy="${tg[1].toFixed(1)}" r="2.2" fill="#555"/>`);
+  bubble(bb[0], bb[1], n);
+}
+function extLine(xi, y0Px, y1Px) { line(X(xi), y0Px, X(xi), y1Px, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"'); }
+
+/* ============================================================
+   DRAW — roof beyond first, so wall framing reads over it
+   ============================================================ */
+/* Roof surface seen edge-on: it rises away from the viewer, so it projects as
+   an area between the eave edge and the ridge. */
+rect(X(rakeX0), Y(ridgeTop), inchesToPx(rakeX1 - rakeX0), inchesToPx(ridgeTop - eaveEdge),
+     '#f7f8fa', '#b9c0c8', 1.0, 'stroke-dasharray="7 5"');
+drawLabel(X(L / 2), Y(ridgeTop) + 17, 'ROOF BEYOND — SLOPES UP AND AWAY FROM THIS WALL AT ' +
+          RF.rise + ':' + RF.run + ' TO THE RIDGE ' + ftStr(halfRun) + ' BEHIND THIS FACE',
+          {size: 9.5, fill: '#6b757f'});
+drawLabel(X(L / 2), Y(ridgeTop) + 30, 'TOP OF ' + RF.sheathingNominal + ' SHEATHING AT RIDGE ' +
+          ftStr(ridgeTop) + ' ABOVE SLAB', {size: 9.5, fill: '#6b757f'});
+
+/* ends of the wall marked inside the roof area, and the rake overhang each end */
+[0, L].forEach(x => line(X(x), Y(eaveEdge), X(x), Y(ridgeTop), '#c9ced4', 0.8, 'stroke-dasharray="4 4"'));
+[[rakeX0, 0], [L, rakeX1]].forEach(([a, b]) => {
+  drawDimension(a, b, Y(ridgeTop) - 20, inchStr(RF.rakeOverhang) + ' RAKE O.H.');
+});
+
+/* bottom of the rafter tails, shown only in the margins so it stays clear of
+   the wall framing (the tails project 12" toward the viewer) */
+[[rakeX0, 0], [L, rakeX1]].forEach(([a, b]) => {
+  line(X(a), Y(tailUnder), X(b), Y(tailUnder), '#b9c0c8', 1.0, 'stroke-dasharray="6 4"');
+  line(X(a), Y(eaveEdge), X(a), Y(tailUnder), '#b9c0c8', 1.0, 'stroke-dasharray="6 4"');
+});
+drawLabel(X(L + 1), Y(tailUnder) + 13, 'BOT. OF RAFTER TAIL ' + inchStr(tailUnder),
+          {size: 9, anchor: 'start', fill: '#6b757f'});
+
+/* EAVE OVERHANG LABEL. The eave projects perpendicular to this wall, toward the
+   viewer, so it cannot be dimensioned in this elevation. It is called out in the
+   open roof field with an L-shaped leader down to the tail underside. */
+P.push(`<polyline points="${X(8).toFixed(1)},${Y(111).toFixed(1)} ${X(-6).toFixed(1)},${Y(111).toFixed(1)} ` +
+       `${X(-6).toFixed(1)},${Y(tailUnder + 0.6).toFixed(1)}" fill="none" stroke="#6b757f" stroke-width="0.9"/>`);
+P.push(`<circle cx="${X(-6).toFixed(1)}" cy="${Y(tailUnder).toFixed(1)}" r="2.2" fill="#6b757f"/>`);
+drawLabel(X(10), Y(111) - 4, inchStr(RF.eaveOverhang) + ' EAVE OVERHANG — PROJECTS TOWARD VIEWER, TYP.',
+          {size: 9.5, anchor: 'start', fill: '#6b757f'});
+
+/* --- wall outline --- */
+rect(X(0), Y(wallHeight), inchesToPx(L), inchesToPx(wallHeight), '#fdfcf9', 'none');
+
+/* --- window rough opening (behind framing) --- */
+drawOpening(roX0, roX1, winRoSill, roHead);
+
+/* --- bottom plate: continuous, full wall length, corners bear on top of it --- */
+drawStud(botPlateX0, 0, botPlateTop, botPlateLen, C.plate, null);
+drawLabel(X(L / 2), Y(botPlateTop / 2) + 2.6, '2x6 P.T. SILL PLATE — CONTINUOUS',
+          {size: 7.5, weight: 700, fill: '#4a3410'});
+
+/* --- clear / infill bays --- */
+SEG.filter(g => g.t === 'infill').forEach(g => {
+  rect(X(g.x0), Y(topPlateBot), inchesToPx(g.w), inchesToPx(topPlateBot - botPlateTop),
+       '#ffffff', '#cfcfcf', 0.7, 'stroke-dasharray="2 3"');
+  if (g.w * PX > 22)
+    drawLabel(X(g.cx), Y((botPlateTop + topPlateBot) / 2), 'CLEAR ' + inchStr(g.w),
+              {size: 8, rotate: -90, fill: '#8a8a8a'});
+});
+
+/* --- vertical members. Every one of them starts on top of the bottom plate;
+   the bottoms are recorded so validation measures the drawing, not the intent. */
+const verticalBottoms = [];
+SEG.forEach(g => {
+  if (g.t === 'corner') { drawFramedCorner(g.x0, cornerBot, cornerTop);
+                          verticalBottoms.push({t: g.t, y0: cornerBot}); }
+  else if (g.t === 'king') { drawStud(g.x0, botPlateTop, topPlateBot, g.w, C.king, 'KING');
+                             verticalBottoms.push({t: g.t, y0: botPlateTop}); }
+  else if (g.t === 'jack') { drawStud(g.x0, botPlateTop, headerBot, g.w, C.jack, null);
+                             verticalBottoms.push({t: g.t, y0: botPlateTop}); }
+  else if (g.t === 'stud') { drawStud(g.x0, botPlateTop, topPlateBot, g.w, C.stud, '2x6 STUD');
+                             verticalBottoms.push({t: g.t, y0: botPlateTop}); }
+});
+
+/* the jacks are doubled and adjacent, so each group gets one label */
+[[jacksL[0].x0, jacksL[nJ - 1].x1], [jacksR[0].x0, jacksR[nJ - 1].x1]].forEach(([a, b]) =>
+  memberLabel(a, b, botPlateTop, headerBot, nJ + ' JACKS', '#4a3410'));
+
+/* --- rough sill and cripples below --- */
+crippleXs.forEach(x0 => {
+  drawStud(x0, botPlateTop, sillBot, t, C.stud, null);
+  verticalBottoms.push({t: 'cripple', y0: botPlateTop});
+});
+drawStud(roX0, sillBot, winRoSill, WIN.roughWidth, C.stud, '2x6 ROUGH SILL');
+
+/* --- 6x8 header, tight to the underside of the double top plate --- */
+drawHeader(headerX0, headerX1, headerBot, headerDepth,
+           FR.headerNominal + ' HEADER — ' + inchStr(headerClearSpan) + ' CLEAR SPAN, BEARING WALL');
+
+/* --- double 2x6 top plate, full length over the corners --- */
+drawStud(0, topPlateBot, topPlateBot + FR.plateThickness, L, C.plate, null);
+drawStud(0, topPlateBot + FR.plateThickness, wallHeight, L, C.plate, null);
+drawLabel(X(L * 0.18), Y(topPlateBot + topPlateThk / 2) + 3.5, 'DOUBLE 2x6 TOP PLATE (3" TOTAL)',
+          {size: 9.5, fill: '#4a3410', weight: 600});
+
+/* --- rafters seated on the plate at 16" o.c., seen in section --- */
+RAFTERS.forEach(r => {
+  rect(X(r.x0), Y(heelTop), inchesToPx(t), inchesToPx(hap), C.rafter, C.studEdge, 0.9);
+  line(X(r.cl), Y(heelTop) - 4, X(r.cl), Y(wallHeight) + 4, '#b98b3f', 0.5, 'stroke-dasharray="3 2"');
+});
+
+/* One rafter tail shown in profile. The tail is 12" toward the viewer, so it
+   hangs in front of the plate: drawn hidden-line, over a clear bay where it
+   reads, and in the "beyond the wall plane" colour. */
+const tailDemo = RAFTERS.find(r => near(r.cl, 112)) || RAFTERS[3];
+rect(X(tailDemo.x0), Y(tailTop), inchesToPx(t), inchesToPx(tailTop - tailUnder),
+     'rgba(107,117,127,0.06)', '#6b757f', 1.1, 'stroke-dasharray="4 2.5"');
+
+/* --- hurricane / rafter tie at every rafter (symbol only, hidden-line) --- */
+RAFTERS.forEach(r => {
+  const x0 = r.cl - 1.5;
+  poly([[X(x0), Y(wallHeight - 4)], [X(x0), Y(heelTop - 1.5)],
+        [X(x0 + 3), Y(heelTop - 1.5)], [X(x0 + 3), Y(wallHeight - 4)]],
+       'rgba(91,107,124,0.16)', C.steel, 1.0, 'stroke-dasharray="3 2"');
+});
+
+/* --- HOLD-DOWNS at both framed corners (symbol only, hidden-line, drawn in
+   the same steel colour and dashed treatment as the hurricane ties above).
+   The body bolts to the inboard face of the corner block — the inboard 2x6 on
+   edge, not a solid post, so the three members have to be ganged first — and
+   the anchor drops past the side of the continuous bottom plate into the slab,
+   bypassing the plate in tension. */
+const HD_H = BASE.symbolHeight;         // 6" tall symbol at the base of the corner
+const HD_W = 1.75;                      // body width against the corner face
+const holdDowns = chords.map(g => {
+  const inboard = near(g.x0, 0) ? 1 : -1;                 // turn the symbol into the wall
+  const face = inboard > 0 ? g.x1 : g.x0;
+  const x0 = inboard > 0 ? face : face - HD_W;
+  return {chord: g, face, inboard, x0, x1: x0 + HD_W,
+          y0: cornerBot, y1: cornerBot + HD_H};
+});
+/* One drawer for both families of base tie-down on this sheet, so the framed
+   corner hold-downs and the portal frame tie-downs read as the same symbol. */
+function drawTieDown(h, label) {
+  poly([[X(h.x0), Y(h.y0)], [X(h.x0), Y(h.y1)], [X(h.x1), Y(h.y1)], [X(h.x1), Y(h.y0)]],
+       'rgba(91,107,124,0.16)', C.steel, 1.0, 'stroke-dasharray="3 2"');
+  /* anchor rod, past the side of the plate and into the slab */
+  const rodX = (h.x0 + h.x1) / 2;
+  line(X(rodX), Y(h.y1 - 1), X(rodX), Y(0) + 13, C.steel, 1.2, 'stroke-dasharray="3 2"');
+  /* bolts through the corner / stud face */
+  [h.y0 + 1.5, h.y1 - 1.5].forEach(by =>
+    P.push(`<circle cx="${X(h.face).toFixed(1)}" cy="${Y(by).toFixed(1)}" r="1.7" fill="${C.steel}"/>`));
+  drawLabel(X(h.face + h.inboard * (HD_W + 1)), Y((h.y0 + h.y1) / 2) + 3.4, label,
+            {size: 8.5, weight: 700, fill: C.steel, anchor: h.inboard > 0 ? 'start' : 'end'});
+}
+holdDowns.forEach(h => drawTieDown(h, 'HD'));
+
+/* ============================================================
+   PORTAL FRAME PANELS — METHOD PFH
+   The two 24" full-height sheathed piers, identified as portal frame panels,
+   with the header strap at each end of the header and the tie-down at the base
+   of each panel on the edge adjacent to the opening. Symbols and identification
+   only: no capacity, product, nailing schedule or anchor spacing is established
+   here, and the drawing does not assert that the panels work.
+   ============================================================ */
+pfPanels.forEach(p => {
+  rect(X(p.x0), Y(wallHeight), inchesToPx(p.w), inchesToPx(wallHeight),
+       'url(#pfHatch)', C.pf, 1.6, 'stroke-dasharray="9 5"');
+  /* label sits just clear below the header underside, where the panel is free
+     of member labels and of the keynote leaders crossing the wall, and stacks
+     on two lines so neither line reaches the panel edges */
+  drawLabel(X(p.cx), Y(headerBot - 2), 'PORTAL FRAME PANEL',
+            {size: 8.5, weight: 700, fill: C.pf});
+  drawLabel(X(p.cx), Y(headerBot - 4.2), inchStr(p.w) + ' WIDE',
+            {size: 8.5, weight: 700, fill: C.pf});
+});
+
+/* Header strap at each end of the header, face-applied across the panel edge,
+   drawn hidden-line like the ties and hold-downs. Symbol only. */
+pfStraps.forEach(s => {
+  const ym = (s.y0 + s.y1) / 2;
+  poly([[X(s.x0), Y(s.y0)], [X(s.x0), Y(s.y1)], [X(s.x1), Y(s.y1)], [X(s.x1), Y(s.y0)]],
+       'rgba(226,232,238,0.55)', C.steel, 1.2, 'stroke-dasharray="3 2"');
+  /* fasteners into the panel framing one side and the header the other */
+  [s.x0 + t, s.x1 - t].forEach(bx =>
+    P.push(`<circle cx="${X(bx).toFixed(1)}" cy="${Y(ym).toFixed(1)}" r="1.7" fill="${C.steel}"/>`));
+  drawLabel(X((s.x0 + s.x1) / 2), Y(ym) + 3.2, 'STRAP',
+            {size: 7, weight: 700, fill: '#33414f'});
+});
+
+/* Tie-down at the base of each panel, on the king stud at the opening-side
+   panel edge — a SECOND requirement, distinct from the framed corner hold-downs
+   above, which are the pier-end hold-downs shared with the front and rear
+   walls. Slab is already poured, so all of these are post-installed anchors. */
+const pfTieDowns = pfPanels.map(p => {
+  const inboard = p.outward;                 // body sits on the face away from the opening
+  const face = inboard > 0 ? p.edgeKing.x1 : p.edgeKing.x0;
+  const x0 = inboard > 0 ? face : face - HD_W;
+  return {panel: p, face, inboard, x0, x1: x0 + HD_W,
+          y0: botPlateTop, y1: botPlateTop + HD_H};
+});
+pfTieDowns.forEach(h => drawTieDown(h, 'PF HD'));
+
+/* --- foundation / slab reference --- */
+line(X(-9), Y(0), X(L + 9), Y(0), C.slab, 2.4);
+for (let x = -9; x < L + 9; x += 6)
+  line(X(x), Y(0), X(x + 5), Y(0) + 9, '#9a9a9a', 0.8);
+line(X(-9), Y(0) + 10, X(L + 9), Y(0) + 10, '#9a9a9a', 0.9);
+drawLabel(X(L / 2), Y(0) + 24, 'TOP OF SLAB / FOUNDATION = 0" VERTICAL REFERENCE  (foundation poured; details not shown)',
+          {size: 9.5, fill: '#444'});
+
+/* ============================================================
+   EXTERIOR REFERENCE OVERLAYS (toggleable)
+   ============================================================ */
+const gStone = P.length;
+line(X(-4), Y(EX.stoneHeight), X(L + 4), Y(EX.stoneHeight), C.stone, 1.4, 'stroke-dasharray="9 5"');
+drawLabel(X(L) + 8, Y(EX.stoneHeight) + 3.5, inchStr(EX.stoneHeight) + ' STONE TOP (REF)',
+          {size: 9, anchor: 'start', fill: '#6f6f6f'});
+keynote(12, [14, EX.stoneHeight], [14, 15]);
+const gStoneEnd = P.length;
+
+const gCasing = P.length;
+rect(X(roX0 - EX.casingWidth), Y(roHead + EX.casingWidth),
+     inchesToPx(WIN.roughWidth + 2 * EX.casingWidth), inchesToPx(WIN.roughHeight + 2 * EX.casingWidth),
+     'none', C.casing, 1.2, 'stroke-dasharray="5 4"');
+keynote(11, [roX0 - EX.casingWidth, winRoSill - EX.casingWidth], [MB_L, 44], [-6, 40]);
+const gCasingEnd = P.length;
+
+/* --- 82" R.O. head alignment line (red dashed) --- */
+const gRO = P.length;
+line(X(-14), Y(roHead), X(L + 14), Y(roHead), C.ro, 1.3, 'stroke-dasharray="10 4 3 4"');
+/* note sits inside the opening: the margins carry keynotes and dimensions */
+drawLabel(X(roX0 + 3), Y(roHead) + 13, 'R.O. HEAD @ ' + inchStr(roHead) + ' — MATCHES FRONT WALL',
+          {size: 9.5, anchor: 'start', fill: C.ro, weight: 600});
+const gROEnd = P.length;
+
+/* --- opening callout --- */
+drawLabel(X((roX0 + roX1) / 2), Y(66), 'WINDOW R.O.', {size: 12, fill: C.ro, weight: 700});
+drawLabel(X((roX0 + roX1) / 2), Y(66) + 16, inchStr(WIN.roughWidth) + ' W x ' +
+          inchStr(WIN.roughHeight) + ' H', {size: 11, fill: C.ro});
+drawLabel(X((roX0 + roX1) / 2), Y(66) + 30, 'HEAD @ ' + inchStr(roHead) + '  ·  SILL @ ' + inchStr(winRoSill),
+          {size: 9.5, fill: '#8a4a4a'});
+
+/* ============================================================
+   KEYNOTES
+   ============================================================ */
+const gNotes = P.length;
+const studSeg = SEG.find(g => g.t === 'stud');
+const kingSeg = SEG.find(g => g.t === 'king');
+const jackSeg = SEG.find(g => g.t === 'jack');
+
+keynote(1, [RAFTERS[5].cl, heelTop - hap / 2],   [L / 2 - 6, 118]);
+keynote(2, [RAFTERS[6].cl - 1.5, wallHeight + 1], [MB_R, 112], [L + 6, 106]);
+/* keep the leader dot clear of the white header label text, which is centred,
+   and clear of the header strap symbol at this end of the header */
+keynote(3, [headerX0 + (headerX1 - headerX0) / 6, headerBot + headerDepth * 0.6],
+        [MB_L + 2, 100], [-8, 96]);
+keynote(4, [kingSeg.cx, 62],                     [MB_L, 66]);
+keynote(5, [jackSeg.cx, 52],                     [MB_L, 56], [jackSeg.cx - 8, 52]);
+keynote(6, [studSeg.cx, 74],                     [MB_L, 78]);
+/* the rough sill label is centred in the opening, so this leader drops from a
+   quarter point instead and lands in a clear bay between cripples */
+const kn7x = roX0 + WIN.roughWidth / 4;
+keynote(7, [kn7x, (sillBot + winRoSill) / 2 - 0.7], [kn7x, 22]);
+keynote(8, [SEG[0].cx, 76],                      [MB_L, 86], [-6, 82]);
+/* lands on the outer edge of the hold-down body so the leader stops at the
+   symbol instead of crossing it */
+keynote(9, [holdDowns[0].x0, (holdDowns[0].y0 + holdDowns[0].y1) / 2], [MB_L, 27]);
+keynote(10, [cornerBlockW + 6, botPlateTop / 2], [MB_L, 12], [-6, 12]);
+keynote(13, [tailDemo.x1, tailUnder + 2.5],      [MB_R, 74], [L + 6, 78]);
+keynote(14, [L - 30, eaveEdge + 12],             [MB_R, 124], [L + 10, 120]);
+/* PORTAL FRAME keynotes, all worked off the right-hand panel so their leaders
+   stay out of the left panel, which already carries five leaders */
+const pfPanelR = pfPanels[1], pfStrapR = pfStraps[1], pfTieR = pfTieDowns[1];
+keynote(15, [pfPanelR.cx, 66],                   [MB_R, 66]);
+/* lands on the bottom edge of the strap symbol and runs out horizontally */
+keynote(16, [roX1 + 2, pfStrapR.y0],             [MB_R, 88], [L + 6, pfStrapR.y0]);
+keynote(17, [pfTieR.x1, pfTieR.y1],              [MB_R, 20], [L + 6, 12]);
+/* the 48" tall adjacent opening is what makes the simpler path plausible, so
+   this one points at the opening rather than at the panels, dropping into the
+   clear bay two thirds of the way across the R.O. */
+const kn18x = roX0 + WIN.roughWidth * (2 / 3);
+keynote(18, [kn18x, sillBot],                    [kn18x, 12]);
+/* the wall wrap is noted, not drawn, so it points at the wall face itself */
+keynote(19, [L, 45],                             [MB_R, 45]);
+
+const KEYNOTES = [
+  [1, [RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. BEARING ON THIS WALL — ' + RAFTERS.length +
+       ' SHOWN, SEEN IN SECTION AT THE',
+       'BIRDSMOUTH SEAT. ' + inchStr(seatCut) + ' HORIZONTAL SEAT ON THE PLATE, ' + inchStr(seatPlumb) +
+       ' PLUMB HEEL DROP, ' + inchStr(hap) + ' H.A.P. THE NOTCH IS',
+       inchStr(seatPerp) + ' PERPENDICULAR TO THE RAFTER = ' + (100 * seatPerp / RF.rafterDepth).toFixed(0) +
+       '% OF THE ' + inchStr(RF.rafterDepth) + ' DEPTH — CONFIRM PER CRC AND ENGINEER.',
+       'A RAFTER SITS OVER EACH GABLE END WALL; THE MODULE RUNS ' + FR.studSpacing +
+       '" O.C. FROM THE FRONT FACE SO ROOF',
+       'SHEATHING PANEL EDGES AT 48" AND 96" LAND ON A RAFTER.']],
+  [2, ['UPLIFT: HURRICANE / RAFTER TIE AT EVERY RAFTER-TO-WALL CONNECTION, OVER THE SEAT AND ONTO THE',
+       'DOUBLE TOP PLATE — ' + RAFTERS.length + ' PLACES ON THIS WALL. SYMBOL ONLY, SHOWN HIDDEN-LINE;',
+       'MODEL AND UPLIFT CAPACITY PER ENGINEER.']],
+  [3, [FR.headerNominal + ' SOLID TIMBER HEADER (' + inchStr(FR.headerWidth) + ' x ' + inchStr(headerDepth) +
+       ' ACTUAL), TIGHT TO THE UNDERSIDE OF THE DOUBLE TOP',
+       'PLATE — NO CRIPPLES ABOVE, SAME SIZE AND HEIGHT AS THE FRONT WALL HEADERS. ' +
+       inchStr(headerClearSpan) + ' CLEAR SPAN,',
+       inchStr(headerX1 - headerX0) + ' OVERALL, BEARING ' + inchStr(headerBearing) + ' EACH SIDE ON ' + nJ +
+       ' JACKS.',
+       'TWO REQUIREMENTS BEAR ON THIS MEMBER AND MUST BE CHECKED TOGETHER, NOT SEPARATELY.',
+       'GRAVITY: THIS IS A BEARING WALL, THE CLEAR SPAN IS ' + inchStr(headerClearSpan) + ', AND ' +
+       raftersOverHeader.length + ' RAFTERS LAND OVER THE',
+       'OPENING AS POINT LOADS. PORTAL FRAME: METHOD ' + PF.method + ' TYPICALLY SPECIFIES A MINIMUM',
+       'HEADER SIZE OR TYPE ACROSS THE OPENING, BECAUSE THE FRAME ACTION DEPENDS ON HEADER',
+       'STIFFNESS, AND A ' + FR.headerNominal + ' AT ' + inchStr(FR.headerWidth) + ' x ' + inchStr(headerDepth) +
+       ' MAY WELL NOT SATISFY IT. THAT MINIMUM HAS NOT',
+       'BEEN READ OFF THE ADOPTED FIGURE. EITHER MAY DRIVE A HEADER DIFFERENT FROM THE ' +
+       FR.headerNominal + ' —',
+       'SIZE NOT VERIFIED, EXPECT AN ENGINEERED HEADER. SEE 15, 16 AND 18.']],
+  [4, ['FULL-HEIGHT 2x6 KING STUD EACH SIDE — TOP OF BOTTOM PLATE TO UNDERSIDE OF DOUBLE TOP PLATE',
+       '(' + inchStr(topPlateBot - botPlateTop) + ' LONG). KING IS ALWAYS OUTBOARD OF THE JACK.']],
+  [5, [nJ + ' 2x6 JACK STUDS EACH SIDE — TOP OF BOTTOM PLATE TO UNDERSIDE OF THE HEADER @ ' +
+       inchStr(headerBot) + '.',
+       'DOUBLED BECAUSE THIS IS A BEARING WALL: THE JACK GROUP GIVES ' + inchStr(headerBearing) +
+       ' OF HEADER BEARING EACH SIDE AND',
+       'CARRIES THE REACTION DOWN TO THE BOTTOM PLATE. FINAL JACK COUNT FOLLOWS THE HEADER DESIGN.']],
+  [6, ['2x6 WALL STUDS @ ' + FR.studSpacing + '" O.C. MODULE, ' + studs.length +
+       ' FALL CLEAR OF THE OPENING ASSEMBLY AND ARE DRAWN.',
+       'EACH ALIGNS UNDER A RAFTER. NARROW LEFTOVER BAYS ARE SHOWN CLEAR WITH THEIR WIDTHS.']],
+  [7, ['SINGLE 2x6 ROUGH SILL @ ' + inchStr(winRoSill) + ' WITH 2x6 CRIPPLE STUDS BELOW (' + crippleXs.length +
+       ' PLACES, R.O. EDGES PLUS',
+       'THE ' + FR.studSpacing + '" MODULE). A MODULE CRIPPLE THAT WOULD OVERLAP AN R.O. EDGE CRIPPLE IS DROPPED, SO THE',
+       'WIDEST CLEAR SPACE BETWEEN CRIPPLES IS ' + inchStr(crippleMaxClear) +
+       '. THE SILL IS NOT A BEARING MEMBER HERE.']],
+  [8, ['STANDARD THREE-STUD 2x6 FRAMED CORNER (NOT A SOLID 6x6) — ' + inchStr(cornerBlockW) +
+       ' OF WALL LENGTH, WHICH IS',
+       'THE THICKNESS OF THE END WALL RETURNING AT RIGHT ANGLES, SO THE LAYOUT IS UNCHANGED. A 2x6 ON',
+       'EDGE AT EACH END OF THE BLOCK PLUS A 2x6 LAID FLAT AT THE INTERIOR FACE BETWEEN THEM (' +
+       inchStr(cornerNailerW) + ',',
+       'CUT TO FIT) BACKING THE DRYWALL RETURN; THE VOID BEHIND THE FLAT NAILER IS INSULATED. THE',
+       'FLAT MEMBER IS HATCHED BECAUSE IT SITS BEYOND THIS WALL PLANE. STUDS RUN ' +
+       inchStr(cornerStudLen) + ', THE SAME',
+       'LENGTH AS THE FULL-HEIGHT KINGS, AND BEAR ON THE CONTINUOUS P.T. SILL PLATE, NOT THE SLAB.',
+       'SHARED WITH THE FRONT AND REAR WALLS. THIS WALL\'S OWN STUD INFILL RUNS ' +
+       inchStr(betweenPostsLen) + ' BETWEEN THE',
+       'CORNERS: ' + ftStr(L) + ' = ' + inchStr(OFFICE.endWallThickness) + ' + ' +
+       inchStr(betweenPostsLen) + ' + ' + inchStr(OFFICE.endWallThickness) + '.',
+       'THE CHORD AT THIS CORNER IS NOW THREE 2x6 RATHER THAN ONE 6x6 — THEY MUST BE NAILED OR',
+       'BOLTED TOGETHER TO ACT AS ONE MEMBER BEFORE A HOLD-DOWN CAN DEVELOP TENSION IN THEM,',
+       'AND A SINGLE 2x6 WILL NOT DO IT. THAT APPLIES TO THE PORTAL FRAME TOO: THIS IS THE OUTBOARD',
+       'CHORD OF THE PANEL IN 15. GANGING AND HOLD-DOWN ATTACHMENT PER ENGINEER, SEE 9.',
+       'THE UPPER TOP PLATE IS DRAWN CONTINUOUS; IT LAPS THE FRONT AND REAR WALL PLATES AT THE CORNERS.',
+       'PLATE SPLICE AND LAP LENGTHS PER CODE — NOT DETAILED HERE.']],
+  [9, ['HOLD-DOWN ANTICIPATED AT THE FRAMED CORNERS ACTING AS SHEAR PIER CHORDS — ' + holdDowns.length +
+       ' PLACES ON THIS WALL.',
+       'THE SYMBOL BOLTS TO THE INBOARD FACE OF THE CORNER BLOCK — THE INBOARD 2x6 ON EDGE, NOT A',
+       'SOLID POST — SO THE THREE MEMBERS MUST BE GANGED FIRST, SEE THE REQUIREMENT IN 8.',
+       'SYMBOL ONLY, SHOWN HIDDEN-LINE. THE ANCHOR RUNS PAST THE SIDE OF THE PLATE DIRECTLY INTO THE',
+       'SLAB, BYPASSING THE BOTTOM PLATE IN TENSION. QUANTITY, LOCATION, MODEL AND CAPACITY PER ENGINEER.',
+       'HARDWARE IN CONTACT WITH TREATED LUMBER MUST BE CORROSION RESISTANT.']],
+  [10, ['CONTINUOUS PRESSURE-TREATED 2x6 BOTTOM PLATE, FULL ' + inchStr(botPlateLen) +
+        ' WALL LENGTH — NO DOOR IN THIS',
+        'WALL, SO NO CUT-OUT. SILL SEALER / CAPILLARY BREAK UNDER THE PLATE. EVERY BOTTOM PLATE IN',
+        'THIS BUILDING IS PRESSURE TREATED, SO THE PLATE IS LABELLED AS SUCH ON THE DRAWING.',
+        'THE SLAB IS ALREADY POURED, SO ANCHORAGE IS POST-INSTALLED — ANCHOR TYPE, SIZE, SPACING,',
+        'EDGE DISTANCE AND EMBEDMENT PER ENGINEER. SPACING NOT SHOWN BECAUSE IT IS NOT YET DETERMINED.']],
+  [11, [inchStr(EX.casingWidth) + ' WINDOW CASING REFERENCE (EXTERIOR) — CASING BOTTOM @ ' +
+        inchStr(winRoSill - EX.casingWidth) + ' LEAVES ONLY ' +
+        inchStr(winRoSill - EX.casingWidth - EX.stoneHeight) + ' CLEAR',
+        'ABOVE THE ' + inchStr(EX.stoneHeight) + ' STONE TOP, SAME AS THE FRONT WALL. STUCCO FIELD ABOVE STONE.']],
+  [12, [inchStr(EX.stoneHeight) + ' STONE VENEER / WAINSCOT TOP (EXTERIOR REFERENCE) — ' +
+        inchStr(winRoSill - EX.stoneHeight) + ' TO THE WINDOW R.O. SILL @ ' + inchStr(winRoSill) + '.']],
+  [13, [inchStr(RF.eaveOverhang) + ' EAVE OVERHANG PROJECTS TOWARD THE VIEWER, NOT ALONG THIS WALL, SO IT IS NOT A',
+        'LENGTH ON THIS SHEET. ONE RAFTER TAIL IS SHOWN IN PROFILE (HIDDEN-LINE) HANGING IN FRONT OF THE',
+        'PLATE: TAIL BOTTOM @ ' + inchStr(tailUnder) + ', TOP @ ' + inchStr(tailTop) +
+        '. FASCIA, SOFFIT AND VENTING NOT SHOWN.']],
+  [14, ['ROOF BEYOND, SEEN EDGE-ON: LOW EDGE (TOP OF SHEATHING AT THE EAVE) @ ' + inchStr(eaveEdge) +
+        ', RISING AT ' + RF.rise + ':' + RF.run,
+        'TO ' + ftStr(ridgeTop) + ' AT THE RIDGE, ' + ftStr(halfRun) +
+        ' BEHIND THIS WALL FACE. THE ' + inchStr(RF.rakeOverhang) + ' RAKE OVERHANG',
+        'EXTENDS THE ROOF ' + inchStr(RF.rakeOverhang) + ' PAST EACH END OF THIS WALL. SEE THE FRONT WALL SHEET',
+        'FOR THE RIDGE BEAM, RIDGE POST AND RAKE FRAMING.']],
+  [15, ['PORTAL FRAME PANEL — HATCHED ZONE, ' + pfPanels.length + ' PLACES, ' + inchStr(pfPanels[0].w) +
+        ' WIDE x ' + inchStr(wallHeight) + ' TALL, THE FULL-HEIGHT',
+        'SHEATHED PIER EACH SIDE OF THE OPENING. AT h:b = ' + pfPanels[0].aspect.toFixed(2) +
+        ':1 THESE PANELS ARE PAST THE ' + PIER_ASPECT_LIMIT + ':1',
+        'ASPECT LIMIT THAT GOVERNS AN ENGINEERED WOOD STRUCTURAL PANEL SHEAR WALL (WHICH WANTS',
+        inchStr(pierMinWidth) + ' AT THIS HEIGHT), BUT THE PRESCRIPTIVE PORTAL FRAME — METHOD ' +
+        PF.method + ', "PORTAL FRAME',
+        'WITH HOLD-DOWNS" — PERMITS PANELS FAR NARROWER, COMMONLY DOWN TO ' + inchStr(PF.minPanelWidth) +
+        ' FOR A SINGLE-',
+        'STOREY WALL, WHICH THESE ARE WELL INSIDE. THE METHOD SUBSTITUTES PRESCRIBED STRAPPING',
+        'AND TIE-DOWN DETAILING FOR PANEL WIDTH; IT DOES NOT MAKE THE ASPECT RATIO GO AWAY.',
+        'BOTH FACTS ARE ON THE DRAWING. SHEATHE EACH PANEL WITH ONE PIECE OF WOOD STRUCTURAL',
+        'PANEL, NO HORIZONTAL JOINT, BOTTOM PLATE UP OVER THE HEADER — A ' + inchStr(PF.sheetLength) +
+        ' SHEET COVERS THE',
+        inchStr(wallHeight) + ' WALL HEIGHT IN ONE PIECE WITH ' + inchStr(pfSheetSpare) +
+        ' TO SPARE. CLOSE EDGE NAILING INTO FRAMING',
+        'WITH BLOCKED PANEL EDGES, COMMONLY ' + PF.edgeNailing.toUpperCase() +
+        ' AT PANEL EDGES. PANEL EDGE',
+        'FRAMING AT THE OPENING SIDE IS THE ' + pfEdgeStuds + ' MEMBERS ALREADY DRAWN (KING + ' + nJ +
+        ' JACKS) AGAINST A',
+        'MINIMUM OF ' + PF.minStudsAtPanelEdge + ' STUDS OR A POST. AT THE OUTBOARD EDGE THE PANEL ENDS ON A',
+        'THREE-STUD FRAMED CORNER, NOT A SOLID 6x6 POST — THAT CHORD AND ITS TIE-DOWN ONLY ACT AS ONE',
+        'MEMBER ONCE THE THREE 2x6 ARE NAILED OR BOLTED TOGETHER, SEE 8 AND 9. THE PANEL ITSELF IS THE',
+        fracStr(WS.thickness) + ' (' + WS.nominal +
+        ' NOMINAL) PLYWOOD WRAP, SEE 19, WHICH BUYS NO RELIEF FROM THE WIDTH OR',
+        'ASPECT RULES. EVERY FIGURE IN THIS NOTE IS THE GENERAL FORM OF THE',
+        'REQUIREMENT — READ THE PANEL WIDTH MINIMUM, NAILING SCHEDULE AND EDGE FRAMING OFF THE',
+        'ADOPTED CRC FIGURE AND CONFIRM WITH THE ENGINEER. THIS IS NOT A SHEAR WALL DESIGN AND',
+        'IS NOT A STATEMENT THAT THESE PANELS WORK. SEE 3, 16, 17 AND 18.']],
+  [16, ['HEADER STRAP AT EACH SIDE OF THE OPENING — ' + pfStraps.length +
+        ' PLACES, FACE-APPLIED ACROSS THE HEADER',
+        'AND TYING IT TO THE PANEL FRAMING, ON THE FACE OPPOSITE THE SHEATHING. THE METHOD',
+        'COMMONLY CALLS FOR A MINIMUM ' + PF.strapCapacity +
+        ' LB STRAP; TREAT THAT AS THE GENERAL FORM AND READ',
+        'THE EXACT REQUIREMENT OFF THE ADOPTED FIGURE. SYMBOL ONLY, SHOWN HIDDEN-LINE — NO',
+        'PRODUCT, CAPACITY OR FASTENER SCHEDULE SELECTED. THE STRAP DOES NOT SIZE THE HEADER:',
+        'SEE 3 FOR THE MINIMUM HEADER THE METHOD MAY ALSO DEMAND.']],
+  [17, ['PORTAL FRAME TIE-DOWN AT THE BASE OF EACH PANEL, ON THE KING STUD AT THE PANEL EDGE',
+        'ADJACENT TO THE OPENING — ' + pfTieDowns.length +
+        ' PLACES, ANCHORED TO THE FOUNDATION. THE METHOD COMMONLY',
+        'CALLS FOR A MINIMUM ' + PF.tieDownCapacity +
+        ' LB DEVICE; GENERAL FORM ONLY, TO BE READ OFF THE ADOPTED',
+        'FIGURE AND CONFIRMED. THESE ARE IN ADDITION TO THE HOLD-DOWNS AT THE ' + holdDowns.length +
+        ' FRAMED CORNERS IN 9,',
+        'WHICH ARE THE PIER-END HOLD-DOWNS SHARED WITH THE FRONT AND REAR WALLS — ' +
+        (holdDowns.length + pfTieDowns.length) + ' BASE TIE-',
+        'DOWN SYMBOLS IN ALL, SERVING TWO DIFFERENT PURPOSES, NOT ONE REQUIREMENT DRAWN TWICE.',
+        'THE TWO AT THE CORNERS NOW LAND ON A THREE-STUD FRAMED CORNER RATHER THAN A SOLID 6x6,',
+        'SO THOSE STUDS MUST BE GANGED BEFORE THE DEVICE CAN DEVELOP TENSION IN THEM, SEE 8.',
+        'ALSO REQUIRED WITHIN EACH PANEL: ANCHOR BOLTS THROUGH THE BOTTOM PLATE WITH PLATE',
+        'WASHERS, COUNT AND SIZE PER THE FIGURE — NOT DRAWN, BECAUSE THE SCHEDULE IS NOT YET',
+        'DETERMINED. THE SLAB IS ALREADY POURED, SO ALL OF THIS MEANS POST-INSTALLED ANCHORS:',
+        'TYPE, SIZE, EDGE DISTANCE AND EMBEDMENT PER ENGINEER. SYMBOLS ONLY — NO PRODUCT OR',
+        'CAPACITY SELECTED.']],
+  [18, ['BEFORE BUILDING A PORTAL FRAME, SETTLE WHETHER ONE IS REQUIRED HERE AT ALL. THE',
+        'ADJACENT OPENING IS ONLY ' + inchStr(WIN.roughHeight) + ' TALL WITH ITS SILL AT ' +
+        inchStr(winRoSill) + ', WHICH IS THE MOST FAVOURABLE',
+        'ADJACENT-OPENING CONDITION FOR THE PRESCRIPTIVE CONTINUOUS-SHEATHING METHOD AND NOT',
+        'COMPARABLE TO A FULL-HEIGHT DOOR, SO THAT METHOD MAY PERMIT THESE ' + inchStr(pfPanels[0].w) +
+        ' PANELS WITH NO',
+        'PORTAL FRAME AT ALL. A PORTAL FRAME IS A CONSIDERABLY MORE INVOLVED DETAIL. THIS IS A',
+        'QUESTION TO SETTLE WITH THE ENGINEER AGAINST THE ADOPTED CRC, NOT A RECOMMENDATION',
+        'EITHER WAY.']],
+  [19, [fracStr(WS.thickness) + ' (' + WS.nominal +
+        ' NOMINAL) PLYWOOD, FULL WRAP — EVERY WALL SHEATHED, SAME PANEL AS THE',
+        'ROOF DECK, WHICH IS WHERE THE ' + fracStr(RF.sheathingThickness) +
+        ' SHOWS UP AS A DIMENSION: TOP OF SHEATHING AT THE',
+        'RIDGE @ ' + ftStr(ridgeTop) + ', SEE 14. NOT DRAWN AS GEOMETRY ON THIS SHEET: IN ELEVATION THE PANEL',
+        'FACES THE VIEWER, SO ONLY ITS EXTENT IS NOTED. THIS IS THICKER THAN THE 7/16" OR 15/32"',
+        'USUALLY RUN FOR SHEAR, SO PANEL SHEAR CAPACITY IS NOT WHAT CONSTRAINS THIS WALL — PIER',
+        'LENGTH AND ASPECT RATIO ARE, AND A THICKER PANEL DOES NOT RELAX EITHER RULE. THAT IS THE',
+        'POINT HERE: THESE PIERS ARE OVER THE ' + PIER_ASPECT_LIMIT +
+        ':1 LIMIT AND THAT IS WHY THE PORTAL FRAME IS ON THE',
+        'SHEET, SEE 15. SPAN RATING, EDGE NAILING AND THE BRACING SCHEDULE PER ENGINEER.']]
+];
+const gNotesEnd = P.length;
+
+/* ============================================================
+   DIMENSION STRINGS
+   ============================================================ */
+const gDims = P.length;
+/* the framing row needs two label tiers below its line, so the rows under it
+   sit 36px lower than the single-tier spacing would need */
+const rowSeg   = Y(0) + 50;
+const rowGroup = Y(0) + 148;
+/* the bracing row carries three stacked labels under each pier now, so the
+   overall row sits lower than the two-label spacing would need */
+const rowPier  = Y(0) + 192;
+const rowAll   = Y(0) + 252;
+
+const bounds = new Set([0]);
+SEG.forEach(g => { bounds.add(+g.x0.toFixed(4)); bounds.add(+g.x1.toFixed(4)); });
+[...bounds].forEach(b => extLine(b, Y(0) + 12, rowSeg - 8));
+
+/* row 1: every framing segment */
+SEG.forEach(g => drawDimension(g.x0, g.x1, rowSeg, inchStr(g.w)));
+drawLabel(X(0) - 12, rowSeg + 3.5, 'FRAMING', {size: 9, anchor: 'end', weight: 600});
+
+/* row 2: assemblies */
+[[0, cornerBlockW, '3-STUD CORNER'],
+ [cornerBlockW, kingL.x0, ''],
+ [kingL.x0, kingR.x1, 'WINDOW ASSY'],
+ [kingR.x1, postFaceX1, ''],
+ [postFaceX1, L, '3-STUD CORNER']].forEach(([a, b, lab]) => {
+  drawDimension(a, b, rowGroup, inchStr(b - a));
+  if ((b - a) * PX > 60 && lab) drawLabel(X((a + b) / 2), rowGroup + 14, lab, {size: 8.5, fill: '#777'});
+});
+drawLabel(X(0) - 12, rowGroup + 3.5, 'ASSEMBLIES', {size: 9, anchor: 'end', weight: 600});
+
+/* row 3: full-height sheathed piers — the bracing segments. Each pier carries
+   its h:b against the aspect limit AND its portal frame identification: the
+   aspect ratio really is over the limit that governs an engineered shear wall,
+   and the portal frame is why the panel is still viable. Both belong here. */
+pfPanels.forEach(p => {
+  drawDimension(p.x0, p.x1, rowPier, inchStr(p.w));
+  drawLabel(X(p.cx), rowPier + 12, 'SHEAR PIER', {size: 8.5, fill: '#777'});
+  drawLabel(X(p.cx), rowPier + 24, 'PORTAL FRAME PANEL',
+            {size: 8.5, weight: 700, fill: C.pf});
+  drawLabel(X(p.cx), rowPier + 37,
+            'h:b = ' + p.aspect.toFixed(2) + ':1' +
+            (p.aspect > PIER_ASPECT_LIMIT ? ' > ' + PIER_ASPECT_LIMIT + ':1 LIMIT' : ''),
+            {size: 8.5, weight: 600, fill: p.aspect > PIER_ASPECT_LIMIT ? '#b00000' : '#777'});
+});
+drawDimension(roX0, roX1, rowPier, inchStr(WIN.roughWidth));
+drawLabel(X((roX0 + roX1) / 2), rowPier + 14, 'OPENING — NO BRACING VALUE', {size: 8.5, fill: '#777'});
+drawLabel(X(0) - 12, rowPier + 3.5, 'BRACING', {size: 9, anchor: 'end', weight: 600});
+
+/* row 4: overall */
+drawDimension(0, L, rowAll, 'OVERALL ' + ftStr(L) + '  (' + inchStr(L) + ')');
+extLine(0, rowPier + 8, rowAll - 8);
+extLine(L, rowPier + 8, rowAll - 8);
+
+/* rafter spacing, dimensioned right above the rafters */
+const rowRaf = Y(heelTop) - 26;
+RAFTERS.forEach((r, i) => {
+  if (i === 0) return;
+  drawDimension(RAFTERS[i - 1].cl, r.cl, rowRaf, inchStr(r.cl - RAFTERS[i - 1].cl));
+  line(X(r.cl), Y(heelTop) - 3, X(r.cl), rowRaf + 8, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+});
+line(X(RAFTERS[0].cl), Y(heelTop) - 3, X(RAFTERS[0].cl), rowRaf + 8, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+drawLabel(X(0) - 12, rowRaf + 3.5, 'RAFTER C.L.', {size: 9, anchor: 'end', weight: 600});
+
+/* left vertical chain (0" datum = top of slab) */
+const vxChain = X(rakeX0) - 52;
+drawVDim(0, winRoSill, vxChain, 'WDW R.O. SILL ' + inchStr(winRoSill), 'left');
+drawVDim(winRoSill, roHead, vxChain, 'WDW R.O. ' + inchStr(WIN.roughHeight), 'left');
+drawVDim(roHead, topPlateBot, vxChain, 'HDR ' + inchStr(headerDepth), 'left');
+drawVDim(topPlateBot, wallHeight, vxChain, 'PLATES ' + inchStr(topPlateThk), 'left');
+drawVDim(wallHeight, heelTop, vxChain, 'H.A.P. ' + inchStr(hap), 'left');
+
+/* right vertical dims */
+const vxA = X(rakeX1) + 52, vxB = vxA + 54, vxC = vxB + 54;
+drawVDim(0, roHead, vxA, 'R.O. HEAD ' + inchStr(roHead), 'right');
+drawVDim(0, wallHeight, vxB, 'WALL HT ' + ftStr(wallHeight), 'right');
+drawVDim(0, ridgeTop, vxC, 'RIDGE, TOP OF SHEATHING ' + ftStr(ridgeTop), 'right');
+const gDimsEnd = P.length;
+
+/* ---- keynote text block ---- */
+(function () {
+  const top = rowAll + 34, colW = 530, lh = 12.6;
+  drawLabel(X(0), top, 'KEYNOTES', {size: 11, anchor: 'start', weight: 700, fill: '#111'});
+  line(X(0), top + 5, X(0) + 2 * colW - 40, top + 5, '#bbb', 0.8);
+  const flat = [];
+  KEYNOTES.forEach(([n, lines]) => lines.forEach((s, i) => flat.push([i === 0 ? n : null, s])));
+  const perCol = Math.ceil(flat.length / 2);
+  let cut = perCol;
+  while (cut < flat.length && flat[cut][0] === null) cut++;
+  flat.forEach(([n, s], i) => {
+    const col = i < cut ? 0 : 1;
+    const row = i < cut ? i : i - cut;
+    const x0 = X(0) + col * colW, y0 = top + 20 + row * lh;
+    if (n !== null) {
+      P.push(`<circle cx="${(x0 + 6).toFixed(1)}" cy="${(y0 - 3.2).toFixed(1)}" r="7.5" fill="#fff" stroke="#222" stroke-width="1"/>`);
+      drawLabel(x0 + 6, y0, String(n), {size: 9, weight: 700, fill: '#111'});
+    }
+    drawLabel(x0 + 19, y0, s, {size: 9, anchor: 'start', fill: '#222'});
+    keynoteBlockBottom = Math.max(keynoteBlockBottom, y0);
+  });
+})();
+
+const VBH = Math.max(M.t + TOPREF * PX + M.b, keynoteBlockBottom + 30);
+
+/* ============================================================
+   ASSEMBLE SVG
+   ============================================================ */
+function tagged(from, to, id) {
+  return `<g id="${id}">` + P.slice(from, to).join('\n') + `</g>`;
+}
+const svg =
+  `<svg viewBox="0 0 ${VBW.toFixed(0)} ${VBH.toFixed(0)}" xmlns="http://www.w3.org/2000/svg" role="img" ` +
+  `aria-label="Left wall framing elevation">` +
+  `<defs><pattern id="pfHatch" width="11" height="11" patternUnits="userSpaceOnUse" ` +
+  `patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="11" stroke="${C.pf}" ` +
+  `stroke-width="0.9" stroke-opacity="0.22"/></pattern></defs>` +
+  `<rect x="0" y="0" width="${VBW}" height="${VBH}" fill="#ffffff"/>` +
+  P.slice(0, gStone).join('\n') +
+  tagged(gStone, gStoneEnd, 'gStone') +
+  tagged(gCasing, gCasingEnd, 'gCasing') +
+  tagged(gRO, gROEnd, 'gRO') +
+  P.slice(gROEnd, gNotes).join('\n') +
+  tagged(gNotes, gNotesEnd, 'gNotes') +
+  tagged(gDims, gDimsEnd, 'gDims') +
+  P.slice(gDimsEnd).join('\n') +
+  `<text x="${VBW - 6}" y="${VBH - 6}" text-anchor="end" font-size="9" fill="#999" font-family="Helvetica">` +
+  `LEFT WALL FRAMING — CONCEPT ONLY — NOT FOR CONSTRUCTION</text>` +
+  `</svg>`;
+document.getElementById('drawing').innerHTML = svg;
+
+/* toggles */
+const bind = (id, gid) => {
+  const cb = document.getElementById(id), g = document.getElementById(gid);
+  const upd = () => g.style.display = cb.checked ? '' : 'none';
+  cb.addEventListener('change', upd); upd();
+};
+bind('tStone', 'gStone'); bind('tCasing', 'gCasing');
+bind('tRO', 'gRO'); bind('tDims', 'gDims'); bind('tNotes', 'gNotes');
+
+/* ============================================================
+   TITLE BLOCK META
+   ============================================================ */
+document.getElementById('meta').innerHTML =
+  `Wall length <b>${ftStr(L)}</b> (continuous P.T. bottom plate ${inchStr(botPlateLen)}; ` +
+  `${inchStr(betweenPostsLen)} clear between the framed corners)<br>` +
+  `Wall height <b>${ftStr(wallHeight)}</b> (${inchStr(wallHeight)}) &nbsp;|&nbsp; ` +
+  `window R.O. <b>${inchStr(WIN.roughWidth)} x ${inchStr(WIN.roughHeight)}</b>, head @ ${inchStr(roHead)}<br>` +
+  `${FR.headerNominal} header (${inchStr(FR.headerWidth)} x ${inchStr(headerDepth)}) &nbsp;|&nbsp; ` +
+  `${inchStr(headerClearSpan)} clear span on ${nJ} jacks each side &nbsp;|&nbsp; <b>bearing wall</b><br>` +
+  `${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. on ${inchStr(seatCut)} birdsmouth seat, ` +
+  `${inchStr(hap)} H.A.P. &nbsp;|&nbsp; 0" datum = top of slab<br>` +
+  `${fracStr(WS.thickness)} (${WS.nominal}) plywood, full wrap on walls and roof &nbsp;|&nbsp; ` +
+  `top of sheathing at the ridge <b>${ftStr(ridgeTop)}</b> above slab<br>` +
+  `Three-stud 2x6 framed corners both ends &mdash; no 6x6 post in this wall; the ${FR.headerNominal} ` +
+  `header bears on jack studs<br>` +
+  `Bracing: ${pfPanels.length} x <b>${inchStr(pfPanels[0].w)}</b> sheathed piers, h:b ` +
+  `${pfPanels[0].aspect.toFixed(2)}:1 &mdash; over the ${PIER_ASPECT_LIMIT}:1 limit, detailed as ` +
+  `<b>portal frame panels (Method ${PF.method})</b>, all figures unconfirmed`;
+
+/* ============================================================
+   STRUCTURAL FLAG BANNER
+   ============================================================ */
+document.getElementById('flag').innerHTML =
+  `<b>Drawn as directed — these items are the reason this wall is not just the front wall repeated:</b>` +
+  `<ul>` +
+  `<li>The ${FR.headerNominal} header spans ${inchStr(headerClearSpan)} clear in a <b>bearing</b> wall, with ` +
+  `${raftersOverHeader.length} rafters landing on it as point loads and roughly ${ftStr(halfRun)} of roof ` +
+  `tributary depth. The front wall headers carry almost nothing by comparison. Bending, shear, deflection and ` +
+  `bearing under those point loads are all unchecked. Expect an engineered header.</li>` +
+  `<li><b>The header now has two independent requirements on it, and they must be checked together rather than ` +
+  `separately.</b> Gravity is one: ${inchStr(headerClearSpan)} clear in a bearing wall under ` +
+  `${raftersOverHeader.length} point loads. The portal frame is the other: Method ${PF.method} typically ` +
+  `specifies a minimum header size or type across the opening, because the frame action depends on header ` +
+  `stiffness, and a ${FR.headerNominal} at ${inchStr(FR.headerWidth)} x ${inchStr(headerDepth)} may well not ` +
+  `satisfy it. That minimum has not been read off the adopted figure. Either requirement may drive a header ` +
+  `different from the ${FR.headerNominal}, and satisfying one says nothing about the other. Expect an engineered ` +
+  `header.</li>` +
+  `<li>${nJ} jack studs per side carry that header instead of the front wall's single jack, giving ` +
+  `${inchStr(headerBearing)} of bearing each side. The final jack count still follows the header design.</li>` +
+  `<li><b>Bracing:</b> the ${inchStr(WIN.roughWidth)} opening leaves a ${inchStr(pfPanels[0].w)} full-height ` +
+  `sheathed pier at each end of a ${inchStr(wallHeight)} tall wall, h:b = ` +
+  `${pfPanels[0].aspect.toFixed(2)}:1, which <b>exceeds the ${PIER_ASPECT_LIMIT}:1 aspect limit</b> normally ` +
+  `applied to wood structural panel shear walls &mdash; that limit wants ${inchStr(pierMinWidth)} at this ` +
+  `height. The wall is therefore drawn with <b>prescriptive portal frame detailing (Method ${PF.method}, ` +
+  `"${PF.methodName}")</b> at both panels, which is the method that exists for panels too narrow to qualify on ` +
+  `width: it substitutes prescribed strapping and tie-down detailing for panel width. Both panels are ` +
+  `${fracStr(WS.thickness)} (${WS.nominal} nominal) plywood like the rest of the building, thicker than the ` +
+  `7/16" or 15/32" usually run for shear, and that buys no relief whatever from the width and aspect rules. ` +
+  `<b>The outboard chord and pier-end tie-down location at each end of this wall is now a three-stud framed ` +
+  `corner rather than a solid 6&times;6 post</b>, so those three 2&times;6 have to be nailed or bolted together ` +
+  `to act as one member before the tie-down can develop tension in them &mdash; a single 2&times;6 will not. ` +
+  `The panels are well inside ` +
+  `the minimum panel width the method commonly permits, but <b>nothing on this sheet establishes that the ` +
+  `detail as drawn is code-compliant or that these panels work</b> &mdash; every capacity, spacing and minimum ` +
+  `shown is the general form of the requirement, to be read off the adopted CRC figure and confirmed by the ` +
+  `engineer. Panel schedule and nailing, blocked panel edges, sill anchorage and diaphragm blocking are still ` +
+  `required and not shown. The front wall &mdash; with a full-height ${inchStr(roHead)} door opening and much ` +
+  `narrower piers &mdash; is still the wall that will govern this building. See the shear / bracing note ` +
+  `below.</li>` +
+  `<li><b>Worth settling before any of it is built:</b> whether a portal frame is actually required here. The ` +
+  `adjacent opening is only a ${inchStr(WIN.roughHeight)} tall window with its sill at ${inchStr(winRoSill)}, ` +
+  `which is the most favourable adjacent-opening condition for the prescriptive continuous-sheathing method and ` +
+  `nothing like a full-height door, so that method may permit these ${inchStr(pfPanels[0].w)} panels with no ` +
+  `portal frame at all. A portal frame is a considerably more involved detail. This is a question for the ` +
+  `engineer, not a recommendation against the portal frame.</li>` +
+  `</ul>`;
+
+/* ============================================================
+   SHEAR / BRACING NOTE
+   ============================================================ */
+document.getElementById('shearNote').innerHTML =
+  `<b>Shear / bracing:</b> the whole wall is sheathed &mdash; ${fracStr(WS.thickness)} (${WS.nominal} nominal) ` +
+  `plywood, the same panel as the roof deck and the other three walls &mdash; which is the right starting ` +
+  `point, but the bracing segments are only ` +
+  `the two full-height sheathed piers each side of the opening &mdash; ${inchStr(pfPanels[0].w)} and ` +
+  `${inchStr(pfPanels[1].w)} wide, ${inchStr(wallHeight)} tall, h:b = ${pfPanels[0].aspect.toFixed(2)}:1 each, ` +
+  `dimensioned in the BRACING row. Sheathing above and below the window adds no segment width. ` +
+  `At the ${inchStr(WIN.roughWidth)} rough opening those piers <b>exceed the ${PIER_ASPECT_LIMIT}:1 aspect ` +
+  `limit</b> normally applied to wood structural panel shear walls: a ${inchStr(wallHeight)} tall pier needs ` +
+  `${inchStr(pierMinWidth)} to reach ${PIER_ASPECT_LIMIT}:1 and these are ${inchStr(pfPanels[0].w)}. A centered ` +
+  `R.O. would have to come back to about ${inchStr(roWidthAtLimit)} for the piers to reach the limit, and this ` +
+  `one is ${inchStr(roWidthOverLimitBy)} past that. Narrowing the window was the earlier fix; keeping the ` +
+  `${inchStr(WIN.roughWidth)} window and detailing the piers as portal frames is the route now taken.` +
+
+  `<div style="margin-top:6px;"><b>Portal frame, Method ${PF.method} &mdash; "${PF.methodName}".</b> This is the ` +
+  `prescriptive braced-wall method that exists precisely for a panel too narrow to qualify on width, and it is ` +
+  `the reason the ${inchStr(pfPanels[0].w)} panels are still viable rather than simply failing. The contrast is ` +
+  `the whole point and both halves of it are on the drawing: at h:b = ${pfPanels[0].aspect.toFixed(2)}:1 these ` +
+  `panels are genuinely over the ${PIER_ASPECT_LIMIT}:1 limit that would govern them as engineered shear walls, ` +
+  `while the portal frame method commonly permits panels down to about ${inchStr(PF.minPanelWidth)} for a ` +
+  `single-storey wall &mdash; which ${inchStr(pfPanels[0].w)} is comfortably inside. The method buys that width ` +
+  `by substituting prescribed detailing for it: one piece of wood structural panel per panel with no horizontal ` +
+  `joint, from the bottom plate up over the header (a ${inchStr(PF.sheetLength)} sheet does the ` +
+  `${inchStr(wallHeight)} wall height in one piece, with ${inchStr(pfSheetSpare)} to spare); close edge nailing ` +
+  `into framing with blocked panel edges, commonly ${PF.edgeNailing}; a metal strap across the header at each ` +
+  `side of the opening, commonly a minimum ${PF.strapCapacity} lb; a tie-down device at the base of each panel ` +
+  `at the edge adjacent to the opening, commonly a minimum ${PF.tieDownCapacity} lb, anchored to the foundation; ` +
+  `a ganged chord at the outboard panel edge, which is a three-stud framed corner here rather than the solid ` +
+  `6&times;6 post it used to be, so its three 2&times;6 have to be nailed or bolted together to act as one ` +
+  `member before its tie-down can develop tension; ` +
+  `anchor bolts through the bottom plate within each panel with plate washers; and a minimum of ` +
+  `${PF.minStudsAtPanelEdge} studs or a post at the opening-side panel edge, which the king plus ` +
+  `${nJ} jacks already drawn satisfies. <b>Every capacity, spacing and minimum in that list is the general form ` +
+  `of the requirement, not a lookup against the CRC edition Vacaville has adopted.</b> Each one is to be read off ` +
+  `the adopted figure and confirmed by the engineer. The strap and tie-down appear on the drawing as symbols ` +
+  `only, with no product or capacity selected, and the in-panel anchor bolts are keynoted rather than drawn ` +
+  `because the schedule is not determined. <b>Nothing here says the detail as drawn is code-compliant or that ` +
+  `these panels work.</b></div>` +
+
+  `<div style="margin-top:6px;"><b>Two distinct sets of base tie-downs, not one requirement drawn twice.</b> ` +
+  `The ${pfTieDowns.length} symbols at the king studs beside the opening are the portal frame tie-downs the ` +
+  `method requires at the opening-side panel edge. The ${holdDowns.length} symbols at the framed corners ` +
+  `are the pier-end hold-downs, shared with the front and rear walls, and were already on the sheet &mdash; ` +
+  `though the chord they bear on is now three ganged 2&times;6 rather than one solid post. ` +
+  `${holdDowns.length + pfTieDowns.length} places in total. Because the slab is already poured, both sets and ` +
+  `the sill anchors all mean post-installed anchors, so slab thickness, edge distance and embedment need ` +
+  `confirming.</div>` +
+
+  `<div style="margin-top:6px;"><b>The simpler alternative, which should be settled first.</b> The prescriptive ` +
+  `continuous-sheathing method ties minimum panel length to the height of the opening next to the panel, and the ` +
+  `opening here is only a ${inchStr(WIN.roughHeight)} tall window with its sill at ${inchStr(winRoSill)} &mdash; ` +
+  `the most favourable adjacent-opening condition there is, and nothing like the full-height door the portal ` +
+  `frame detail is usually reached for. That method may well permit these ${inchStr(pfPanels[0].w)} panels with ` +
+  `no portal frame at all. A portal frame is a considerably more involved detail to build, so it is worth ` +
+  `confirming whether one is actually required here before building it. Posed as a question for the engineer ` +
+  `against the adopted CRC, not as a recommendation against the portal frame.</div>` +
+
+  `<div style="margin-top:6px;">None of the above is a bracing design. The following are still required and are ` +
+  `not shown: the sheathing nailing schedule, blocked panel edges, sill anchorage, and roof diaphragm ` +
+  `blocking with edge nailing to deliver load into these panels. Absolute lateral load on a building this small ` +
+  `is low, so the governing issues are the panel-length rules and the anchorage detailing rather than sheathing ` +
+  `capacity &mdash; which is also why going to ${fracStr(WS.thickness)} panels changes nothing here. The ` +
+  `<b>front wall</b> is the opening-heavy wall that will govern this building's bracing &mdash; it ` +
+  `has a full-height ${inchStr(roHead)} door opening and much narrower piers &mdash; so nothing here should be ` +
+  `assumed to follow from this wall. The aspect, panel-length and portal frame figures quoted here are the ` +
+  `general form of these provisions; the bracing method, panel schedule, straps, tie-downs and anchors are all ` +
+  `<b>to be confirmed against current CRC and by the engineer</b>. Nothing on this sheet is a shear wall ` +
+  `design.</div>`;
+
+document.getElementById('winPosNote').innerHTML =
+  `<b>Window position:</b> the ${inchStr(WIN.roughWidth)} &times; ${inchStr(WIN.roughHeight)} rough opening is ` +
+  `drawn centered on the ${ftStr(L)} wall, so the rough opening runs ${inchStr(roX0)} to ${inchStr(roX1)} from the ` +
+  `front face. Position was not specified &mdash; confirm before framing.`;
+
+document.getElementById('revHeader').innerHTML =
+  `${FR.headerNominal} header over a ${inchStr(headerClearSpan)} clear span in a <i>bearing</i> wall`;
+document.getElementById('revPier').innerHTML =
+  `Sheathed pier width, h:b and minimum panel length at the ${inchStr(pfPanels[0].w)} window piers, which are ` +
+  `past the ${PIER_ASPECT_LIMIT}:1 aspect limit`;
+document.getElementById('revPortalRequired').innerHTML =
+  `<b>Whether a portal frame is required here at all</b>, or whether continuous sheathing next to a ` +
+  `${inchStr(WIN.roughHeight)} tall opening already permits these panels`;
+document.getElementById('revPortalHeader').innerHTML =
+  `<b>Minimum header size or type required by Method ${PF.method} across the opening, checked together with the ` +
+  `gravity span</b> &mdash; either may govern, and the ${FR.headerNominal} satisfies neither on this sheet`;
+document.getElementById('revPortalPanel').innerHTML =
+  `Portal frame panel width minimum, single-piece sheathing, edge nailing schedule and panel edge framing ` +
+  `against the adopted CRC figure`;
+document.getElementById('revPortalStrap').innerHTML =
+  `Header strap at each side of the opening: capacity, model and fasteners (symbols only, ` +
+  `${PF.strapCapacity} lb quoted as the general form of the requirement)`;
+document.getElementById('revPortalTieDown').innerHTML =
+  `Portal frame tie-down at each opening-side panel edge: capacity, model and post-installed anchorage ` +
+  `(symbols only, ${PF.tieDownCapacity} lb quoted as the general form of the requirement)`;
+
+/* ============================================================
+   LEGEND
+   ============================================================ */
+const legend = [
+  [C.king, '2x6 on edge at each end of a framed corner'],
+  [C.stud, '2x6 laid flat — framed-corner nailer (hatched)'],
+  [C.king, '2x6 KING studs — full height'],
+  [C.jack, '2x6 JACK studs — stop at header'],
+  [C.stud, '2x6 studs / rough sill / cripples'],
+  [C.plate, '2x6 plates (continuous P.T. bottom, double top)'],
+  [C.header, '6x8 header (5.5" x 7.5" actual)'],
+  [C.rafter, '2x8 rafters in section at the seat'],
+  [C.steel, 'Connector symbols — hold-downs, straps, ties'],
+  ['#fff|' + C.pf, 'Portal frame panel zone (Method ' + PF.method + ')'],
+  ['#f7f8fa|#b9c0c8', 'Roof beyond, seen edge-on'],
+  ['#fff|' + C.ro, 'Rough opening (white, red dashed)'],
+  ['#fff|' + C.casing, '3" window casing reference'],
+  ['#fff|' + C.stone, '30" stone veneer top reference'],
+  ['#fff|#cfcfcf', 'Clear / infill wall bay'],
+  ['#fff|' + C.dim, 'Dimension lines']
+];
+document.getElementById('legend').innerHTML = legend.map(([c, txt]) => {
+  const [fill, stroke] = c.includes('|') ? c.split('|') : [c, '#333'];
+  const dash = c.includes('|') && stroke !== C.dim ? 'border-style:dashed;' : '';
+  return `<div><span class="sw" style="background:${fill};border-color:${stroke};${dash}"></span>${txt}</div>`;
+}).join('');
+
+/* ============================================================
+   LAYOUT TABLE
+   ============================================================ */
+const NAME = {
+  'corner': 'three-stud 2x6 framed corner',
+  'infill': 'clear / infill bay',
+  'king': '2x6 king stud (full height)',
+  'jack': '2x6 jack stud (to header)',
+  'stud': '2x6 stud @ 16" module',
+  'ro-window': 'WINDOW ROUGH OPENING'
+};
+let lt = `<tr><th>#</th><th>Member / space</th><th class="n">Width</th><th class="n">From</th><th class="n">To</th></tr>`;
+SEG.forEach((g, i) => {
+  const strong = g.t === 'ro-window' || g.t === 'corner';
+  lt += `<tr${strong ? ' class="grp"' : ''}><td>${i + 1}</td><td>${NAME[g.t]}` +
+        `${g.cl !== undefined ? ' (c.l. ' + inchStr(g.cl) + ')' : ''}` +
+        `${g.note ? ' — ' + g.note : ''}</td>` +
+        `<td class="n">${inchStr(g.w)}</td><td class="n">${inchStr(g.x0)}</td><td class="n">${inchStr(g.x1)}</td></tr>`;
+});
+lt += `<tr class="grp"><td></td><td>Continuous P.T. bottom plate — full wall length, no cut-out</td><td class="n">${inchStr(botPlateLen)}</td><td class="n">${inchStr(botPlateX0)}</td><td class="n">${inchStr(botPlateX1)}</td></tr>`;
+lt += `<tr class="grp"><td></td><td>Clear between the framed corners (this wall's stud infill)</td><td class="n">${inchStr(betweenPostsLen)}</td><td class="n">${inchStr(postFaceX0)}</td><td class="n">${inchStr(postFaceX1)}</td></tr>`;
+pfPanels.forEach((p, i) => {
+  lt += `<tr class="grp"><td></td><td>PORTAL FRAME PANEL ${i + 1} (Method ${PF.method}) — full-height sheathed pier, h:b ${p.aspect.toFixed(2)}:1, opening-side edge @ ${inchStr(p.openingEdge)}</td>` +
+        `<td class="n">${inchStr(p.w)}</td><td class="n">${inchStr(p.x0)}</td><td class="n">${inchStr(p.x1)}</td></tr>`;
+});
+lt += `<tr><th colspan="2">TOTAL WALL LENGTH</th><th class="n">${inchStr(totalWallLength)}</th><th colspan="2">${ftStr(totalWallLength)}</th></tr>`;
+document.getElementById('layoutTable').innerHTML = lt;
+
+/* ============================================================
+   VERTICAL TABLE
+   ============================================================ */
+const vrows = [
+  ['Top of slab / foundation (datum)', 0],
+  ['Top of continuous P.T. bottom plate = base of the framed-corner studs', botPlateTop],
+  ['Stone veneer top (exterior ref)', EX.stoneHeight],
+  ['Bottom of window rough sill', sillBot],
+  ['Window R.O. sill', winRoSill],
+  ['Window casing bottom (R.O. sill − 3")', winRoSill - EX.casingWidth],
+  ['WINDOW R.O. HEAD (matches front wall)', roHead],
+  ['Top of 6x8 header = underside of top plate', topPlateBot],
+  ['Top of double top plate = WALL HEIGHT', wallHeight],
+  ['Top of rafter at the heel = plate + H.A.P.', heelTop],
+  ['Bottom of rafter tail at the eave (12" out)', tailUnder],
+  ['Top of sheathing at the eave edge', eaveEdge],
+  ['Top of 2x8 rafters at the ridge', ridgeRafterTop],
+  ['TOP OF ' + WS.nominal + ' SHEATHING AT RIDGE (no roofing)', ridgeTop]
+];
+let vt = `<tr><th>Elevation (above slab)</th><th class="n">Inches</th><th class="n">Ft-in</th></tr>`;
+vrows.forEach(([txt, v]) => vt += `<tr><td>${txt}</td><td class="n">${inchStr(v)}</td><td class="n">${ftStr(v)}</td></tr>`);
+vt += `<tr class="grp"><td>Stack check: ${roHead} + ${headerDepth} + ${topPlateThk}</td><td class="n">${inchStr(wallHeight)}</td><td class="n">${ftStr(wallHeight)}</td></tr>`;
+vt += `<tr class="grp"><td>Framed-corner stud length, ${inchStr(cornerBot)} to ${inchStr(cornerTop)} (= king stud length)</td><td class="n">${inchStr(cornerStudLen)}</td><td class="n">${ftStr(cornerStudLen)}</td></tr>`;
+vt += `<tr class="grp"><td>Three-stud corner block: ${inchStr(CN.studWidth)} on edge + ${inchStr(cornerNailerW)} flat nailer + ${inchStr(CN.studWidth)} on edge</td><td class="n">${inchStr(cornerBlockW)}</td><td class="n">= wall thickness</td></tr>`;
+vt += `<tr class="grp"><td>Birdsmouth seat / plumb heel drop</td><td class="n">${inchStr(seatCut)} / ${inchStr(seatPlumb)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>H.A.P. — plumb heel height above the plate</td><td class="n">${inchStr(hap)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Header clear span / overall length</td><td class="n">${inchStr(headerClearSpan)} / ${inchStr(headerX1 - headerX0)}</td><td class="n">${ftStr(headerClearSpan)}</td></tr>`;
+vt += `<tr class="grp"><td>Rafters bearing on this wall @ ${RF.rafterSpacing}" o.c.</td><td class="n">${RAFTERS.length}</td><td class="n">${raftersOverHeader.length} over the header</td></tr>`;
+vt += `<tr class="grp"><td>Roof tributary to this wall (half of ${ftStr(OFFICE.width)} span)</td><td class="n">${inchStr(halfRun)}</td><td class="n">${ftStr(halfRun)}</td></tr>`;
+vt += `<tr class="grp"><td>Clear between stone top and casing bottom</td><td class="n">${inchStr(winRoSill - EX.casingWidth - EX.stoneHeight)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>${WS.nominal} roof sheathing: ${fracStr(RF.sheathingThickness)} actual, measured plumb</td><td class="n">${fracStr(sheathingPlumb)}</td><td class="n">&mdash;</td></tr>`;
+vt += `<tr class="grp"><td>Wall plywood wrap, all four walls (faces the viewer in elevation)</td><td class="n">${fracStr(WS.thickness)}</td><td class="n">${WS.nominal} nominal</td></tr>`;
+vt += `<tr class="grp"><td>Portal frame panel: ${inchStr(PF.sheetLength)} sheet less the ${inchStr(wallHeight)} wall height &mdash; one piece, no horizontal joint</td><td class="n">${inchStr(pfSheetSpare)}</td><td class="n">spare</td></tr>`;
+vt += `<tr class="grp"><td>Header strap symbol: mid-depth of the header, ${inchStr(pfStrapReach)} each way from the R.O. edge</td><td class="n">${inchStr((pfStraps[0].y0 + pfStraps[0].y1) / 2)}</td><td class="n">${pfStraps.length} places</td></tr>`;
+document.getElementById('vertTable').innerHTML = vt;
+
+/* header prose values that must track the sheathing thickness */
+document.getElementById('hSheath').textContent = ftStr(ridgeTop);
+document.getElementById('hRafter').textContent = ftStr(ridgeRafterTop);
+document.getElementById('hDelta').textContent = fracStr((21 / 32 - 15 / 32) * slopeFactor);
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+const RESULTS = [];
+function check(desc, ok, detail) { RESULTS.push({desc, ok: !!ok, detail: detail || ''}); return !!ok; }
+function assert(cond, msg) { if (!cond) console.error('ASSERTION FAILED: ' + msg); return !!cond; }
+
+assert(near(totalWallLength, 120, 1e-9), 'totalWallLength === 120');
+
+const kings = SEG.filter(s => s.t === 'king');
+const jacks = SEG.filter(s => s.t === 'jack');
+const ro    = SEG.find(s => s.t === 'ro-window');
+
+check('1. Overall wall length = 120" (10\'-0")', near(totalWallLength, 120, 1e-9),
+      `computed ${totalWallLength}"`);
+check('2. 15 framing segments sum exactly to the wall length, no gaps or overlaps',
+      SEG.length === 15 &&
+      near(SEG.reduce((a, g) => a + g.w, 0), L, 1e-9) &&
+      SEG.every((g, i) => i === 0 || near(g.x0, SEG[i - 1].x1)),
+      `${SEG.length} segments, ${inchStr(SEG[0].x0)} to ${inchStr(SEG[SEG.length - 1].x1)}, ` +
+      `summing to ${inchStr(SEG.reduce((a, g) => a + g.w, 0))}`);
+check('3. Bottom plate is continuous the full 120" wall length, with 109" clear between the framed corners (5.5 + 109 + 5.5 = 120)',
+      near(botPlateX0, 0) && near(botPlateX1, L) && near(botPlateLen, L) &&
+      BASE.bottomPlateContinuous === true &&
+      near(postFaceX0 + betweenPostsLen + OFFICE.endWallThickness, L),
+      `plate ${inchStr(botPlateX0)} to ${inchStr(botPlateX1)} = ${inchStr(botPlateLen)}, no cut-out ` +
+      `(no door in this wall); ${inchStr(betweenPostsLen)} clear between the corners`);
+check('4. Window R.O. = 72" x 48"',
+      near(ro.w, 72) && near(WIN.roughHeight, 48),
+      `${inchStr(ro.w)} x ${inchStr(WIN.roughHeight)}`);
+check('5. R.O. head = 82", identical to the front wall door and window heads',
+      near(roHead, 82) && near(winRoSill + WIN.roughHeight, roHead),
+      `head @ ${inchStr(roHead)}, sill @ ${inchStr(winRoSill)}`);
+check('6. Window R.O. sill = 34" (82 − 48)', near(winRoSill, 34), inchStr(winRoSill));
+check('7. Header is 6x8: 5.5" x 7.5" actual, same as the front wall',
+      near(headerDepth, 7.5) && near(FR.headerWidth, 5.5) && FR.headerNominal === '6x8',
+      `${inchStr(FR.headerWidth)} x ${inchStr(headerDepth)}`);
+check('8. Header tight to the underside of the double top plate',
+      near(headerBot + headerDepth, topPlateBot),
+      `header top ${inchStr(headerBot + headerDepth)} = plate underside ${inchStr(topPlateBot)}`);
+check('9. NO cripple studs above the header — zero space exists by design',
+      near(headerBot + headerDepth, topPlateBot), 'header top and plate underside are coincident');
+check('10. Top plates = 3" total (double 2x6, not triple)',
+      near(topPlateThk, 3) && FR.topPlateCount === 2, `${FR.topPlateCount} x 1.5" = ${inchStr(topPlateThk)}`);
+check('11. Wall height 82 + 7.5 + 3 = 92.5", identical to the front wall',
+      near(wallHeight, 92.5), ftStr(wallHeight));
+check('12. Header clear span = 72", 78" overall, bearing 3" on the doubled jacks each side',
+      near(headerClearSpan, 72) && near(headerX1 - headerX0, 78) &&
+      near(headerX1 - headerX0, headerClearSpan + 2 * headerBearing) &&
+      near(headerBearing, 3) &&
+      near(roX0 - headerX0, headerBearing) && near(headerX1 - roX1, headerBearing),
+      `${inchStr(headerClearSpan)} clear, ${inchStr(headerX1 - headerX0)} overall, ` +
+      `${inchStr(headerBearing)} bearing each side`);
+check('13. Window framed KING | JACK x2 | R.O. | JACK x2 | KING, kings outboard',
+      (() => {
+        const i = SEG.indexOf(ro);
+        const pat = SEG.slice(i - nJ - 1, i + nJ + 2).map(s => s && s.t).join('|');
+        const want = ['king', ...Array(nJ).fill('jack'), 'ro-window',
+                      ...Array(nJ).fill('jack'), 'king'].join('|');
+        return pat === want && kings.length === 2 && jacks.length === 2 * nJ &&
+               kingL.x1 <= jacksL[0].x0 + 1e-9 && jacksL[nJ - 1].x1 <= ro.x0 + 1e-9 &&
+               ro.x1 <= jacksR[0].x0 + 1e-9 && jacksR[nJ - 1].x1 <= kingR.x0 + 1e-9;
+      })(), `1 king + ${nJ} jacks per side, kings outboard of the jack group`);
+check('14. Kings run bottom plate to underside of double top plate',
+      kings.every(k => near(k.w, 1.5)) && near(botPlateTop, 1.5) && near(topPlateBot, 89.5),
+      `${inchStr(botPlateTop)} to ${inchStr(topPlateBot)} = ${inchStr(topPlateBot - botPlateTop)} long`);
+check('15. All jacks terminate at the underside of the header (82")',
+      jacks.length === 2 * nJ && near(headerBot, roHead),
+      `${jacks.length} jacks top out @ ${inchStr(headerBot)}`);
+check('16. Framed corner block at both ends of the wall, 5.5" each, topping out at the plate underside',
+      cornerBlocks.length === 2 && cornerBlocks.every(g => near(g.w, 5.5)) &&
+      near(cornerBlocks[0].x0, 0) && near(cornerBlocks[1].x1, L) && near(cornerTop, topPlateBot),
+      `${cornerBlocks.length} blocks, ${inchStr(cornerBlocks[0].w)} each, topping out @ ${inchStr(cornerTop)}`);
+check('17. Pier-end hold-down symbol at every framed corner, symbol only with no product or anchor selected — these are the hold-downs shared with the front and rear walls, not the portal frame tie-downs in 39',
+      holdDowns.length === chords.length && holdDowns.length === 2 &&
+      BASE.holdDownRequired === true && BASE.holdDownType === null && BASE.anchorType === null &&
+      holdDowns.every(h => near(h.y0, cornerBot) && near(h.y1 - h.y0, BASE.symbolHeight)),
+      `${holdDowns.length} places at the corner bases; hold-down model/capacity and sill anchor ` +
+      `type/size/spacing not selected`);
+check('18. Window R.O. 72" wide centered on the 120" wall, running 24" to 96" (position not specified — flagged)',
+      near((roX0 + roX1) / 2, L / 2) && OFFICE.leftWall.windowCentered === true &&
+      near(roX0, 24) && near(roX1, 96),
+      `c.l. @ ${inchStr((roX0 + roX1) / 2)}, R.O. ${inchStr(roX0)} to ${inchStr(roX1)}`);
+check('19. No vertical member spacing exceeds the 16" o.c. module',
+      (() => {
+        const verticals = SEG.filter(g => g.t !== 'infill' && g.t !== 'ro-window')
+                             .map(g => g.cx).sort((a, b) => a - b);
+        const gaps = verticals.slice(1).map((v, i) => v - verticals[i]);
+        const overRO = gaps.filter((g, i) => verticals[i] < roX0 && verticals[i + 1] > roX1);
+        return gaps.every((g, i) => g <= FR.studSpacing + 1e-9 || overRO.includes(g));
+      })(), 'measured centre to centre, ignoring the span bridged by the header');
+check('20. Two field studs on the 16" module fall clear of the opening assembly, at c.l. 16" and 112", each aligning under a rafter',
+      studs.length === 2 && near(studs[0].c, 16) && near(studs[1].c, 112) &&
+      studs.every(s => RAFTERS.some(r => near(r.cl, s.c))) &&
+      studs.every(s => s.x1 <= kingL.x0 + 1e-9 || s.x0 >= kingR.x1 - 1e-9),
+      `studs at c.l. ${studs.map(s => inchStr(s.c)).join(', ')}; the ${WIN.roughWidth}" opening assembly ` +
+      `takes the module studs between them`);
+check('21. Rafters at 16" o.c. module, one over each gable end wall',
+      RAFTERS.filter(r => r.kind === 'common').length === moduleCLs.length &&
+      RAFTERS.filter(r => r.kind === 'gable-end').length === 2 &&
+      RAFTERS.every((r, i) => i === 0 || r.cl - RAFTERS[i - 1].cl <= FR.studSpacing + 1e-9),
+      `${RAFTERS.length} rafters bearing on this wall`);
+check('22. Roof sheathing panel edges at 48" and 96" land on a rafter',
+      [48, 96].every(p => RAFTERS.some(r => near(r.cl, p))),
+      'module runs 16" o.c. from the front wall face');
+check('23. Four rafters land over the rough opening and are counted, not assumed away — measured against the R.O. extents, not the header extents',
+      raftersOverHeader.length === 4 &&
+      raftersOverHeader.every(r => r.x0 >= roX0 - 1e-9 && r.x1 <= roX1 + 1e-9),
+      `${raftersOverHeader.length} rafters at c.l. ${raftersOverHeader.map(r => inchStr(r.cl)).join(', ')} ` +
+      `within the R.O. ${inchStr(roX0)}–${inchStr(roX1)}`);
+check('24. Hurricane / rafter tie called out at every rafter-to-wall connection',
+      /tie/.test(RF.wallUpliftConnection) && RF.connectorProduct === null,
+      `${RAFTERS.length} symbols shown, product not selected`);
+check('25. Birdsmouth matches the front wall: 3-1/2" seat, 1-3/4" drop, 6-3/8" H.A.P.',
+      near(seatCut, 3.5) && near(seatPlumb, 1.75) && near(hap, rafterPlumbDepth - seatPlumb),
+      `H.A.P. ${inchStr(hap)}, top of rafter at heel ${inchStr(heelTop)}`);
+check('26. Seat notch does not exceed 1/4 of the rafter depth',
+      seatPerp <= RF.rafterDepth / 4 + 1e-9,
+      `${inchStr(seatPerp)} = ${(100 * seatPerp / RF.rafterDepth).toFixed(1)}% of ${inchStr(RF.rafterDepth)}`);
+check('27. Rafter tail: 12" projection toward the viewer, tail bottom 84-3/4"',
+      near(RF.eaveOverhang, 12) && near(tailUnder, wallHeight - seatPlumb - 6) && tailUnder < topPlateBot,
+      `tail bottom ${inchStr(tailUnder)}, top ${inchStr(tailTop)} — hangs in front of the plate`);
+check('28. Rough sill at 34" with cripples at both R.O. edges and on the 16" module, no clear space over 16"',
+      near(winRoSill, 34) && near(sillBot, 32.5) && crippleXs.length >= 4 &&
+      near(crippleXs[0], roX0) && near(crippleXs[crippleXs.length - 1], roX1 - t) &&
+      crippleXs.slice(1, -1).every(x => moduleCLs.some(c => near(c, x + t / 2))) &&
+      crippleMaxClear <= FR.studSpacing + 1e-9,
+      `${crippleXs.length} cripples at c.l. ${crippleXs.map(x => inchStr(x + t / 2)).join(', ')}; ` +
+      `widest clear space ${inchStr(crippleMaxClear)}`);
+check('29. Stone top 30" leaves 4" to the R.O. sill; 3" casing leaves 1" clear',
+      near(winRoSill - EX.stoneHeight, 4) && near(winRoSill - EX.casingWidth - EX.stoneHeight, 1),
+      `${inchStr(winRoSill - EX.stoneHeight)} stone-to-R.O.; ${inchStr(winRoSill - EX.casingWidth - EX.stoneHeight)} casing-to-stone`);
+check('30. Roof geometry matches the front wall sheet, 21/32" sheathing included',
+      near(ridgeRafterTop, 134.8557, 1e-3) && near(ridgeTop, 135.5894, 1e-3) && near(halfRun, 72),
+      `top of rafters ${ftStr(ridgeRafterTop)} unchanged; ridge sheathing ${ftStr(ridgeTop)}, ` +
+      `${ftStr(halfRun)} behind this wall`);
+check('31. Rake overhang extends the roof 12" past each end of this wall',
+      near(rakeX0, -12) && near(rakeX1, L + 12),
+      `roof runs ${inchStr(rakeX0)} to ${inchStr(rakeX1)} in this view`);
+check('32. Bearing-wall header is flagged, not silently accepted, and the portal frame minimum header is flagged alongside the gravity span rather than instead of it',
+      raftersOverHeader.length > 0 && near(headerClearSpan, 72) && near(headerDepth, 7.5) &&
+      PF.minHeader === null,
+      `${inchStr(headerClearSpan)} clear span under ${raftersOverHeader.length} point loads; Method ` +
+      `${PF.method} minimum header not read off the adopted figure — both flagged on the sheet and in the ` +
+      `review list, neither resolved here`);
+check('33. Sheathed pier widths and h:b are measured, and the piers sum with the R.O. to 120"',
+      pfPanels.length === 2 && pfPanels.every(p => near(p.w, 24)) &&
+      near(pfPanels[0].w + WIN.roughWidth + pfPanels[1].w, L),
+      `${pfPanels.map(p => inchStr(p.w) + ' at h:b ' + p.aspect.toFixed(2) + ':1').join(', ')}; ` +
+      `${inchStr(pfPanels[0].w)} + ${inchStr(WIN.roughWidth)} + ${inchStr(pfPanels[1].w)} = ${inchStr(L)}`);
+check('34. Pier h:b is measured against the 3.5:1 aspect limit and the comparison is reported either way',
+      pfPanels.every(p => near(p.aspect, wallHeight / p.w)) &&
+      near(pierMinWidth, wallHeight / PIER_ASPECT_LIMIT) &&
+      pfPanels.every(p => (p.w >= pierMinWidth - 1e-9) === !p.overLimit),
+      `${piersOverLimit.length} of ${pfPanels.length} piers over ${PIER_ASPECT_LIMIT}:1 ` +
+      `(${inchStr(pierMinWidth)} minimum at ${inchStr(wallHeight)} tall, these are ` +
+      `${inchStr(pfPanels[0].w)}); reported on the sheet either way — adequacy of the bracing design is not ` +
+      `asserted here`);
+check(`35. Each ${inchStr(pfPanels[0].w)} pier is identified on the drawing as a portal frame panel (Method ${PF.method}) and is inside the panel width the method commonly permits, while still being over the engineered aspect limit`,
+      pfPanels.length === 2 && pfPanelsAtMinWidth.length === pfPanels.length &&
+      piersOverLimit.length === pfPanels.length && PF.method === 'PFH',
+      `${pfPanels.length} panels at ${inchStr(pfPanels[0].w)} against a commonly cited ` +
+      `${inchStr(PF.minPanelWidth)} minimum panel width, and all ${piersOverLimit.length} over ` +
+      `${PIER_ASPECT_LIMIT}:1 — both conditions drawn and labelled; the panel width minimum is the general ` +
+      `form of the requirement and is not confirmed against the adopted figure`);
+check(`36. A ${inchStr(PF.sheetLength)} wood structural panel sheet covers the ${inchStr(wallHeight)} wall height in one piece, bottom plate up over the header, with no horizontal joint`,
+      pfOnePiece && near(pfSheetSpare, PF.sheetLength - wallHeight) && pfSheetSpare >= 0,
+      `${inchStr(PF.sheetLength)} sheet − ${inchStr(wallHeight)} wall height = ${inchStr(pfSheetSpare)} to ` +
+      `spare; single-piece sheathing per panel is achievable as drawn`);
+check(`37. At least ${PF.minStudsAtPanelEdge} studs stand at each opening-side panel edge`,
+      pfEdgeStuds >= PF.minStudsAtPanelEdge && near(kingL.x1, jacksL[0].x0) &&
+      near(kingR.x0, jacksR[nJ - 1].x1) && jacks.length === 2 * nJ && kings.length === 2,
+      `${pfEdgeStuds} members each side (1 king + ${nJ} jacks) against a minimum of ` +
+      `${PF.minStudsAtPanelEdge}; the minimum is the general form of the requirement and is not confirmed ` +
+      `against the adopted figure`);
+check('38. Header strap symbol drawn at each end of the header, crossing the panel edge, symbol only',
+      pfStraps.length === 2 && pfStraps.every(s => near(s.x1 - s.x0, 2 * pfStrapReach)) &&
+      pfStraps.every(s => s.x0 < roX0 + 1e-9 || s.x1 > roX1 - 1e-9) &&
+      pfStraps.every(s => s.y0 >= headerBot - 1e-9 && s.y1 <= headerBot + headerDepth + 1e-9) &&
+      PF.strapProduct === null,
+      `${pfStraps.length} places, ${inchStr(pfStrapReach)} each way from the R.O. edge at mid-depth of the ` +
+      `header; ${PF.strapCapacity} lb quoted as the general form of the requirement, no product or capacity ` +
+      `selected`);
+check('39. Portal frame tie-down symbol at each opening-side panel edge, in addition to the existing hold-downs at the framed corners — two distinct requirements, four symbols',
+      pfTieDowns.length === 2 && holdDowns.length === 2 &&
+      pfTieDowns.every((h, i) => h.face === pfPanels[i].edgeKing.x0 || h.face === pfPanels[i].edgeKing.x1) &&
+      pfTieDowns.every(h => near(h.y0, botPlateTop) && near(h.y1 - h.y0, BASE.symbolHeight)) &&
+      pfTieDowns.every(h => holdDowns.every(c => !near(c.face, h.face))),
+      `${pfTieDowns.length} portal frame tie-downs at the king studs @ ${inchStr(kingL.x0)} and ` +
+      `${inchStr(kingR.x1)}, plus ${holdDowns.length} pier-end hold-downs at the framed corners @ ` +
+      `${holdDowns.map(h => inchStr(h.face)).join(' and ')} = ${pfTieDowns.length + holdDowns.length} base ` +
+      `tie-down symbols, no two at the same member`);
+check('40. Every portal frame capacity, spacing and minimum is carried as unconfirmed, with no product selected and no anchor schedule drawn',
+      PF.figureConfirmed === false && PF.strapProduct === null && PF.tieDownProduct === null &&
+      PF.panelAnchorSchedule === null && PF.minHeader === null && PF.required === null &&
+      BASE.anchorType === null,
+      `strap ${PF.strapCapacity} lb, tie-down ${PF.tieDownCapacity} lb, edge nailing ${PF.edgeNailing}, ` +
+      `panel width minimum ${inchStr(PF.minPanelWidth)} — all the general form of the requirement, none a ` +
+      `lookup against the adopted CRC figure; in-panel plate anchors keynoted, not drawn, because the ` +
+      `schedule is not determined`);
+check('41. Whether a portal frame is required here at all is posed as an open question on the sheet, not settled',
+      PF.required === null && near(WIN.roughHeight, 48) && near(winRoSill, 34) &&
+      WIN.roughHeight < roHead,
+      `adjacent opening ${inchStr(WIN.roughHeight)} tall with its sill at ${inchStr(winRoSill)} — the ` +
+      `continuous-sheathing alternative is stated and left to the engineer, and no recommendation either way ` +
+      `is made here`);
+check('42. Framed-corner studs start on top of the bottom plate and are the same length as the full-height king studs',
+      cornerBlocks.length === 2 && near(cornerBot, botPlateTop) &&
+      near(cornerStudLen, kingStudLen) && near(cornerStudLen, 88),
+      `corner studs ${inchStr(cornerBot)} to ${inchStr(cornerTop)} = ${inchStr(cornerStudLen)}; ` +
+      `king studs ${inchStr(kingStudLen)}`);
+check('43. Nothing bears directly on the slab except the continuous bottom plate — no standoff bases',
+      verticalBottoms.length > 0 && verticalBottoms.every(m => near(m.y0, botPlateTop)) &&
+      verticalBottoms.some(m => m.t === 'corner') && near(botPlateTop, FR.plateThickness),
+      `${verticalBottoms.length} vertical members (corners, kings, jacks, studs, cripples) all start @ ` +
+      `${inchStr(botPlateTop)}; only the plate touches the slab`);
+check('44. Bottom plate is called out pressure treated over a capillary break, with post-installed anchorage T.B.D.',
+      BASE.bottomPlateTreated === true && BASE.capillaryBreak === true && BASE.anchorType === null,
+      'anchor type, size, spacing, edge distance and embedment per engineer — spacing not drawn because it is ' +
+      'not determined');
+
+/* ---- three-stud framed corners in place of the 6x6 ---- */
+const cornerPartsOK = cornerAssemblies.every(a => {
+  const p = a.parts;
+  return p.length === CN.studs &&
+    p[0].k === 'stud' && p[1].k === 'nailer' && p[2].k === 'stud' &&
+    near(p[0].w, CN.studWidth) && near(p[2].w, CN.studWidth) && near(p[1].w, cornerNailerW) &&
+    near(p[0].x0, a.block.x0) && near(p[2].x1, a.block.x1) &&
+    near(p.reduce((tot, m) => tot + m.w, 0), a.block.w, 1e-9);
+});
+check('45. Corners are three-stud 2x6 framed corners, not 6x6 posts: a 2x6 on edge at each end of the block and a 2x6 laid flat between them, the three widths solving exactly to the block',
+      cornerBlocks.length === 2 && CN.studs === 3 && CN.nailerFlat === true &&
+      cornerPartsOK && SEG.every(g => g.t !== 'post-corner') &&
+      near(cornerNailerW, cornerBlockW - 2 * CN.studWidth, 1e-9) && cornerNailerW > 0,
+      `${inchStr(CN.studWidth)} + ${inchStr(cornerNailerW)} flat nailer + ${inchStr(CN.studWidth)} = ` +
+      `${inchStr(cornerBlockW)}; no 6x6 corner posts remain in the layout`);
+check('46. Replacing the corner posts moved nothing: the block still equals the wall thickness, so the wall length, the 109" stud infill, the infill bays and the sheathed pier / portal panel widths are unchanged',
+      near(cornerBlockW, FR.wallDepth) && near(totalWallLength, 120, 1e-9) &&
+      near(betweenPostsLen, 109) && SEG.length === 15 &&
+      near(SEG[1].w, 9.75) && near(SEG[3].w, 2.75) && near(SEG[11].w, 10.75) && near(SEG[13].w, 1.75) &&
+      piers.every(p => near(p.w, 24)) && pfPanels.every(p => near(p.w, 24)) &&
+      near(piers[0].x0, 0) && near(piers[1].x1, L),
+      `block ${inchStr(cornerBlockW)} = wall thickness ${inchStr(FR.wallDepth)}; wall ` +
+      `${inchStr(totalWallLength)}; infill between the corners ${inchStr(betweenPostsLen)}; bays ` +
+      `${[SEG[1], SEG[3], SEG[11], SEG[13]].map(g => inchStr(g.w)).join(', ')}; piers and portal panels ` +
+      `${pfPanels.map(p => inchStr(p.w)).join(', ')} as before`);
+check('47. Framed-corner studs run the full wall height and the corner is the outboard chord of the pier / portal frame panel at each end of the wall',
+      near(cornerStudLen, kingStudLen) && piersWithChord.length === piers.length &&
+      cornerBlocks.every(g => pfPanels.some(p => g.x0 >= p.x0 - 1e-9 && g.x1 <= p.x1 + 1e-9)),
+      `studs ${inchStr(cornerStudLen)} from ${inchStr(cornerBot)} to ${inchStr(cornerTop)}; ` +
+      `${piersWithChord.length} of ${piers.length} piers contain a framed corner`);
+check('48. No 6x6 post is left anywhere in this wall, so no beam-to-post bracket belongs on this sheet — the 6x8 header bears on the jack studs',
+      SEG.every(g => g.t !== 'post-corner' && g.t !== 'post-door') &&
+      FR.cornerPostWidth === undefined && jacks.length === 2 * nJ &&
+      near(roX0 - headerX0, headerBearing) && near(headerX1 - roX1, headerBearing),
+      `header bears ${inchStr(headerBearing)} each side on ${nJ} jacks; the only chords on this wall are ` +
+      `the ${chords.length} framed corners`);
+
+/* ---- full plywood wrap, walls and roof on the same panel ---- */
+check('49. Walls get a full 21/32" (5/8" nominal) plywood wrap, the same panel as the roof deck',
+      near(WS.thickness, 21 / 32) && WS.nominal === '5/8"' && WS.fullWrap === true &&
+      near(WS.thickness, RF.sheathingThickness) && WS.nominal === RF.sheathingNominal &&
+      WS.nailing === null,
+      `${fracStr(WS.thickness)} on walls and roof alike; noted not drawn on this elevation, ` +
+      `nailing schedule per engineer`);
+check('50. Thicker sheathing did not relax the aspect-ratio problem — both piers are still over the limit, which is why the portal frame detailing is on this sheet',
+      piersOverLimit.length === pfPanels.length && WS.thickness > 15 / 32 &&
+      pfPanels.every(p => p.w < pierMinWidth),
+      `${fracStr(WS.thickness)} panel, piers still ` +
+      `${pfPanels.map(p => p.aspect.toFixed(2) + ':1').join(', ')} against the ${PIER_ASPECT_LIMIT}:1 limit`);
+check('51. The continuous bottom plate is labelled as a 2x6 P.T. sill plate on the plate itself, not left to the keynote',
+      /2x6 P\.T\. SILL PLATE/.test(P.join(' ')) && BASE.bottomPlateContinuous === true &&
+      BASE.bottomPlateTreated === true,
+      `label drawn on the plate over its full ${inchStr(botPlateLen)} run`);
+
+document.getElementById('checkList').innerHTML = RESULTS.map(r =>
+  `<li class="${r.ok ? 'pass' : 'fail'}">${r.desc}${r.detail ? ' — <span style="color:#666">' + r.detail + '</span>' : ''}</li>`
+).join('');
+
+const failed = RESULTS.filter(r => !r.ok);
+if (failed.length) {
+  const a = document.getElementById('alarm');
+  a.className = 'show';
+  a.innerHTML = `VALIDATION FAILED (${failed.length}): <ul>` +
+    failed.map(f => `<li>${f.desc} — ${f.detail}</li>`).join('') + `</ul>`;
+}
+</script>
+</body>
+</html>

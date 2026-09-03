@@ -1,0 +1,1973 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roof Framing Plan — 12' x 10' Detached Backyard Office</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --dim: #3a3a3a;
+    --paper: #ffffff;
+    --rule: #d5d5d5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #f2f2f0;
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .sheet {
+    background: var(--paper);
+    max-width: 1400px;
+    margin: 16px auto;
+    padding: 20px 22px 26px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 6px rgba(0,0,0,.10);
+  }
+  header.title {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 8px 24px;
+    justify-content: space-between;
+  }
+  header.title h1 { font-size: 19px; margin: 0; letter-spacing: .04em; text-transform: uppercase; }
+  header.title .sub { font-size: 12px; color: #555; margin-top: 3px; }
+  .meta { font-size: 11px; color: #444; text-align: right; line-height: 1.5; }
+  .meta b { color: #000; }
+
+  .ui {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 10px 0 4px; padding: 8px 10px;
+    background: #fafaf8; border: 1px solid var(--rule);
+    font-size: 12px; align-items: center;
+  }
+  .ui label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .ui .spacer { flex: 1 1 auto; }
+  .ui button {
+    font: inherit; padding: 4px 10px; cursor: pointer;
+    background: #fff; border: 1px solid #999; border-radius: 3px;
+  }
+  .ui button:hover { background: #eee; }
+
+  .flag {
+    margin: 10px 0 0; padding: 9px 11px;
+    background: #fff6e0; border: 2px solid #c98a00; color: #6b4600;
+    font-size: 11.5px; line-height: 1.5;
+  }
+  .flag b { color: #4a3000; }
+  .flag ul { margin: 5px 0 0; padding-left: 18px; }
+
+  #drawing { width: 100%; overflow-x: auto; }
+  svg { width: 100%; height: auto; display: block; background: #fff; }
+
+  .legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 3px 18px; font-size: 11px; margin-top: 14px;
+    border-top: 1px solid var(--rule); padding-top: 10px;
+  }
+  .legend div { display: flex; align-items: center; gap: 7px; }
+  .sw { width: 20px; height: 11px; border: 1px solid #333; flex: 0 0 auto; }
+
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 16px; }
+  .panel { border: 1px solid var(--rule); padding: 10px 12px; }
+  .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 8px; border-bottom: 1px solid var(--rule); padding-bottom: 5px; }
+  table { border-collapse: collapse; width: 100%; font-size: 10.5px; }
+  th, td { text-align: left; padding: 2px 5px; border-bottom: 1px solid #eee; }
+  th { background: #f5f5f3; font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.grp td { background: #fbfbf7; }
+
+  ul.checks { list-style: none; margin: 0; padding: 0; font-size: 11px; }
+  ul.checks li { padding: 2px 0 2px 20px; position: relative; line-height: 1.35; }
+  ul.checks li::before { position: absolute; left: 0; font-weight: 700; }
+  li.pass::before { content: "OK"; color: #187a3c; font-size: 9px; top: 3px; }
+  li.fail::before { content: "X"; color: #b00000; }
+  li.fail { color: #b00000; font-weight: 600; }
+
+  #alarm {
+    display: none; margin: 12px 0; padding: 10px 12px;
+    background: #ffe8e8; border: 2px solid #b00000; color: #7a0000;
+    font-size: 13px; font-weight: 700;
+  }
+  #alarm.show { display: block; }
+
+  .note {
+    font-size: 11px; line-height: 1.5; color: #333;
+    border: 1px solid #bbb; background: #fbfbf7; padding: 9px 11px; margin-top: 14px;
+  }
+  .note b { color: #000; }
+  .review { columns: 2 220px; column-gap: 22px; font-size: 10.5px; margin: 6px 0 0; padding-left: 18px; line-height: 1.45; }
+
+  @media (max-width: 700px) {
+    .sheet { margin: 0; border: 0; padding: 12px; }
+    .meta { text-align: left; }
+    .review { columns: 1; }
+  }
+
+  @media print {
+    @page { size: landscape; margin: 0.4in; }
+    html, body { background: #fff; }
+    .sheet { max-width: none; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    .ui { display: none !important; }
+    #drawing { overflow: visible; }
+    .panels { grid-template-columns: 1fr 1fr; }
+    .panel, .note, .legend, .flag { break-inside: avoid; }
+    svg { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="title">
+    <div>
+      <h1>Roof Framing Plan — Structural Ridge Beam + Individual Rafters</h1>
+      <div class="sub">Detached backyard office / accessory structure &middot; Vacaville, California &middot;
+        plan viewed from above, <b>front of building at BOTTOM, left wall at LEFT</b> &middot;
+        16" rafter module dimensioned from the front face</div>
+    </div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="ui">
+    <strong style="font-size:11px;letter-spacing:.04em;">VIEW:</strong>
+    <label><input type="checkbox" id="tBelow" checked> Framing below roof</label>
+    <label><input type="checkbox" id="tPanels"> Sheathing panel layout</label>
+    <label><input type="checkbox" id="tDims" checked> Dimensions</label>
+    <label><input type="checkbox" id="tNotes" checked> Callout notes</label>
+    <span class="spacer"></span>
+    <button onclick="window.print()">Print</button>
+  </div>
+
+  <div class="flag" id="flag"></div>
+  <div id="alarm"></div>
+  <div id="drawing"></div>
+  <div class="legend" id="legend"></div>
+
+  <div class="panels">
+    <div class="panel">
+      <h2>Rafter schedule</h2>
+      <table id="rafterTable"></table>
+    </div>
+    <div class="panel">
+      <h2>Roof geometry &amp; vertical references</h2>
+      <table id="geomTable"></table>
+    </div>
+    <div class="panel">
+      <h2>Validation</h2>
+      <ul class="checks" id="checkList"></ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Concept framing layout.</b> Final member sizing, connections, shear/braced-wall requirements, post bases,
+    and foundation load paths require code/engineering verification. This is not a stamped structural drawing.
+    <div style="margin-top:6px;" id="orientNote"></div>
+    <div style="margin-top:6px;" id="beamNote"></div>
+    <div style="margin-top:6px;" id="tipNote"></div>
+    <div style="margin-top:6px;" id="rakeNote"></div>
+    <div style="margin-top:6px;" id="cornerNote"></div>
+    <div style="margin-top:6px;" id="bracketNote"></div>
+    <div style="margin-top:6px;" id="heightNote"></div>
+    <div style="margin-top:6px;">
+      <b>Assumed load path (REQUIRES STRUCTURAL REVIEW — NOT ENGINEER APPROVED):</b>
+      roof sheathing diaphragm &rarr; 2&times;8 rafters &rarr; birdsmouth seat on the double 2&times;6 top plate of
+      the left and right walls at one end, and sloped rafter hangers into the sides of the 6&times;10 structural
+      ridge beam at the other &rarr; ridge beam &rarr; 6&times;6 ridge posts in the front and rear gable walls
+      &rarr; (at the front) the 6&times;8 door header and its two 6&times;6 door posts &rarr; continuous
+      pressure-treated bottom plate &rarr; slab. See the front wall sheet for the gable-end portion of that path.
+    </div>
+    <div style="margin-top:6px;"><b>Items requiring review:</b></div>
+    <ul class="review">
+      <li>Ridge beam size (6&times;10 shown, 6&times;12 alternate) and deflection over the 109" clear span</li>
+      <li id="revTip"></li>
+      <li>12" ridge-beam cantilever at each gable and the fly-rafter reaction at its tip</li>
+      <li>2&times;8 rafter sizing and span</li>
+      <li>Birdsmouth notch depth, shear at the notch and bearing length</li>
+      <li>Sloped rafter hanger selection and capacity at the ridge beam</li>
+      <li>Hurricane / rafter tie selection and uplift capacity</li>
+      <li>Fly rafter and 2&times;6 lookout sizing, spacing and connections</li>
+      <li>Whether the gable-end rafter is dropped to receive the lookouts, and by how much</li>
+      <li>Ridge beam end reactions into the 6&times;6 ridge posts and the load path below them</li>
+      <li>Perpendicular-to-grain compression at the wall plates and at the beam bearings</li>
+      <li>Roof sheathing span rating, edge support, panel blocking and diaphragm nailing</li>
+      <li>Sheathing nailing schedule and panel blocking (21/32" plywood, full wrap)</li>
+      <li>Roof diaphragm chords, collectors and the load path into the braced wall lines</li>
+      <li>Ganging the three 2&times;6 at each framed corner so a hold-down can develop tension</li>
+      <li>Beam-to-post bracket and ridge-post H-bracket capacity, bearing area and fasteners</li>
+      <li>Ridge blocking or beam-top bevel at the 1-3/8" void above the beam at the peak</li>
+      <li>Concentrated bearing through the top plates at the beam and post locations</li>
+      <li>California seismic and wind uplift loads</li>
+      <li>Vacaville zoning, height limit and setbacks</li>
+    </ul>
+    <div style="margin-top:6px;" id="sheathNote"></div>
+    <div style="margin-top:6px;" id="sillNote"></div>
+    <div style="margin-top:6px;">
+      <b>Not shown / not yet finalized:</b> foundation, footings, reinforcement and sill anchors (foundation
+      already poured, details not finalized); fascia, sub-fascia, soffit, venting and the eave / rake trim
+      assembly; underlayment and roofing; ridge blocking or the beam-top bevel; roof diaphragm blocking and
+      nailing schedule; gutters; enlarged eave, rake and ridge details; electrical and interior finishes.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CENTRAL DIMENSION MODEL — all geometry derives from this.
+   Shared values match front_wall_framing.html,
+   left_wall_framing.html, right_wall_framing.html and
+   rear_wall_framing.html.
+   ============================================================ */
+const OFFICE = {
+  width: 144,          // front/rear gable wall length = ROOF SPAN direction, inches
+  depth: 120,          // left/right wall length = RIDGE direction, inches (10'-0")
+
+  /* ORIENTATION. This sheet is a PLAN, viewed from above, drawn the
+     conventional way round:
+
+        py = 0   is the FRONT face of the building, at the BOTTOM of the sheet
+        py = 120 is the REAR face,                  at the TOP of the sheet
+        px = 0   is the LEFT wall outside face,     at the LEFT of the sheet
+        px = 144 is the RIGHT wall outside face,    at the RIGHT of the sheet
+
+     px is the ROOF SPAN direction; py is the RIDGE direction. The 16" rafter
+     module runs from the FRONT face, so rafter positions are labelled by
+     distance from the front face. This reads the same left-to-right as the
+     rear wall sheet. */
+  orientation: {
+    view: 'roof framing plan, viewed from above',
+    frontAt: 'bottom',
+    rearAt: 'top',
+    leftWallAt: 'left',
+    rightWallAt: 'right',
+    moduleDatum: 'front face of the building',
+    spanAxis: 'px — across the 144" width, wall to ridge to wall',
+    ridgeAxis: 'py — along the 120" depth, front to rear'
+  },
+
+  framing: {
+    studThickness: 1.5,      // 2x6 actual thickness
+    wallDepth: 5.5,          // 2x6 actual width = wall thickness in plan
+    plateThickness: 1.5,
+    topPlateCount: 2,        // DOUBLE top plate (no triple)
+
+    /* Corners are standard three-stud 2x6 framed corners, not solid 6x6 posts.
+       The corner block still consumes 5.5" of wall length — that is the
+       thickness of the wall returning at right angles — so the horizontal
+       layout below is unchanged. Inside the block: a 2x6 on edge at each end,
+       and a third 2x6 laid flat at the interior face between them, backing the
+       drywall return on the side wall. The space behind the flat nailer is the
+       insulated void. */
+    corner: { studs: 3, blockWidth: 5.5, studWidth: 1.5, nailerFlat: true },
+
+    ridgePostWidth: 5.5,     // nominal 6x6 actual
+    studSpacing: 16          // o.c.
+  },
+
+  roof: {
+    rise: 6, run: 12,        // 6:12
+    ridgeBeamWidth: 5.5,     // nominal 6x10 actual
+    ridgeBeamDepth: 9.5,
+    ridgeBeamNominal: '6x10',
+    ridgeBeamAlternate: '6x12',
+
+    rafterNominal: '2x8',
+    rafterThickness: 1.5,
+    rafterDepth: 7.25,       // 2x8 actual depth, measured perpendicular to slope
+    rafterSpacing: 16,       // o.c.
+
+    /* Birdsmouth seat cut length, measured horizontally along the top plate.
+       3.5" keeps the notch at ~22% of rafter depth, inside the usual
+       quarter-depth end-notch limit for sawn lumber. VERIFY. */
+    rafterSeatCut: 3.5,
+
+    eaveOverhang: 12,        // horizontal projection past the left/right wall faces
+    rakeOverhang: 12,        // projection past the front/rear wall faces
+
+    /* Rake is framed off a cantilevered ridge beam, not off the gable wall:
+       the 6x10 runs past each gable wall and carries a fly rafter at the outer
+       edge, with lookouts tied back to the first common rafter. */
+    rakeFraming: {
+      beamCantilever: 12,        // each end, so the beam is 12'-0" overall
+      flyRafterNominal: '2x8',
+      lookoutNominal: '2x6',
+      lookoutDepth: 5.5,
+      lookoutSpacing: null,      // along the rake — NOT SPECIFIED
+      lookoutSpacingIndicative: 24,  // what is DRAWN, so the sheet is honest about it
+      gableRafterDrop: null      // depends on lookout orientation — NOT SPECIFIED
+    },
+
+    /* 5/8" nominal plywood, 21/32" actual, matching the wall wrap. Thickness is
+       perpendicular to the roof plane, so it reads slightly deeper plumb. */
+    sheathingNominal: '5/8"',
+    sheathingThickness: 21 / 32,
+    sheathingPanel: { w: 48, l: 96 },   // 4x8 sheets
+
+    /* Connections are specified in kind, not by product. */
+    ridgeConnection: 'sloped rafter hangers into the sides of the ridge beam',
+    wallUpliftConnection: 'hurricane / rafter tie at each rafter-to-wall connection',
+    connectorProduct: null   // model, capacity and fasteners NOT selected
+  },
+
+  /* Full plywood wrap: every wall is sheathed in 21/32" (5/8" nominal) plywood,
+     and the roof uses the same panel. That is thicker than the 7/16" or 15/32"
+     usually run for shear, so panel shear capacity is not what constrains this
+     building — pier length and aspect ratio are, and thicker panels do not
+     relax either rule. */
+  wallSheathing: {
+    nominal: '5/8"',
+    thickness: 21 / 32,
+    fullWrap: true,
+    nailing: null            // panel / edge nailing schedule per engineer
+  },
+
+  /* Beam-to-post and post-to-plate connectors at the ridge posts, carried from
+     the gable wall sheets. A plan sees the footprint, not the strap heights, so
+     only the widths that show in plan are kept here. Sized off the members
+     joined; no model, capacity or fastener schedule is selected. */
+  connectors: {
+    beamPostCap:    {seatW: 5.5, seatD: 5.5},        // 6x10 ridge beam onto a 6x6 ridge post
+    ridgePostBaseH: {strapW: 1.25, style: 'H'},      // strap on each post face, crossbar at the plate line
+    product: null
+  },
+
+  /* Vertical figures are INHERITED from the wall sheets; nothing on a plan
+     sets them. Carried here so the geometry table and the cross-sheet checks
+     can be computed rather than transcribed. */
+  inherited: {
+    source: 'front wall sheet',
+    roHead: 82,              // door and window heads align
+    headerDepth: 7.5         // nominal 6x8 actual
+  }
+};
+
+const W  = OFFICE.width;
+const D  = OFFICE.depth;
+const FR = OFFICE.framing;
+const RF = OFFICE.roof;
+const RK = RF.rakeFraming;
+const CN = FR.corner;
+const WS = OFFICE.wallSheathing;
+const CX = OFFICE.connectors;
+const ORI = OFFICE.orientation;
+const INH = OFFICE.inherited;
+
+/* ============================================================
+   VERTICAL MODEL (0" = TOP OF SLAB) — inherited, for reference only
+   ============================================================ */
+const topPlateThk = FR.plateThickness * FR.topPlateCount;        // 3.0
+const wallHeight  = INH.roHead + INH.headerDepth + topPlateThk;  // 92.5
+
+const slope       = RF.rise / RF.run;                            // 0.5
+const halfSpan    = W / 2;                                       // 72
+const roofRise    = halfSpan * slope;                            // 36
+const slopeFactor = Math.sqrt(1 + slope * slope);                // 1.118034
+
+const rafterPlumbDepth = RF.rafterDepth * slopeFactor;           // 8.1057
+const seatCut   = RF.rafterSeatCut;                              // 3.5
+const seatPlumb = seatCut * slope;                               // 1.75
+const seatPerp  = seatPlumb / slopeFactor;                       // 1.5652
+const hap       = rafterPlumbDepth - seatPlumb;                  // 6.3557
+
+const heelTop     = wallHeight + hap;                            // 98.8557
+const underRidge  = wallHeight + (halfSpan - seatCut) * slope;    // 126.75
+const actualPeak  = underRidge + rafterPlumbDepth;                // 134.8557
+const sheathPlumb = RF.sheathingThickness * slopeFactor;          // 0.7337
+const sheathingPeak = actualPeak + sheathPlumb;                   // 135.5894
+const tailUnder   = wallHeight + (-RF.eaveOverhang - seatCut) * slope;  // 84.75
+const tailTop     = tailUnder + rafterPlumbDepth;                 // 92.8557
+const eaveEdge    = tailTop + sheathPlumb;                        // 93.5894
+
+/* Going to the thicker panel is the only thing that moved a height on this
+   sheet: the rafters are where they were and the ridge rose by the extra
+   thickness measured plumb. */
+const sheathRise = (WS.thickness - 15 / 32) * slopeFactor;        // 0.2096
+
+/* Rafters frame into the SIDES of the beam, so the beam top is flush with the
+   rafter tops AT THE BEAM FACES — which are half a beam width down-slope of
+   the ridge, so the beam top lands below the peak by that much rise. Same
+   model as the front wall sheet. */
+const roofYAtX   = x => (x <= halfSpan) ? wallHeight + (x - seatCut) * slope
+                                        : wallHeight + ((W - x) - seatCut) * slope;
+const roofTopAtX = x => roofYAtX(x) + rafterPlumbDepth;
+const beamTop = underRidge - (RF.ridgeBeamWidth / 2) * slope + rafterPlumbDepth;  // 133.4807
+const beamBot = beamTop - RF.ridgeBeamDepth;                      // 123.9807
+const ridgeVoid = actualPeak - beamTop;                           // 1.375 at the peak
+
+/* ============================================================
+   PLAN MODEL — px across the span, py along the ridge
+   ============================================================ */
+const t = RF.rafterThickness;                    // 1.5
+const wallThk = FR.wallDepth;                    // 5.5
+
+/* roof edges */
+const eaveX0 = -RF.eaveOverhang;                 // -12  left eave edge
+const eaveX1 = W + RF.eaveOverhang;              // 156  right eave edge
+const rakeY0 = -RF.rakeOverhang;                 // -12  front rake edge
+const rakeY1 = D + RF.rakeOverhang;              // 132  rear rake edge
+const roofW  = eaveX1 - eaveX0;                  // 168
+const roofD  = rakeY1 - rakeY0;                  // 144
+
+/* ridge and the 6x10 structural ridge beam */
+const ridgeCL = halfSpan;                        // 72
+const beamL   = ridgeCL - RF.ridgeBeamWidth / 2; // 69.25
+const beamR   = ridgeCL + RF.ridgeBeamWidth / 2; // 74.75
+const beamY0  = rakeY0;                          // -12  the beam runs out to the rake edge
+const beamY1  = rakeY1;                          // 132
+const beamLen = beamY1 - beamY0;                 // 144 = 12'-0"
+
+/* walls below, outside face to inside face */
+const walls = {
+  left:  {x0: 0,          x1: wallThk,   kind: 'eave / bearing'},
+  right: {x0: W - wallThk, x1: W,        kind: 'eave / bearing'},
+  front: {y0: 0,          y1: wallThk,   kind: 'gable end'},
+  rear:  {y0: D - wallThk, y1: D,        kind: 'gable end'}
+};
+
+/* 6x6 ridge posts, inside the gable walls, directly under the beam */
+const ridgePosts = [
+  {x0: beamL, x1: beamR, y0: walls.front.y0, y1: walls.front.y1, at: 'front gable wall'},
+  {x0: beamL, x1: beamR, y0: walls.rear.y0,  y1: walls.rear.y1,  at: 'rear gable wall'}
+];
+/* beam bearing: 5.5" on each post, clear span between the post inner faces */
+const beamBearing   = wallThk;                                   // 5.5
+const beamClearSpan = walls.rear.y0 - walls.front.y1;            // 109
+const beamSpanCC    = (walls.rear.y0 + walls.rear.y1) / 2 -
+                      (walls.front.y0 + walls.front.y1) / 2;     // 114.5
+const beamCantilever = walls.front.y0 - beamY0;                  // 12
+
+/* ------------------------------------------------------------
+   THREE-STUD FRAMED CORNERS, in true plan. This is the only view
+   in the set that can show the arrangement honestly — in an
+   elevation the three members read as one 5.5" block and the
+   handedness is guesswork — so it is drawn rather than noted.
+
+   The block is still a 5.5" x 5.5" square, so the four corner
+   footprints and every dimension on this sheet are unchanged.
+   What changes is what is inside the square.
+
+   Handedness comes from which wall runs through. The front and
+   rear gable walls run the full 144" and contain the corners;
+   the left and right walls butt into them. So the two 2x6 on
+   edge belong to the GABLE wall — 1.5" of its length each, the
+   full 5.5" of wall depth — and the flat nailer lies against the
+   gable wall's INTERIOR face, backing the drywall return on the
+   side wall. The pocket behind the nailer is the insulated void.
+   That makes the nailer face the rear at the front corners and
+   the front at the rear corners.
+   ------------------------------------------------------------ */
+const cornerBlockW  = CN.blockWidth;                    // 5.5
+const cornerNailerW = cornerBlockW - 2 * CN.studWidth;  // 2.5
+
+function framedCorner(at, gable, xBlock) {
+  const x0 = xBlock, x1 = xBlock + cornerBlockW;
+  const yOut = gable === 'front' ? 0 : D;               // outside face of the gable wall
+  const dir  = gable === 'front' ? 1 : -1;              // positive = inward, toward the room
+  const yIn  = yOut + dir * cornerBlockW;               // interior face of the gable wall
+  const yNail = yIn - dir * CN.studWidth;               // back of the flat nailer
+  const band = (a, b) => ({y0: Math.min(a, b), y1: Math.max(a, b)});
+  const full = band(yOut, yIn), nail = band(yNail, yIn), pock = band(yOut, yNail);
+  const part = (k, a, b, y) => ({k, x0: a, x1: b, w: b - a, y0: y.y0, y1: y.y1, d: y.y1 - y.y0});
+  return {
+    at, gable, x0, x1, w: x1 - x0, y0: full.y0, y1: full.y1, d: full.y1 - full.y0,
+    outsideFace: yOut, interiorFace: yIn,
+    /* ordered across the gable wall's run, so the widths sum to the block */
+    parts: [part('stud',   x0,                 x0 + CN.studWidth, full),
+            part('nailer', x0 + CN.studWidth,  x1 - CN.studWidth, nail),
+            part('stud',   x1 - CN.studWidth,  x1,                full)],
+    pocket: part('void', x0 + CN.studWidth, x1 - CN.studWidth, pock)
+  };
+}
+
+const cornerAssemblies = [
+  framedCorner('front left',  'front', 0),
+  framedCorner('front right', 'front', W - cornerBlockW),
+  framedCorner('rear left',   'rear',  0),
+  framedCorner('rear right',  'rear',  W - cornerBlockW)
+];
+
+/* birdsmouth: plumb heel cut at the outer wall face, 3.5" horizontal seat, so
+   in plan the seat occupies the outer 3.5" of each bearing wall */
+const seatLeft  = seatCut;                                       // 3.5
+const seatRight = W - seatCut;                                   // 140.5
+
+/* ------------------------------------------------------------
+   RAFTER STATIONS along py. The module runs 16" o.c. FROM THE
+   FRONT FACE so that sheathing panel edges at 48" and 96" from
+   the front land on a rafter. Plus one rafter over each gable
+   end wall. Identical to the left and right wall sheets.
+   ------------------------------------------------------------ */
+const moduleFromFront = [];
+for (let d = FR.studSpacing; d < D; d += FR.studSpacing) moduleFromFront.push(d);  // 16..112
+
+const RSTATIONS = [
+  {py: t / 2,     kind: 'gable-end', at: 'over the front gable wall'},
+  ...moduleFromFront.map(d => ({py: d, kind: 'common', at: null})),
+  {py: D - t / 2, kind: 'gable-end', at: 'over the rear gable wall'}
+].sort((a, b) => a.py - b.py);
+
+RSTATIONS.forEach(s => { s.y0 = s.py - t / 2; s.y1 = s.py + t / 2; s.d = s.py; });
+
+/* two rafters per station: one up each slope, both stopping at a beam face */
+const SLOPES = [
+  {name: 'left',  x0: eaveX0, x1: beamL},
+  {name: 'right', x0: beamR,  x1: eaveX1}
+];
+const rafterRun = beamL - eaveX0;                                // 81.25
+const rafterSlopedLen = rafterRun * slopeFactor;                 // 90.8402
+
+const RAFTERS = [];
+RSTATIONS.forEach(s => SLOPES.forEach(sl => RAFTERS.push({
+  py: s.py, y0: s.y0, y1: s.y1, d: s.d,
+  x0: sl.x0, x1: sl.x1, slope: sl.name,
+  kind: s.kind, at: s.at,
+  run: sl.x1 - sl.x0, len: (sl.x1 - sl.x0) * slopeFactor
+})));
+
+/* ------------------------------------------------------------
+   FLY / RAKE RAFTERS. The 6x10 cantilevers 12" past each gable
+   wall; the fly rafter hangs on the SIDES of the beam at that
+   tip, exactly as a common rafter does, with its outer face
+   flush with the beam end.
+   ------------------------------------------------------------ */
+const FLY = [];
+[{end: 'front', y1: rakeY0 + t, y0: rakeY0},
+ {end: 'rear',  y0: rakeY1 - t, y1: rakeY1}].forEach(f => {
+  SLOPES.forEach(sl => FLY.push({
+    end: f.end, y0: f.y0, y1: f.y1, py: (f.y0 + f.y1) / 2,
+    x0: sl.x0, x1: sl.x1, slope: sl.name,
+    run: sl.x1 - sl.x0, len: (sl.x1 - sl.x0) * slopeFactor
+  }));
+});
+
+/* ------------------------------------------------------------
+   LOOKOUTS. 2x6 running in the py direction, cantilevering from
+   the first common rafter out to the fly rafter, passing over
+   the gable-end rafter.
+
+   SPACING ALONG THE RAKE IS NOT SPECIFIED. What is drawn is an
+   INDICATIVE 24" o.c. horizontal layout; RK.lookoutSpacing stays
+   null so nothing on this sheet can claim the value is settled.
+   ------------------------------------------------------------ */
+const firstCommonFront = RSTATIONS.find(s => s.kind === 'common');            // py 16
+const firstCommonRear  = RSTATIONS.slice().reverse().find(s => s.kind === 'common');  // py 112
+const lookoutBackFront = firstCommonFront.y1;                    // 16.75
+const lookoutBackRear  = firstCommonRear.y0;                     // 111.25
+
+/* THE LOOKOUTS ARE NOT THE SAME LENGTH AT BOTH GABLES, and the plan is the
+   only view that shows why. The 16" module is datumed from the FRONT face, so
+   the leftover bay at the rear is 7-1/4" where the front one is 15-1/4". The
+   first common rafter is therefore much closer to the rear wall, and a lookout
+   tied back to it has far less tail inside the building to be nailed to. */
+const lookoutLenFront = lookoutBackFront - rakeY0;               // 28.75
+const lookoutLenRear  = rakeY1 - lookoutBackRear;                // 20.75
+const backspanFront   = lookoutBackFront - walls.front.y0;       // 16.75 inside the wall face
+const backspanRear    = walls.rear.y1 - lookoutBackRear;         // 8.75
+const cantRatioFront  = backspanFront / RF.rakeOverhang;         // 1.40
+const cantRatioRear   = backspanRear / RF.rakeOverhang;          // 0.73
+
+/* indicative stations: start at the eave tail, then 24" in, on each slope */
+const lookoutStationsLeft = [];
+for (let x = eaveX0; x + t <= beamL + 1e-9; x += RK.lookoutSpacingIndicative) {
+  lookoutStationsLeft.push(x);                                   // -12, 12, 36, 60
+}
+const LOOKOUTS = [];
+lookoutStationsLeft.forEach(a => {
+  [{x0: a, x1: a + t, slope: 'left'},
+   {x0: W - a - t, x1: W - a, slope: 'right'}].forEach(s => {
+    LOOKOUTS.push({...s, end: 'front', y0: rakeY0, y1: lookoutBackFront, len: lookoutLenFront});
+    LOOKOUTS.push({...s, end: 'rear',  y0: lookoutBackRear, y1: rakeY1, len: lookoutLenRear});
+  });
+});
+
+/* ------------------------------------------------------------
+   CONNECTORS — symbols only, no products selected.
+   Hanger at every rafter-to-beam connection, including the four
+   fly rafters at the cantilever tips. Tie at every
+   rafter-to-wall connection; the fly rafters have no wall under
+   them, so they get no tie.
+   ------------------------------------------------------------ */
+const HANGERS = [...RAFTERS, ...FLY].map(r => ({
+  py: r.py, y0: r.y0, y1: r.y1, slope: r.slope,
+  x: r.slope === 'left' ? beamL : beamR,
+  atTip: r.end !== undefined
+}));
+const TIES = RAFTERS.map(r => ({
+  py: r.py, y0: r.y0, y1: r.y1, slope: r.slope,
+  x: r.slope === 'left' ? seatLeft / 2 : (seatRight + W) / 2
+}));
+
+/* ------------------------------------------------------------
+   BRACKETS AT THE RIDGE POSTS. A beam-to-post bracket where the
+   6x10 lands on each 6x6 ridge post, and an H-style bracket at
+   the bottom of the same post where it meets the double top
+   plate. Each gable elevation can only show its own pair; the
+   plan shows both gables at once, which is the reason they are
+   noted here, so the counts have to agree with the elevations —
+   two beam-to-post brackets and two H-brackets, one of each per
+   gable. Symbols only, no product selected.
+
+   These sit at the BEARINGS, inboard of the 12" cantilevers. The
+   concentrated fly-rafter reactions out at the beam tips are a
+   separate problem — see the beam tip note — and no bracket here
+   addresses them.
+   ------------------------------------------------------------ */
+const BPC = CX.beamPostCap, HB = CX.ridgePostBaseH;
+const BEAM_POST_CAPS = ridgePosts.map(p => ({
+  kind: 'beam-post', at: p.at, x0: p.x0, x1: p.x1, y0: p.y0, y1: p.y1,
+  w: p.x1 - p.x0, d: p.y1 - p.y0
+}));
+const H_BRACKETS = ridgePosts.map(p => ({
+  kind: 'post-plate-H', style: HB.style, at: p.at,
+  x0: p.x0, x1: p.x1, y0: p.y0, y1: p.y1, w: p.x1 - p.x0, d: p.y1 - p.y0,
+  /* a strap on each post face, so in plan the H reads as two slivers at the
+     px ends of the post footprint with the crossbar spanning between them */
+  strapW: HB.strapW, straps: [p.x0, p.x1 - HB.strapW], crossbarAt: (p.y0 + p.y1) / 2
+}));
+
+/* ------------------------------------------------------------
+   SHEATHING. Thickness is perpendicular to the roof plane, and
+   the span direction stretches by the slope factor while the
+   ridge direction does not.
+   ------------------------------------------------------------ */
+const projectedArea = roofW * roofD / 144;                       // 168 sq ft
+const slopedArea    = roofW * slopeFactor * roofD / 144;         // 187.83 sq ft
+const panelArea     = RF.sheathingPanel.w * RF.sheathingPanel.l / 144;  // 32 sq ft
+const minPanels     = Math.ceil(slopedArea / panelArea);         // 6
+
+/* Indicative panel layout: 4x8 sheets, long edge running in the py direction
+   across the rafters. The cross-rafter end joints at 48" and 96" from the
+   front face land on rafter centrelines — the reason the module is datumed
+   from the front. Up-slope side joints fall 48" measured ALONG THE SLOPE from
+   the eave edge. */
+const panelCrossJoints = [48, 96].filter(d => RSTATIONS.some(s => near(s.py, d)));
+const panelUpslopeRun  = RF.sheathingPanel.w / slopeFactor;      // 42.9325 horizontal
+const panelUpslopeX    = [eaveX0 + panelUpslopeRun, W - (eaveX0 + panelUpslopeRun)];
+const slopeLenPerSide  = (halfSpan + RF.eaveOverhang) * slopeFactor;   // 93.9149
+const slopeLenUpper    = slopeLenPerSide - RF.sheathingPanel.w;        // 45.9149
+
+/* ============================================================
+   FORMATTING HELPERS
+   ============================================================ */
+function inchStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  const whole = Math.floor(v + 1e-9);
+  let frac = v - whole;
+  const sixteenths = Math.round(frac * 16);
+  const g = (a, b) => b ? g(b, a % b) : a;
+  let s = String(whole);
+  if (sixteenths > 0 && sixteenths < 16) {
+    const d = g(sixteenths, 16);
+    s += '-' + (sixteenths / d) + '/' + (16 / d);
+  } else if (sixteenths === 16) s = String(whole + 1);
+  return (neg ? '-' : '') + s + '"';
+}
+function ftStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  const ft = Math.floor(v / 12 + 1e-9);
+  const rem = v - ft * 12;
+  const r = Math.round(rem * 16) / 16;
+  return (neg ? '-' : '') + ft + "'-" + (r === 0 ? '0"' : inchStr(r));
+}
+function near(a, b, tol = 1e-6) { return Math.abs(a - b) <= tol; }
+const wordNum = n => ['zero', 'one', 'two', 'three', 'four', 'five', 'six',
+                      'seven', 'eight', 'nine', 'ten'][n] || String(n);
+
+/* ============================================================
+   SVG SCAFFOLD / SCALE
+   ============================================================ */
+const PX = 6;                     // px per inch
+const M  = { l: 250, r: 300, t: 96, b: 0 };   // b is computed after the keynote block
+
+const VBW = M.l + W * PX + M.r;   // the roof overhangs into l and r by 72px each
+
+const inchesToPx = i => i * PX;
+const X = xi => M.l + xi * PX;                  // px  -> sheet x
+const Y = yi => M.t + (rakeY1 - yi) * PX;       // py  -> sheet y (front at bottom)
+
+const C = {
+  post:      '#B0794E',
+  postEdge:  '#6E4522',
+  beam:      '#7A4A22',
+  beamEdge:  '#4A2A0E',
+  rafter:    '#E5D2A8',
+  rafterEdge:'#9A7433',
+  gableRaf:  '#D9C08A',
+  fly:       '#E8D9B4',
+  lookout:   '#EFE3C6',
+  steel:     '#5B6B7C',
+  /* bracket symbols land on the dark ridge beam, where C.steel disappears */
+  steelLt:   '#AFC3D6',
+  insul:     '#DDE9F1',
+  insulEdge: '#8FB0C6',
+  dim:       '#3a3a3a',
+  roof:      '#333333',
+  field:     '#FCFBF7',
+  below:     '#9aa3ad',
+  panel:     '#7FA6C4'
+};
+
+const P = [];   // svg parts
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function rect(x, y, w, h, fill, stroke, sw, extra) {
+  P.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(w,0).toFixed(2)}" height="${Math.max(h,0).toFixed(2)}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="${sw||0}" ${extra||''}/>`);
+}
+function line(x1, y1, x2, y2, stroke, sw, extra) {
+  P.push(`<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${stroke}" stroke-width="${sw||1}" ${extra||''}/>`);
+}
+function poly(pts, fill, stroke, sw, extra) {
+  P.push(`<polygon points="${pts.map(p=>p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ')}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="${sw||0}" ${extra||''}/>`);
+}
+function drawLabel(x, y, txt, opts = {}) {
+  const a = opts.anchor || 'middle', fs = opts.size || 11, fill = opts.fill || C.dim;
+  const wt = opts.weight ? ` font-weight="${opts.weight}"` : '';
+  const rot = opts.rotate ? ` transform="rotate(${opts.rotate} ${x.toFixed(2)} ${y.toFixed(2)})"` : '';
+  P.push(`<text x="${x.toFixed(2)}" y="${y.toFixed(2)}" text-anchor="${a}" font-size="${fs}" fill="${fill}"${wt}${rot} font-family="Helvetica Neue, Helvetica, Arial, sans-serif">${esc(txt)}</text>`);
+}
+
+/* A label that has to sit over framing gets an opaque backing box, so warning
+   text stays legible against the rafters underneath it. */
+function boxedLabel(x, y, txt, opts = {}) {
+  const fs = opts.size || 9;
+  const w = txt.length * fs * 0.545 + 12;
+  const a = opts.anchor || 'middle';
+  const x0 = a === 'start' ? x - 6 : a === 'end' ? x - w + 6 : x - w / 2;
+  rect(x0, y - fs - 2.5, w, fs + 7, opts.bg || '#ffffff', opts.border || '#d8d8d8', 0.7);
+  drawLabel(x, y, txt, opts);
+}
+
+/* ---------- plan member drawer: rect in plan coordinates ---------- */
+function planRect(x0, x1, y0, y1, fill, stroke, sw, extra) {
+  rect(X(x0), Y(y1), inchesToPx(x1 - x0), inchesToPx(y1 - y0), fill, stroke, sw, extra);
+}
+
+/* ---------- dimension drawers (same conventions as the wall sheets) ---------- */
+const DIM_NARROW   = 34;   // px: below this width the value goes rotated, below the line
+const DIM_TIER     = 32;
+const DIM_TIER_GAP = 13;
+const dimTiers = new Map();
+
+function narrowLabelTier(yPx, mid) {
+  const key = yPx.toFixed(1);
+  const used = dimTiers.get(key) || [-1e9, -1e9];
+  let tier = 0;
+  while (tier < used.length - 1 && Math.abs(mid - used[tier]) < DIM_TIER_GAP) tier++;
+  used[tier] = mid;
+  dimTiers.set(key, used);
+  return tier;
+}
+function drawDimension(x0In, x1In, yPx, label) {
+  const a = X(x0In), b = X(x1In), mid = (a + b) / 2, wpx = b - a;
+  line(a, yPx - 7, a, yPx + 7, C.dim, 0.8);
+  line(b, yPx - 7, b, yPx + 7, C.dim, 0.8);
+  line(a, yPx, b, yPx, C.dim, 0.8);
+  if (wpx >= 16) {
+    line(a, yPx, a + 5, yPx - 2.5, C.dim, 0.8); line(a, yPx, a + 5, yPx + 2.5, C.dim, 0.8);
+    line(b, yPx, b - 5, yPx - 2.5, C.dim, 0.8); line(b, yPx, b - 5, yPx + 2.5, C.dim, 0.8);
+  }
+  if (wpx < DIM_NARROW) {
+    const tier = narrowLabelTier(yPx, mid);
+    const ly = yPx + 12 + tier * DIM_TIER;
+    if (tier) line(mid, yPx + 8, mid, ly - 3, C.dim, 0.6);
+    drawLabel(mid, ly, label, {size: 8.5, rotate: -90, anchor: 'end'});
+  }
+  else drawLabel(mid, yPx - 5, label, {size: 9.5});
+}
+function drawVDim(y0In, y1In, xPx, label, side) {
+  const a = Y(y0In), b = Y(y1In), mid = (a + b) / 2, hpx = Math.abs(a - b);
+  line(xPx - 7, a, xPx + 7, a, C.dim, 0.8);
+  line(xPx - 7, b, xPx + 7, b, C.dim, 0.8);
+  line(xPx, a, xPx, b, C.dim, 0.8);
+  if (hpx >= 16) {
+    line(xPx, a, xPx - 2.5, a - 5, C.dim, 0.8); line(xPx, a, xPx + 2.5, a - 5, C.dim, 0.8);
+    line(xPx, b, xPx - 2.5, b + 5, C.dim, 0.8); line(xPx, b, xPx + 2.5, b + 5, C.dim, 0.8);
+  }
+  if (hpx < 52) {
+    const tx = (side === 'right') ? xPx + 14 : xPx - 14;
+    line(xPx, mid, tx, mid, C.dim, 0.6);
+    drawLabel(tx + (side === 'right' ? 3 : -3), mid + 3.4, label,
+              {size: 9, anchor: side === 'right' ? 'start' : 'end'});
+  } else {
+    drawLabel(xPx + (side === 'right' ? 12 : -5), mid, label, {size: 9.5, rotate: -90});
+  }
+}
+
+/* ---------- keynote bubbles ---------- */
+function bubble(xPx, yPx, n) {
+  P.push(`<circle cx="${xPx.toFixed(1)}" cy="${yPx.toFixed(1)}" r="9" fill="#ffffff" stroke="#222" stroke-width="1.2"/>`);
+  drawLabel(xPx, yPx + 3.6, String(n), {size: 10.5, weight: 700, fill: '#111'});
+}
+const bubbles = [];
+function keynote(n, targetIn, bubbleIn, bendIn) {
+  const tg = [X(targetIn[0]), Y(targetIn[1])];
+  const bb = [X(bubbleIn[0]), Y(bubbleIn[1])];
+  const pts = bendIn ? [tg, [X(bendIn[0]), Y(bendIn[1])], bb] : [tg, bb];
+  const p = pts[pts.length - 2], dx = bb[0] - p[0], dy = bb[1] - p[1];
+  const len = Math.hypot(dx, dy) || 1;
+  pts[pts.length - 1] = [bb[0] - dx / len * 9, bb[1] - dy / len * 9];
+  P.push(`<polyline points="${pts.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' ')}" fill="none" stroke="#555" stroke-width="0.9"/>`);
+  P.push(`<circle cx="${tg[0].toFixed(1)}" cy="${tg[1].toFixed(1)}" r="2.2" fill="#555"/>`);
+  bubble(bb[0], bb[1], n);
+  bubbles.push({n, at: bubbleIn, target: targetIn});
+}
+
+/* ============================================================
+   TITLE / ORIENTATION BANNER
+   ============================================================ */
+drawLabel(VBW / 2, 24,
+  'ROOF FRAMING PLAN — VIEWED FROM ABOVE. FRONT OF BUILDING AT BOTTOM, LEFT WALL AT LEFT. ' +
+  'STRUCTURAL RIDGE BEAM + INDIVIDUAL RAFTERS.',
+  {size: 11.5, weight: 700, fill: '#333'});
+drawLabel(VBW / 2, 40,
+  'THE ' + RF.rafterSpacing + '" RAFTER MODULE IS DIMENSIONED FROM THE FRONT FACE OF THE BUILDING. ' +
+  'ROOF SPANS ACROSS THE ' + ftStr(W) + ' WIDTH; THE RIDGE RUNS THE ' + ftStr(D) + ' DEPTH.',
+  {size: 10, fill: '#666'});
+
+/* ============================================================
+   ROOF FIELD — edge of sheathing
+   ============================================================ */
+planRect(eaveX0, eaveX1, rakeY0, rakeY1, C.field, '#b9c0c8', 1.4, 'stroke-dasharray="8 5"');
+
+/* ============================================================
+   FRAMING BELOW THE ROOF  (toggle: tBelow)
+   ============================================================ */
+const mBelow0 = P.length;
+(function () {
+  const hid = 'stroke-dasharray="7 5"';
+  /* wall bands */
+  [[walls.left.x0, walls.left.x1, 0, D], [walls.right.x0, walls.right.x1, 0, D]].forEach(([a, b, c, d]) =>
+    planRect(a, b, c, d, 'rgba(154,163,173,0.13)', C.below, 1.0, hid));
+  [[0, W, walls.front.y0, walls.front.y1], [0, W, walls.rear.y0, walls.rear.y1]].forEach(([a, b, c, d]) =>
+    planRect(a, b, c, d, 'rgba(154,163,173,0.13)', C.below, 1.0, hid));
+
+  /* building outline below */
+  planRect(0, W, 0, D, 'none', C.below, 1.3, hid);
+
+  /* 6x6 ridge posts */
+  ridgePosts.forEach(p => planRect(p.x0, p.x1, p.y0, p.y1, 'rgba(176,121,78,0.55)', C.postEdge, 1.2, hid));
+
+  /* birdsmouth seat lines on the bearing walls */
+  [seatLeft, seatRight].forEach(x =>
+    line(X(x), Y(0), X(x), Y(D), '#b06a2a', 1.0, 'stroke-dasharray="4 3"'));
+
+  /* three-stud framed corners, drawn as the three members they are, and drawn
+     last: the seat line passes through the corner blocks and would otherwise
+     read as a fourth division inside the 5.5" square. The insulated pocket
+     goes down first so the framing reads over it. */
+  cornerAssemblies.forEach(a => {
+    planRect(a.pocket.x0, a.pocket.x1, a.pocket.y0, a.pocket.y1,
+             C.insul, C.insulEdge, 0.8, 'stroke-dasharray="2.5 2"');
+    a.parts.forEach(m => planRect(m.x0, m.x1, m.y0, m.y1, 'rgba(176,121,78,0.34)', C.postEdge, 1.0, hid));
+    planRect(a.x0, a.x1, a.y0, a.y1, 'none', C.postEdge, 1.3, hid);
+  });
+})();
+const mBelow1 = P.length;
+
+/* ============================================================
+   SHEATHING PANEL LAYOUT  (toggle: tPanels, default off)
+   ============================================================ */
+const mPanels0 = P.length;
+(function () {
+  const st = 'stroke-dasharray="10 4"';
+  panelCrossJoints.forEach(d =>
+    line(X(eaveX0), Y(d), X(eaveX1), Y(d), C.panel, 1.5, st));
+  panelUpslopeX.forEach(x =>
+    line(X(x), Y(rakeY0), X(x), Y(rakeY1), C.panel, 1.5, st));
+  /* set below each joint line, clear of the station labels that sit just above
+     the same rafter */
+  panelCrossJoints.forEach(d =>
+    boxedLabel(X(24), Y(d) + 15, 'PANEL END JOINT — ' + inchStr(d) + ' FROM FRONT FACE, ON A RAFTER',
+               {size: 8.5, anchor: 'start', fill: C.panel, weight: 600}));
+  drawLabel(X(panelUpslopeX[0]), Y(24),
+            inchStr(RF.sheathingPanel.w) + ' UP THE SLOPE',
+            {size: 8.5, fill: C.panel, weight: 600, rotate: -90});
+  /* caption goes in the top margin so it never crosses the ridge beam */
+  drawLabel(VBW / 2, 60,
+            'INDICATIVE 4x8 PANEL LAYOUT — LONG EDGE ACROSS THE RAFTERS. STAGGER END JOINTS COURSE TO COURSE. ' +
+            'NAILING SCHEDULE NOT SHOWN.',
+            {size: 9, fill: C.panel, weight: 600});
+})();
+const mPanels1 = P.length;
+
+/* ============================================================
+   RAFTERS, FLY RAFTERS, LOOKOUTS, BEAM, CONNECTORS
+   ============================================================ */
+/* lookouts first, so the fly rafter and the rafters read over them */
+LOOKOUTS.forEach(k => planRect(k.x0, k.x1, k.y0, k.y1, C.lookout, C.rafterEdge, 0.7));
+
+/* common and gable-end rafters */
+RAFTERS.forEach(r => planRect(r.x0, r.x1, r.y0, r.y1,
+  r.kind === 'gable-end' ? C.gableRaf : C.rafter, C.rafterEdge, 0.85));
+
+/* fly / rake rafters */
+FLY.forEach(f => planRect(f.x0, f.x1, f.y0, f.y1, C.fly, C.rafterEdge, 1.1));
+
+/* 6x10 structural ridge beam, full 12'-0" including both cantilevers */
+planRect(beamL, beamR, beamY0, beamY1, C.beam, C.beamEdge, 1.4);
+/* ridge line */
+line(X(ridgeCL), Y(beamY0), X(ridgeCL), Y(beamY1), '#2a1608', 1.0, 'stroke-dasharray="12 4 3 4"');
+/* the cantilevered tips, marked where they pass the gable wall faces */
+[walls.front.y0, walls.rear.y1].forEach(y =>
+  line(X(beamL) - 5, Y(y), X(beamR) + 5, Y(y), '#2a1608', 1.2));
+
+drawLabel(X(ridgeCL), Y(66), RF.ridgeBeamNominal.toUpperCase() + ' STRUCTURAL RIDGE BEAM — ' +
+          ftStr(beamLen) + ' OVERALL', {size: 10, weight: 700, fill: '#FFF3E4', rotate: -90});
+
+/* connector symbols, hidden-line */
+HANGERS.forEach(h => {
+  const w = 3.2, x0 = h.slope === 'left' ? h.x - w : h.x;
+  planRect(x0, x0 + w, h.y0 - 0.4, h.y1 + 0.4, 'none', C.steel, 0.9, 'stroke-dasharray="2.5 2"');
+});
+TIES.forEach(t2 => {
+  const w = 3.0;
+  planRect(t2.x - w / 2, t2.x + w / 2, t2.y0 - 0.5, t2.y1 + 0.5, 'none', C.steel, 0.9, 'stroke-dasharray="2.5 2"');
+});
+
+/* brackets at the two ridge posts. Both land on the same plan footprint —
+   only the elevations separate them by height — so the beam-to-post cap is
+   drawn wrapping the post and the H reads as its two face straps inside it.
+   Drawn after the beam because the beam is opaque over the posts. */
+(function () {
+  const brk = 'stroke-dasharray="3.5 2"', wrap = 0.75;
+  BEAM_POST_CAPS.forEach(b => planRect(b.x0 - wrap, b.x1 + wrap, b.y0 - wrap, b.y1 + wrap,
+                                       'rgba(255,255,255,0.30)', C.steelLt, 1.5, brk));
+  H_BRACKETS.forEach(h => {
+    h.straps.forEach(x0 => planRect(x0, x0 + h.strapW, h.y0, h.y1,
+                                    'rgba(255,255,255,0.42)', C.steelLt, 1.2, brk));
+    line(X(h.straps[0] + h.strapW), Y(h.crossbarAt), X(h.straps[1]), Y(h.crossbarAt), C.steelLt, 1.2, brk);
+  });
+})();
+
+/* slope direction arrows, placed in open bays */
+[[62, 20, 40], [82, 124, 104]].forEach(([a, b, lx]) => {
+  const yy = Y(72);
+  line(X(a), yy, X(b), yy, C.roof, 1.2);
+  const dir = b > a ? 1 : -1;
+  poly([[X(b), yy], [X(b) - dir * 9, yy - 4], [X(b) - dir * 9, yy + 4]], C.roof, 'none');
+  drawLabel(X(lx), yy - 8, RF.rise + ':' + RF.run + ' SLOPE DOWN', {size: 9.5, weight: 600, fill: C.roof});
+});
+
+/* edge markers on all four sides */
+const edgeMarkers = [];
+(function () {
+  drawLabel(X(ridgeCL), Y(rakeY0) + 44, 'FRONT OF BUILDING', {size: 11.5, weight: 700, fill: '#444'});
+  poly([[X(ridgeCL) - 96, Y(rakeY0) + 40], [X(ridgeCL) - 82, Y(rakeY0) + 34], [X(ridgeCL) - 82, Y(rakeY0) + 46]], '#555', 'none');
+  edgeMarkers.push({side: 'front', at: 0, label: 'FRONT OF BUILDING'});
+
+  drawLabel(X(ridgeCL), Y(rakeY1) - 14, 'REAR OF BUILDING', {size: 11.5, weight: 700, fill: '#444'});
+  edgeMarkers.push({side: 'rear', at: D, label: 'REAR OF BUILDING'});
+
+  /* the two eave walls are marked along the top edge rather than rotated inside
+     the eave strips, which are already carrying rafter tails and station labels */
+  drawLabel(X(eaveX0) + 4, Y(rakeY1) - 14, 'LEFT WALL', {size: 11, weight: 700, anchor: 'start', fill: '#444'});
+  edgeMarkers.push({side: 'left', at: 0, label: 'LEFT WALL'});
+
+  drawLabel(X(eaveX1) - 4, Y(rakeY1) - 14, 'RIGHT WALL', {size: 11, weight: 700, anchor: 'end', fill: '#444'});
+  edgeMarkers.push({side: 'right', at: W, label: 'RIGHT WALL'});
+})();
+
+/* ============================================================
+   KEYNOTES
+   ============================================================ */
+const mNotes0 = P.length;
+
+keynote(1,  [beamL, 20],            [56, 24]);
+keynote(2,  [30, 32.75],            [30, 40]);
+keynote(3,  [100, t],               [100, 10]);
+keynote(4,  [seatLeft, 56],         [16, 56]);
+keynote(5,  [beamR, 40],            [88, 40]);
+keynote(6,  [beamR, -6],            [98, -6]);
+keynote(7,  [seatRight, 88],        [128, 88]);
+keynote(8,  [40, rakeY0 + t],       [40, -6]);
+keynote(9,  [13.5, 6],              [27, 8]);
+keynote(10, [56, t],                [58, 10]);
+keynote(11, [0, 40],                [-6, 44], [-6, 40]);
+keynote(12, [120, rakeY1],          [118, 124]);
+keynote(13, [eaveX1, 72],           [166, 72]);
+keynote(14, [beamL, 104],           [56, 104]);
+keynote(15, [walls.right.x0, 115],  [126, 116]);
+keynote(16, [beamR, 117],           [90, 116]);
+keynote(17, [eaveX1, 20],           [166, 20]);
+keynote(18, [eaveX1, 104],          [166, 104]);
+/* the corner keynote points at the front-right nailer, the only member in the
+   block whose position carries the handedness */
+keynote(19, [W - cornerBlockW / 2, cornerBlockW - CN.studWidth / 2], [166, 6]);
+keynote(20, [beamR + 0.75, 3],      [88, 8]);
+keynote(21, [beamL - 0.75, 117],    [54, 122]);
+keynote(22, [wallThk / 2, 72],      [-6, 72]);
+
+const KEYNOTES = [
+  [1, [RF.ridgeBeamNominal.toUpperCase() + ' STRUCTURAL RIDGE BEAM (' + inchStr(RF.ridgeBeamWidth) + ' x ' +
+       inchStr(RF.ridgeBeamDepth) + '), ' + ftStr(beamLen) + ' OVERALL, RUNNING FRONT TO REAR ON THE',
+       'BUILDING CENTRELINE. IT BEARS ' + inchStr(beamBearing) + ' ON EACH 6x6 RIDGE POST, SO THE CLEAR SPAN IS ' +
+       inchStr(beamClearSpan) + ' AND THE SPAN',
+       'CENTRE TO CENTRE OF BEARINGS IS ' + inchStr(beamSpanCC) + '. BEYOND EACH BEARING IT CANTILEVERS ' +
+       inchStr(beamCantilever) + ' PAST THE GABLE WALL',
+       'FACE TO CARRY THE FLY RAFTERS — SEE 6 AND 8. BEAM SIZE (' + RF.ridgeBeamAlternate +
+       ' ALTERNATE), DEFLECTION AND THE',
+       'CANTILEVER ARE NOT VERIFIED.']],
+  [2, [RF.rafterNominal + ' COMMON RAFTERS @ ' + RF.rafterSpacing + '" O.C. — ' + RAFTERS.length +
+       ' RAFTERS AT ' + RSTATIONS.length + ' STATIONS, TWO PER STATION, ONE UP EACH',
+       'SLOPE. EACH RUNS ' + inchStr(rafterRun) + ' HORIZONTALLY FROM THE EAVE EDGE TO A BEAM FACE = ' +
+       inchStr(rafterSlopedLen) + ' ALONG THE',
+       'SLOPE, WITH A PLUMB CUT AT THE BEAM AND A PLUMB TAIL CUT AT THE EAVE. THE MODULE RUNS FROM THE',
+       'FRONT FACE SO SHEATHING PANEL EDGES AT 48" AND 96" FROM THE FRONT LAND ON A RAFTER — SEE 13.',
+       'RAFTER SIZE AND SPAN ARE NOT VERIFIED. THIS IS NOT A TRUSS ROOF.']],
+  [3, ['GABLE-END RAFTER — ONE PER SLOPE OVER EACH GABLE WALL, ' +
+       RAFTERS.filter(r => r.kind === 'gable-end').length + ' IN TOTAL, CENTRED ' + inchStr(t / 2),
+       'FROM THE OUTSIDE FACE SO IT SITS DIRECTLY OVER THE WALL. THE LOOKOUTS PASS THIS RAFTER — SEE 9',
+       'AND 10. THE GABLE STUDS BELOW IT ARE SHOWN ON THE FRONT AND REAR WALL SHEETS.']],
+  [4, ['BIRDSMOUTH SEAT ON THE LEFT AND RIGHT WALL DOUBLE TOP PLATES: ' + inchStr(seatCut) +
+       ' HORIZONTAL SEAT WITH A PLUMB',
+       'HEEL CUT AT THE OUTER WALL FACE, SO IN PLAN THE SEAT OCCUPIES THE OUTER ' + inchStr(seatCut) +
+       ' OF EACH BEARING WALL.',
+       inchStr(seatPlumb) + ' PLUMB DROP, ' + inchStr(hap) + ' H.A.P., NOTCH ' + inchStr(seatPerp) +
+       ' PERPENDICULAR TO THE RAFTER = ' + (100 * seatPerp / RF.rafterDepth).toFixed(0) + '% OF THE',
+       inchStr(RF.rafterDepth) + ' DEPTH. CONFIRM PER CRC AND ENGINEER. SEE THE WALL SHEETS FOR THE SECTION.']],
+  [5, ['RIDGE CONNECTION: SLOPED RAFTER HANGER INTO THE SIDE FACE OF THE RIDGE BEAM AT EVERY RAFTER —',
+       HANGERS.length + ' PLACES, INCLUDING THE ' + FLY.length + ' FLY RAFTERS AT THE CANTILEVER TIPS (SEE 6).',
+       'SYMBOL ONLY, SHOWN HIDDEN-LINE. MODEL, CAPACITY AND FASTENERS PER ENGINEER.']],
+  [6, ['BEAM TIP CONDITION — THE ONE THE ELEVATIONS CANNOT SHOW. BOTH FLY RAFTERS AT THIS GABLE LAND ON',
+       'OPPOSITE FACES OF THE BEAM AT THE SAME POINT, ' + inchStr(beamCantilever) +
+       ' FROM THE FACE OF BEARING AND ONLY ' + inchStr(RF.rakeOverhang - t) + ' FROM',
+       'THE BEAM END. SO THE TIP CARRIES TWO CONCENTRATED REACTIONS WITH VERY LITTLE END DISTANCE FOR',
+       'HANGER NAILING OR SCREWS, AND SPLITTING AT THE BEAM END IS A REAL RISK. THIS IS A DIFFERENT',
+       'CONDITION FROM THE HANGERS AT THE INTERIOR COMMONS: HANGER SELECTION, REQUIRED END DISTANCE, AND',
+       'WHETHER THE TIP NEEDS A BEARING BLOCK OR A WIDER BEAM END ALL REQUIRE ENGINEERING.']],
+  [7, ['UPLIFT: HURRICANE / RAFTER TIE AT EVERY RAFTER-TO-WALL CONNECTION, OVER THE BIRDSMOUTH SEAT AND',
+       'ONTO THE DOUBLE TOP PLATE — ' + TIES.length + ' PLACES, ' + TIES.length / 2 +
+       ' ON EACH BEARING WALL. THE ' + FLY.length + ' FLY RAFTERS GET NO TIE',
+       'BECAUSE THERE IS NO WALL UNDER THEM. SYMBOL ONLY, HIDDEN-LINE; MODEL AND UPLIFT CAPACITY PER',
+       'ENGINEER.']],
+  [8, [RK.flyRafterNominal + ' FLY / RAKE RAFTER — ' + FLY.length + ' IN TOTAL, TWO PER GABLE, ONE UP EACH SLOPE.',
+       'THE OUTER FACE IS FLUSH WITH THE BEAM END, ' + inchStr(RF.rakeOverhang) +
+       ' PAST THE GABLE WALL. SAME ' + inchStr(rafterSlopedLen) + ' SLOPED',
+       'LENGTH AS A COMMON RAFTER. NO WALL RUNS UNDER IT: IT IS CARRIED BY THE BEAM TIP AT THE TOP (SEE 6)',
+       'AND BY THE LOOKOUTS ALONG ITS LENGTH (SEE 9). THE EAVE END IS A FREE CORNER.']],
+  [9, [RK.lookoutNominal + ' LOOKOUTS TYING THE FLY RAFTER BACK TO THE FIRST COMMON RAFTER, PASSING OVER THE',
+       'GABLE-END RAFTER. ' + LOOKOUTS.length + ' DRAWN, ' + LOOKOUTS.length / 4 + ' PER SLOPE PER GABLE.',
+       '*** THEY ARE NOT THE SAME LENGTH AT BOTH GABLES: ' + inchStr(lookoutLenFront) + ' AT THE FRONT BUT ONLY ' +
+       inchStr(lookoutLenRear) + ' AT THE REAR. ***',
+       'THE ' + RF.rafterSpacing + '" MODULE IS DATUMED FROM THE FRONT FACE, SO THE LEFTOVER BAY AT THE REAR IS ' +
+       inchStr(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py) + ' WHERE',
+       'THE FRONT ONE IS ' + inchStr(firstCommonFront.py - RSTATIONS[0].py) +
+       '. THE REAR LOOKOUT THEREFORE HAS ONLY ' + inchStr(backspanRear) + ' OF TAIL INSIDE THE WALL FACE TO',
+       'BE FASTENED TO, AGAINST ' + inchStr(backspanFront) + ' AT THE FRONT, TO CANTILEVER THE SAME ' +
+       inchStr(RF.rakeOverhang) + ' — RATIOS OF',
+       cantRatioRear.toFixed(2) + ':1 AND ' + cantRatioFront.toFixed(2) +
+       ':1 BACK-SPAN TO CANTILEVER. BOTH ARE SHORT OF THE USUAL RULE OF THUMB AND THE',
+       'REAR IS MUCH THE WORSE. IF THE ENGINEER WANTS MORE TAIL, RUN THE REAR LOOKOUTS BACK TO THE SECOND',
+       'COMMON RAFTER AT ' + inchStr(96) + ' INSTEAD — NOT DRAWN, BECAUSE IT IS A DESIGN CHANGE.',
+       '*** SPACING ALONG THE RAKE IS NOT SPECIFIED. THE ' + inchStr(RK.lookoutSpacingIndicative) +
+       ' O.C. SHOWN IS INDICATIVE ONLY AND IS NOT A',
+       'DESIGN VALUE. *** LOOKOUT SIZE, SPACING AND CONNECTIONS PER ENGINEER.']],
+  [10, ['GABLE-END RAFTER DROP IS NOT DETERMINED. IF THE LOOKOUTS RUN OVER THE TOP OF THIS RAFTER IT MUST',
+        'BE DROPPED FLUSH WITH THE LOOKOUT TOPS — ' + inchStr(1.5) + ' IF THE ' + RK.lookoutNominal +
+        ' LOOKOUTS LIE FLAT, ' + inchStr(RK.lookoutDepth) + ' IF THEY STAND',
+        'ON EDGE. THE ALTERNATIVE IS TO NOTCH THE RAFTER FOR EACH LOOKOUT. DROPPING IT SHORTENS THE GABLE',
+        'STUDS DRAWN ON THE FRONT AND REAR WALL SHEETS, SO RESOLVE THIS BEFORE CUTTING THOSE STUDS.']],
+  [11, [inchStr(RF.eaveOverhang) + ' EAVE OVERHANG PAST THE LEFT AND RIGHT WALL FACES, PLUMB TAIL CUT, ' +
+        'CARRIED BY THE RAFTER TAILS',
+        'THEMSELVES. TAIL UNDERSIDE @ ' + inchStr(tailUnder) + ' AND TOP @ ' + inchStr(tailTop) +
+        ' ABOVE THE SLAB. FASCIA, SUB-FASCIA,',
+        'SOFFIT AND VENTING ARE NOT SHOWN.']],
+  [12, [inchStr(RF.rakeOverhang) + ' RAKE OVERHANG PAST THE FRONT AND REAR GABLE WALL FACES, FRAMED OFF THE',
+        'CANTILEVERED RIDGE BEAM RATHER THAN OFF THE GABLE WALL — SEE 1, 8 AND 9. THE ROOF THEREFORE',
+        'MEASURES ' + inchStr(roofW) + ' x ' + inchStr(roofD) + ' (' + ftStr(roofW) + ' x ' + ftStr(roofD) +
+        ') IN PLAN OVER A ' + ftStr(W) + ' x ' + ftStr(D) + ' BUILDING.']],
+  [13, [RF.sheathingNominal + ' NOMINAL PLYWOOD ROOF SHEATHING (' + inchStr(RF.sheathingThickness) +
+        ' ACTUAL, MEASURED PERPENDICULAR TO THE ROOF',
+        'PLANE). ' + slopedArea.toFixed(1) + ' SQ FT OF ACTUAL SLOPED AREA OVER ' + projectedArea.toFixed(0) +
+        ' SQ FT PROJECTED, SO ' + minPanels + ' SHEETS MINIMUM BEFORE',
+        'WASTE — A MINIMUM, NOT A MATERIAL ORDER. PANEL LAYOUT IS AVAILABLE AS A VIEW TOGGLE AND IS',
+        'INDICATIVE. SAME PANEL AS THE FULL WALL WRAP, SEE 22.',
+        'SPAN RATING, EDGE SUPPORT, BLOCKING AND THE DIAPHRAGM NAILING SCHEDULE PER ENGINEER.']],
+  [14, ['THE BEAM TOP IS FLUSH WITH THE RAFTER TOPS AT THE BEAM FACES, WHICH LEAVES A ' + inchStr(ridgeVoid) +
+        ' VOID BETWEEN THE',
+        'TOP OF THE BEAM AND THE ' + inchStr(actualPeak) + ' RIDGE. BEVEL THE BEAM TOP OR ADD RIDGE BLOCKING —',
+        'T.B.D. SEE THE FRONT WALL SHEET FOR THE END SECTION THROUGH THE BEAM.']],
+  [15, ['FRAMING BELOW THE ROOF IS SHOWN HIDDEN-LINE AND IS A VIEW TOGGLE. THE LEFT AND RIGHT WALLS ARE',
+        'THE EAVE / BEARING WALLS: EVERY RAFTER LANDS ON ONE OF THEM. THE FRONT AND REAR WALLS ARE THE',
+        'GABLE ENDS AND CARRY NO RAFTERS — THEY CARRY THE RIDGE BEAM THROUGH THEIR 6x6 RIDGE POSTS (SEE 16).',
+        'SEE THE FOUR WALL SHEETS FOR THE FRAMING ITSELF.']],
+  [16, ['6x6 RIDGE POST IN EACH GABLE WALL, DIRECTLY UNDER THE BEAM, ' + inchStr(RF.ridgeBeamWidth) +
+        ' x ' + inchStr(FR.ridgePostWidth) + ' IN PLAN. AT THE FRONT',
+        'WALL THE LOAD CONTINUES DOWN THROUGH THE 6x8 DOOR HEADER AND ITS TWO 6x6 DOOR POSTS TO THE',
+        'PLATE AND SLAB; AT THE REAR WALL IT CONTINUES STRAIGHT DOWN THE POST. BRACKETS TOP AND BOTTOM',
+        'OF THE POST, SEE 20 AND 21. THE END REACTIONS AND',
+        'EVERYTHING BELOW THEM REQUIRE STRUCTURAL REVIEW — SEE THE FRONT AND REAR WALL SHEETS.']],
+  [17, ['ORIENTATION: THIS IS A PLAN VIEWED FROM ABOVE, WITH THE FRONT OF THE BUILDING AT THE BOTTOM OF',
+        'THE SHEET AND THE LEFT WALL AT THE LEFT — THE CONVENTIONAL WAY ROUND, AND THE SAME LEFT-TO-RIGHT',
+        'SENSE AS THE REAR WALL SHEET. THE FRONT WALL SHEET IS AN INTERIOR ELEVATION AND SO READS',
+        'MIRRORED TO THIS PLAN, BUT THAT WALL IS SYMMETRIC ABOUT ITS CENTRELINE SO NO FRAMING ON IT IS',
+        'DIRECTION-SENSITIVE. THE ' + RF.rafterSpacing + '" MODULE IS DIMENSIONED FROM THE FRONT FACE.']],
+  [18, ['ROOF DIAPHRAGM: THE SHEATHING HAS TO COLLECT LATERAL LOAD AND DELIVER IT TO THE BRACED WALL',
+        'LINES, WHICH IS WHAT MAKES THE PIER WIDTHS ON THE WALL SHEETS MATTER. BLOCKING, EDGE NAILING,',
+        'CHORDS AND COLLECTORS ARE NOT DESIGNED OR SHOWN HERE. NOTE THE BUILDING IS STIFF ON THE RIGHT',
+        'WALL AND WEAK ON THE LEFT, SO DIAPHRAGM BEHAVIOUR AND LOAD DISTRIBUTION ARE AN ENGINEERING',
+        'QUESTION — SEE THE LEFT AND RIGHT WALL SHEETS.']],
+  [19, ['STANDARD THREE-STUD 2x6 FRAMED CORNER (NOT A SOLID 6x6), ALL FOUR CORNERS — STILL ' +
+        inchStr(cornerBlockW) + ' SQUARE IN PLAN,',
+        'BECAUSE THE BLOCK IS THE THICKNESS OF THE WALL RETURNING AT RIGHT ANGLES, SO NOTHING ELSE ON',
+        'THIS SHEET MOVED. THIS IS THE ONLY VIEW IN THE SET THAT CAN SHOW THE ARRANGEMENT TRUTHFULLY.',
+        'THE GABLE WALLS RUN THE FULL ' + inchStr(W) + ' AND CONTAIN THE CORNERS, SO THE TWO 2x6 ON EDGE BELONG',
+        'TO THE GABLE WALL — ' + inchStr(CN.studWidth) + ' OF ITS LENGTH EACH BY THE FULL ' +
+        inchStr(cornerBlockW) + ' OF WALL DEPTH — AND THE 2x6 LAID',
+        'FLAT (' + inchStr(cornerNailerW) + ', CUT TO FIT) LIES AGAINST THE INTERIOR FACE OF THE GABLE WALL, ' +
+        inchStr(CN.studWidth) + ' DEEP,',
+        'BACKING THE DRYWALL RETURN ON THE SIDE WALL. THE ' + inchStr(cornerNailerW) + ' x ' +
+        inchStr(cornerBlockW - CN.studWidth) + ' POCKET BEHIND IT IS THE INSULATED',
+        'VOID, SHOWN TINTED. THE NAILER THEREFORE FACES THE REAR AT THE FRONT CORNERS AND THE FRONT AT',
+        'THE REAR CORNERS. THE PIER CHORD AT A FRAMED CORNER IS NOW THREE SEPARATE 2x6 RATHER THAN ONE',
+        'SOLID 6x6: THEY MUST BE NAILED OR BOLTED TOGETHER TO ACT AS ONE MEMBER BEFORE A HOLD-DOWN CAN',
+        'DEVELOP TENSION IN THEM, AND A SINGLE 2x6 WILL NOT. GANGING AND HOLD-DOWNS PER ENGINEER.']],
+  [20, ['BEAM-TO-POST BRACKET WHERE THE ' + RF.ridgeBeamNominal.toUpperCase() +
+        ' RIDGE BEAM BEARS ON A 6x6 RIDGE POST — ' + wordNum(BEAM_POST_CAPS.length).toUpperCase() + ' PLACES,',
+        'ONE AT EACH GABLE. THE PLAN SHOWS BOTH AT ONCE, WHICH NO ELEVATION CAN DO. SIZED OFF THE',
+        'MEMBERS JOINED, ' + inchStr(BPC.seatW) + ' x ' + inchStr(BPC.seatD) +
+        ' IN PLAN, DRAWN WRAPPING THE POST FOOTPRINT. IT SITS AT THE',
+        'BEARING, INBOARD OF THE ' + inchStr(beamCantilever) +
+        ' CANTILEVER: IT HAS NOTHING TO DO WITH THE CONCENTRATED FLY-RAFTER',
+        'REACTIONS OUT AT THE BEAM TIP, WHICH ARE A SEPARATE PROBLEM — SEE 6. SYMBOL ONLY,',
+        'HIDDEN-LINE. MODEL, CAPACITY, BEARING AREA AND FASTENERS PER ENGINEER.']],
+  [21, ['H-STYLE BRACKET AT THE BOTTOM OF EACH 6x6 RIDGE POST, WHERE IT MEETS THE DOUBLE TOP PLATE: A',
+        'STRAP ON EACH POST FACE WITH A CROSSBAR AT THE PLATE LINE, SO THE SYMBOL READS AS AN H IN',
+        'ELEVATION AND AS TWO ' + inchStr(HB.strapW) + ' SLIVERS EITHER SIDE OF THE POST IN PLAN. ONE PER RIDGE',
+        'POST, SO ' + wordNum(H_BRACKETS.length).toUpperCase() + ' IN THE BUILDING — FRONT AND REAR GABLE, ' +
+        'BOTH VISIBLE ON THIS SHEET AND ONE',
+        'APIECE ON THE TWO GABLE ELEVATIONS. THIS JOINT IS ALSO WHERE THE BEAM REACTION CROSSES THE',
+        'PLATES IN COMPRESSION PERPENDICULAR TO GRAIN: THE BRACKET RESTRAINS THE POST, IT DOES NOT',
+        'RELIEVE THAT BEARING CHECK. SYMBOL ONLY, HIDDEN-LINE. PER ENGINEER.']],
+  [22, [inchStr(WS.thickness) + ' (' + WS.nominal +
+        ' NOMINAL) PLYWOOD, FULL WRAP — ALL FOUR WALLS SHEATHED IN THE SAME PANEL AS',
+        'THE ROOF DECK, SEE 13. NOTED, NOT DRAWN: IN A ROOF PLAN THE WALL SHEATHING IS BELOW THE ROOF',
+        'AND HIDDEN BY IT. THIS IS THICKER THAN THE 7/16" OR 15/32" USUALLY RUN FOR SHEAR, SO PANEL',
+        'SHEAR CAPACITY IS NOT WHAT CONSTRAINS THIS BUILDING — PIER LENGTH AND ASPECT RATIO ARE, AND A',
+        'THICKER PANEL DOES NOT RELAX EITHER RULE, AS THE WALL SHEETS SET OUT. SPAN RATING, EDGE',
+        'NAILING AND THE BRACING SCHEDULE PER ENGINEER.']]
+];
+const mNotes1 = P.length;
+
+/* ============================================================
+   DIMENSION STRINGS
+   ============================================================ */
+const mDims0 = P.length;
+
+/* ---- horizontal rows, below the plan (px direction = the span) ---- */
+const rowMem  = Y(rakeY0) + 74;
+const rowHalf = Y(rakeY0) + 128;
+const rowBldg = Y(rakeY0) + 172;
+const rowRoof = Y(rakeY0) + 212;
+
+const xBounds = [eaveX0, 0, seatLeft, beamL, beamR, seatRight, W, eaveX1];
+xBounds.forEach(b => line(X(b), Y(rakeY0) + 10, X(b), rowMem - 8, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"'));
+
+[[eaveX0, 0, null], [0, seatLeft, null], [seatLeft, beamL, null], [beamL, beamR, null],
+ [beamR, seatRight, null], [seatRight, W, null], [W, eaveX1, null]].forEach(([a, b]) =>
+  drawDimension(a, b, rowMem, inchStr(b - a)));
+drawLabel(X(eaveX0) - 14, rowMem + 3.5, 'MEMBERS', {size: 9, anchor: 'end', weight: 600});
+drawLabel(X((seatLeft + beamL) / 2), rowMem + 78, 'RAFTER BEARS HERE TO HERE', {size: 8.5, fill: '#888'});
+drawLabel(X(ridgeCL), rowMem + 92, inchStr(RF.ridgeBeamWidth) + ' BEAM', {size: 8.5, fill: '#888'});
+
+drawDimension(eaveX0, ridgeCL, rowHalf, 'RAFTER RUN + O.H. ' + inchStr(ridgeCL - eaveX0));
+drawDimension(ridgeCL, eaveX1, rowHalf, 'RAFTER RUN + O.H. ' + inchStr(eaveX1 - ridgeCL));
+drawLabel(X(eaveX0) - 14, rowHalf + 3.5, 'HALF ROOF', {size: 9, anchor: 'end', weight: 600});
+line(X(ridgeCL), rowMem + 8, X(ridgeCL), rowHalf - 8, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+
+drawDimension(0, halfSpan, rowBldg, 'HALF SPAN ' + ftStr(halfSpan));
+drawDimension(halfSpan, W, rowBldg, 'HALF SPAN ' + ftStr(halfSpan));
+drawLabel(X(eaveX0) - 14, rowBldg + 3.5, 'BUILDING', {size: 9, anchor: 'end', weight: 600});
+drawLabel(X(ridgeCL), rowBldg + 16, 'BUILDING WIDTH ' + ftStr(W) + ' — ROOF SPAN, WALL FACE TO WALL FACE',
+          {size: 8.5, fill: '#777'});
+
+drawDimension(eaveX0, eaveX1, rowRoof, 'OVERALL ROOF WIDTH ' + ftStr(roofW) + '  (' + inchStr(roofW) + ')');
+line(X(eaveX0), rowBldg + 8, X(eaveX0), rowRoof - 8, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+line(X(eaveX1), rowBldg + 8, X(eaveX1), rowRoof - 8, '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+drawLabel(X(eaveX0) - 14, rowRoof + 3.5, 'ROOF', {size: 9, anchor: 'end', weight: 600});
+
+/* eave overhang callouts */
+[[eaveX0, 0], [W, eaveX1]].forEach(([a, b]) =>
+  drawLabel(X((a + b) / 2), Y(rakeY0) + 26, inchStr(RF.eaveOverhang) + ' EAVE O.H.',
+            {size: 9, weight: 600, fill: '#555', rotate: -90}));
+
+/* ---- vertical chains, left of the plan (py direction = the ridge) ---- */
+const colRaf  = X(eaveX0) - 34;
+const colBldg = X(eaveX0) - 96;
+const colRoof = X(eaveX0) - 146;
+
+RSTATIONS.forEach((s, i) => {
+  if (i === 0) return;
+  drawVDim(RSTATIONS[i - 1].py, s.py, colRaf, inchStr(s.py - RSTATIONS[i - 1].py), 'left');
+});
+RSTATIONS.forEach(s => line(X(eaveX0) - 8, Y(s.py), colRaf + 8, Y(s.py), '#c9c9c9', 0.6, 'stroke-dasharray="3 3"'));
+drawLabel(colRaf, Y(rakeY1) - 16, 'RAFTER C.L.', {size: 9, weight: 600, anchor: 'middle'});
+
+drawVDim(rakeY0, 0, colBldg, inchStr(RF.rakeOverhang) + ' RAKE O.H.', 'left');
+drawVDim(0, D, colBldg, 'BUILDING DEPTH ' + ftStr(D), 'left');
+drawVDim(D, rakeY1, colBldg, inchStr(RF.rakeOverhang) + ' RAKE O.H.', 'left');
+drawVDim(rakeY0, rakeY1, colRoof, 'OVERALL ROOF DEPTH ' + ftStr(roofD) + ' = RIDGE BEAM LENGTH', 'left');
+
+/* module-from-front labels, set just above each station so they clear the
+   rafter itself rather than printing over it */
+RSTATIONS.forEach(s => drawLabel(X(eaveX0) + 4, Y(s.py) - 7, inchStr(s.d),
+                                 {size: 8, anchor: 'start', fill: '#8a939c'}));
+drawLabel(colRaf, Y(rakeY0) + 16, 'FROM FRONT FACE', {size: 8, weight: 700, fill: '#666'});
+
+/* lookout spacing, called out along the front rake with its T.B.D. warning */
+const rowLook = Y(rakeY0) - 34;
+lookoutStationsLeft.slice(1).forEach((x, i) =>
+  drawDimension(lookoutStationsLeft[i], x, rowLook, inchStr(x - lookoutStationsLeft[i])));
+drawLabel(X(lookoutStationsLeft[0]) - 10, rowLook + 3.5, 'LOOKOUTS', {size: 9, anchor: 'end', weight: 600});
+boxedLabel(X(36), rowLook - 18, 'LOOKOUT SPACING T.B.D. — ' + inchStr(RK.lookoutSpacingIndicative) +
+           ' O.C. SHOWN IS INDICATIVE ONLY, NOT A DESIGN VALUE',
+           {size: 9, weight: 700, fill: '#b00000'});
+boxedLabel(X(36), Y(lookoutBackFront) + 15, 'FRONT LOOKOUTS ' + inchStr(lookoutLenFront) +
+           ' — ' + inchStr(backspanFront) + ' BACK-SPAN INSIDE THE WALL FACE',
+           {size: 8.5, weight: 600, fill: '#6b4600'});
+boxedLabel(X(36), Y(lookoutBackRear) - 8, 'REAR LOOKOUTS ONLY ' + inchStr(lookoutLenRear) +
+           ' — ' + inchStr(backspanRear) + ' BACK-SPAN, ' + cantRatioRear.toFixed(2) +
+           ':1 TO THE ' + inchStr(RF.rakeOverhang) + ' CANTILEVER. SEE 9',
+           {size: 8.5, weight: 700, fill: '#b00000'});
+
+/* beam bearing / cantilever callouts on the beam itself */
+drawVDim(rakeY0, walls.front.y0, X(beamR) + 44, 'CANT. ' + inchStr(beamCantilever), 'right');
+drawVDim(walls.front.y1, walls.rear.y0, X(beamR) + 44, 'BEAM CLEAR SPAN ' + inchStr(beamClearSpan), 'right');
+drawVDim(walls.rear.y1, rakeY1, X(beamR) + 44, 'CANT. ' + inchStr(beamCantilever), 'right');
+line(X(beamR) + 6, Y(walls.front.y1), X(beamR) + 52, Y(walls.front.y1), '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+line(X(beamR) + 6, Y(walls.rear.y0), X(beamR) + 52, Y(walls.rear.y0), '#c9c9c9', 0.6, 'stroke-dasharray="3 3"');
+
+const mDims1 = P.length;
+
+/* ============================================================
+   KEYNOTE TEXT BLOCK — laid out, then the viewBox is sized to it
+   ============================================================ */
+const mKn0 = P.length;
+const KN_LINE = 12.7;
+const KN_COLS = [46, 46 + 636];
+const knTop = rowRoof + 66;
+
+drawLabel(KN_COLS[0], knTop - 20, 'KEYNOTES', {size: 11.5, weight: 700, anchor: 'start', fill: '#111'});
+line(KN_COLS[0], knTop - 14, VBW - 46, knTop - 14, '#bbb', 0.9);
+
+const knLines = [];
+KEYNOTES.forEach(([n, lines]) => {
+  lines.forEach((ln, i) => knLines.push({n: i === 0 ? n : null, txt: ln}));
+  knLines.push({spacer: true});
+});
+const perCol = Math.ceil(knLines.length / KN_COLS.length);
+let knMaxY = knTop;
+knLines.forEach((L2, i) => {
+  const col = Math.floor(i / perCol);
+  const row = i - col * perCol;
+  const y = knTop + row * KN_LINE;
+  if (y > knMaxY) knMaxY = y;
+  if (L2.spacer) return;
+  const x = KN_COLS[Math.min(col, KN_COLS.length - 1)];
+  if (L2.n !== null) {
+    P.push(`<circle cx="${(x + 7).toFixed(1)}" cy="${(y - 3.2).toFixed(1)}" r="7.6" fill="#fff" stroke="#222" stroke-width="1.1"/>`);
+    drawLabel(x + 7, y, String(L2.n), {size: 9, weight: 700, fill: '#111'});
+    drawLabel(x + 20, y, L2.txt, {size: 8.8, anchor: 'start', fill: '#222', weight: 600});
+  } else {
+    drawLabel(x + 20, y, L2.txt, {size: 8.8, anchor: 'start', fill: '#333'});
+  }
+});
+const mKn1 = P.length;
+
+const VBH = knMaxY + 34;
+
+/* ============================================================
+   ASSEMBLE THE SVG WITH TOGGLE GROUPS
+   ============================================================ */
+const svg =
+  `<svg viewBox="0 0 ${VBW.toFixed(0)} ${VBH.toFixed(0)}" preserveAspectRatio="xMidYMin meet" role="img" ` +
+  `aria-label="Roof framing plan for a 12 by 10 foot detached backyard office">` +
+  P.slice(0, mBelow0).join('') +
+  `<g id="gBelow">` + P.slice(mBelow0, mBelow1).join('') + `</g>` +
+  `<g id="gPanels" style="display:none">` + P.slice(mPanels0, mPanels1).join('') + `</g>` +
+  P.slice(mPanels1, mNotes0).join('') +
+  `<g id="gNotes">` + P.slice(mNotes0, mNotes1).join('') + `</g>` +
+  `<g id="gDims">` + P.slice(mDims0, mDims1).join('') + `</g>` +
+  `<g id="gKn">` + P.slice(mKn0, mKn1).join('') + `</g>` +
+  `</svg>`;
+document.getElementById('drawing').innerHTML = svg;
+
+function bind(id, gid) {
+  const cb = document.getElementById(id), g = document.getElementById(gid);
+  const apply = () => { g.style.display = cb.checked ? '' : 'none'; };
+  cb.addEventListener('change', apply); apply();
+}
+bind('tBelow', 'gBelow');
+bind('tPanels', 'gPanels');
+bind('tDims', 'gDims');
+(function () {
+  const cb = document.getElementById('tNotes');
+  const apply = () => {
+    const v = cb.checked ? '' : 'none';
+    document.getElementById('gNotes').style.display = v;
+    document.getElementById('gKn').style.display = v;
+  };
+  cb.addEventListener('change', apply); apply();
+})();
+
+/* ============================================================
+   HEADER META / FLAG / PROSE
+   ============================================================ */
+document.getElementById('meta').innerHTML =
+  `<b>ROOF FRAMING PLAN</b><br>` +
+  `Building ${ftStr(W)} x ${ftStr(D)} &middot; roof ${ftStr(roofW)} x ${ftStr(roofD)} in plan<br>` +
+  `${RF.rise}:${RF.run} &middot; ${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. &middot; ` +
+  `${RF.ridgeBeamNominal} ridge beam<br>` +
+  `${inchStr(RF.sheathingThickness)} (${RF.sheathingNominal} nominal) plywood — roof deck and full wall wrap<br>` +
+  `Dimensions in inches unless noted`;
+
+document.getElementById('flag').innerHTML =
+  `<b>NOT ENGINEER APPROVED — the following are shown but NOT verified:</b>` +
+  `<ul>` +
+  `<li>The ${RF.ridgeBeamNominal} ridge beam size, its deflection over the ${inchStr(beamClearSpan)} clear span, ` +
+  `and the ${inchStr(beamCantilever)} cantilever at each gable (${RF.ridgeBeamAlternate} alternate).</li>` +
+  `<li><b>The beam tip.</b> Both fly rafters at a gable land on opposite faces of the beam at the same point, ` +
+  `${inchStr(beamCantilever)} from the face of bearing and ${inchStr(RF.rakeOverhang - t)} from the beam end. Two ` +
+  `concentrated reactions with almost no end distance for hanger fasteners — see keynote 6.</li>` +
+  `<li>${RF.rafterNominal} rafter sizing and span, and the birdsmouth notch ` +
+  `(${inchStr(seatPerp)} perpendicular = ${(100 * seatPerp / RF.rafterDepth).toFixed(0)}% of the ` +
+  `${inchStr(RF.rafterDepth)} depth).</li>` +
+  `<li><b>Lookout spacing is NOT specified.</b> The ${inchStr(RK.lookoutSpacingIndicative)} o.c. drawn is ` +
+  `indicative only and is not a design value.</li>` +
+  `<li><b>The rear lookouts are short.</b> Because the ${RF.rafterSpacing}" module is datumed from the front ` +
+  `face, the rear lookouts are only ${inchStr(lookoutLenRear)} long against ${inchStr(lookoutLenFront)} at the ` +
+  `front, leaving just ${inchStr(backspanRear)} of tail inside the wall to cantilever ` +
+  `${inchStr(RF.rakeOverhang)} — ${cantRatioRear.toFixed(2)}:1 back-span to cantilever, against ` +
+  `${cantRatioFront.toFixed(2)}:1 at the front. See keynote 9.</li>` +
+  `<li><b>The gable-end rafter drop is not determined</b>, and it depends on whether the lookouts lie flat or ` +
+  `stand on edge. Dropping it shortens the gable studs on the front and rear wall sheets.</li>` +
+  `<li>All connectors are symbols only: no hanger, tie, product, capacity or fastener has been selected.</li>` +
+  `<li>Roof diaphragm blocking, edge nailing, chords and collectors are not designed.</li>` +
+  `<li>Fascia, sub-fascia, soffit, venting and the ridge blocking / beam-top bevel are not shown.</li>` +
+  `</ul>`;
+
+document.getElementById('orientNote').innerHTML =
+  `<b>Orientation.</b> This is a plan viewed from above with the <b>front of the building at the bottom</b> of the ` +
+  `sheet and the <b>left wall at the left</b> — the conventional way round, and the same left-to-right sense as ` +
+  `the rear wall sheet. Plan coordinates run <b>px</b> across the ${ftStr(W)} span (0 at the left wall face, ` +
+  `${inchStr(W)} at the right) and <b>py</b> along the ${ftStr(D)} depth (0 at the front wall face, ` +
+  `${inchStr(D)} at the rear). The ${RF.rafterSpacing}" rafter module is datumed from the front face, so rafter ` +
+  `stations are labelled by their distance from the front — the same convention the left and right wall sheets ` +
+  `use, and the reason sheathing panel edges at 48" and 96" land on a rafter. The front wall sheet is an interior ` +
+  `elevation and therefore reads mirrored to this plan, but that wall is symmetric about its centreline, so ` +
+  `nothing on it is direction-sensitive.`;
+
+document.getElementById('beamNote').innerHTML =
+  `<b>The ridge beam is the whole roof.</b> This is a structural ridge beam with individual rafters, not a truss ` +
+  `roof and not a collar-tied ridge board: the rafters do not resist each other's thrust, so the beam carries half ` +
+  `the roof load along the whole ${ftStr(D)} depth and the walls take no outward thrust. The ` +
+  `${RF.ridgeBeamNominal} runs <b>${ftStr(beamLen)} overall</b> — ${inchStr(D)} between the gable wall faces plus ` +
+  `a ${inchStr(beamCantilever)} cantilever at each end — bearing ${inchStr(beamBearing)} on a 6&times;6 ridge post ` +
+  `in each gable wall. That gives a clear span of ${inchStr(beamClearSpan)} between the post inner faces and ` +
+  `${inchStr(beamSpanCC)} centre to centre of bearings. Every one of the ${RAFTERS.length} rafters frames into ` +
+  `its side faces, and the beam top sits flush with the rafter tops at those faces.`;
+
+document.getElementById('tipNote').innerHTML =
+  `<b>The one thing this plan reveals that the elevations could not.</b> In every wall elevation the rake framing ` +
+  `projects out of the plane of the view, so the fly rafter reads coincident with the rake rafter and the beam ` +
+  `cantilever is only a note. In plan it is visible that <b>both fly rafters at a gable land on opposite faces of ` +
+  `the beam at the same point</b>, ${inchStr(beamCantilever)} beyond the face of bearing and only ` +
+  `${inchStr(RF.rakeOverhang - t)} from the end of the beam. So the beam tip takes two concentrated reactions in a ` +
+  `location with almost no end distance available for hanger nails or screws, and end-grain splitting is a real ` +
+  `risk. This is a different connection problem from the hangers at the interior commons, which have full beam ` +
+  `depth and length either side of them. Hanger selection at the tip, the required end distance, and whether the ` +
+  `tip needs a bearing block or a wider beam end are all questions for the engineer, and they are worth resolving ` +
+  `before the beam is ordered, because the answer may change its size or length.`;
+
+document.getElementById('rakeNote').innerHTML =
+  `<b>Rake framing, and the two things still open.</b> The ${inchStr(RF.rakeOverhang)} rake is framed off the ` +
+  `cantilevered beam rather than off the gable wall: a ${RK.flyRafterNominal} fly rafter hangs on the beam tip ` +
+  `with its outer face flush with the beam end, and ${RK.lookoutNominal} lookouts tie it back to the first common ` +
+  `rafter, passing over the gable-end rafter. ` +
+
+  `<div style="margin-top:6px;"><b>The lookouts are not the same length at the two gables, and this plan is the ` +
+  `only view that shows why.</b> The ${RF.rafterSpacing}" module is datumed from the front face, so the leftover ` +
+  `bay at the rear is ${inchStr(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py)} where the front one is ` +
+  `${inchStr(firstCommonFront.py - RSTATIONS[0].py)}. The first common rafter therefore sits much closer to the ` +
+  `rear wall, and the lookout tied back to it is only ${inchStr(lookoutLenRear)} long against ` +
+  `${inchStr(lookoutLenFront)} at the front. Measured from the gable wall face inward, the rear lookout has just ` +
+  `${inchStr(backspanRear)} of tail to be fastened to while cantilevering the same ${inchStr(RF.rakeOverhang)} — ` +
+  `a back-span to cantilever ratio of ${cantRatioRear.toFixed(2)}:1, against ${cantRatioFront.toFixed(2)}:1 at ` +
+  `the front. Both are short of the usual rule of thumb of roughly twice the cantilever, and the rear is much the ` +
+  `worse. The straightforward fix, if the engineer wants more tail, is to run the rear lookouts back to the ` +
+  `second common rafter at 96" instead of the first at 112"; that is not drawn, because it is a design change ` +
+  `rather than a drafting one.</div>` +
+
+  `<div style="margin-top:6px;">Two further things are genuinely unresolved and are drawn as such. ` +
+  `<b>First, lookout spacing along the rake is not specified</b> — the ` +
+  `${inchStr(RK.lookoutSpacingIndicative)} o.c. shown is indicative only, chosen so the drawing can show the ` +
+  `members at all, and the config keeps the real value null so nothing here can be mistaken for a decision. ` +
+  `<b>Second, the gable-end rafter drop is not determined.</b> If the lookouts run over the top of that rafter it ` +
+  `has to be dropped flush with the lookout tops, ${inchStr(1.5)} if the lookouts lie flat and ` +
+  `${inchStr(RK.lookoutDepth)} if they stand on edge; the alternative is notching the rafter at each lookout. ` +
+  `That choice changes the gable stud lengths already drawn on the front and rear wall sheets, so it should be ` +
+  `settled before those studs are cut.`;
+
+document.getElementById('cornerNote').innerHTML =
+  `<b>Framed corners, drawn rather than noted.</b> The four corners are standard three-stud 2&times;6 framed ` +
+  `corners, not solid 6&times;6 posts. The corner block is still a ${inchStr(cornerBlockW)} square in plan — that ` +
+  `is the thickness of the wall returning at right angles — so the four corner footprints and every dimension on ` +
+  `this sheet are unchanged; only the contents of the square changed. This is the one sheet in the set that can ` +
+  `show the arrangement truthfully, because in an elevation the three members read as a single block and the ` +
+  `handedness is guesswork, so it is drawn here in true plan. The front and rear gable walls run the full ` +
+  `${inchStr(W)} and contain the corners; the left and right walls butt into them. The two 2&times;6 on edge ` +
+  `therefore belong to the gable wall, ${inchStr(CN.studWidth)} of its length each by the full ` +
+  `${inchStr(cornerBlockW)} of wall depth, and the third 2&times;6 lies flat against the interior face of the ` +
+  `gable wall, ${inchStr(cornerNailerW)} long and ${inchStr(CN.studWidth)} deep, backing the drywall return on ` +
+  `the side wall. The ${inchStr(cornerNailerW)} &times; ${inchStr(cornerBlockW - CN.studWidth)} pocket behind it ` +
+  `is left for insulation and is drawn tinted. The handedness follows from that: the flat nailer faces the rear ` +
+  `at the two front corners and the front at the two rear corners. One consequence is worth naming, and it is ` +
+  `the same one the wall sheets carry: the pier chord at a framed corner is now three separate 2&times;6 rather ` +
+  `than one solid 6&times;6, so those members have to be nailed or bolted together to act as one before a ` +
+  `hold-down can develop tension in them. A single 2&times;6 will not. Ganging and hold-down attachment are per ` +
+  `engineer.`;
+
+document.getElementById('bracketNote').innerHTML =
+  `<b>Brackets at the ridge posts &mdash; both of them, on one sheet.</b> A beam-to-post bracket is shown where ` +
+  `the ${RF.ridgeBeamNominal} ridge beam bears on each 6&times;6 ridge post, and an H-style bracket at the bottom ` +
+  `of the same post where it meets the double top plate: a strap on each post face with a crossbar at the plate ` +
+  `line. There are ${wordNum(BEAM_POST_CAPS.length)} of each, one per gable, and the plan is the only view that ` +
+  `shows both gables at once — each gable elevation can only show its own. In plan the two brackets share a ` +
+  `footprint, since only height separates them, so the cap is drawn wrapping the ${inchStr(BPC.seatW)} &times; ` +
+  `${inchStr(BPC.seatD)} post and the H reads as its two ${inchStr(HB.strapW)} face straps inside it. Both sit at ` +
+  `the bearing, inboard of the ${inchStr(beamCantilever)} cantilevers. That is worth saying plainly because this ` +
+  `sheet also flags the beam tips: the concentrated fly-rafter reactions ${inchStr(beamCantilever)} further out ` +
+  `are a separate problem, and no bracket at the bearing does anything about them. The H-bracket location is also ` +
+  `where the beam reaction crosses the plates in compression perpendicular to grain; the bracket restrains the ` +
+  `post, it does not relieve that bearing check. Symbols only &mdash; no model, capacity, bearing area or ` +
+  `fastener schedule is selected.`;
+
+document.getElementById('heightNote').innerHTML =
+  `<b>Vertical figures are inherited, not set here.</b> A plan does not establish heights, so every elevation in ` +
+  `the geometry table is carried from the ${INH.source}: wall height ${inchStr(wallHeight)} ` +
+  `(${INH.roHead}" R.O. head + ${inchStr(INH.headerDepth)} header + ${inchStr(topPlateThk)} plates), rafter ` +
+  `underside at the ridge ${inchStr(underRidge)}, top of rafters ${inchStr(actualPeak)}, and top of ` +
+  `${RF.sheathingNominal} sheathing at the ridge <b>${ftStr(sheathingPeak)}</b> above top of slab with no roofing ` +
+  `above it. Going from 15/32" to ${inchStr(WS.thickness)} panels raised the ridge ${inchStr(sheathRise)}; the ` +
+  `top of rafters is unchanged at ${ftStr(actualPeak)}, since only the deck got thicker. The ` +
+  `${inchStr(seatCut)} birdsmouth seat drops the whole roof plane ${inchStr(seatPlumb)} without ` +
+  `changing the ${RF.rise}:${RF.run} pitch. Those figures are asserted against the wall sheets in the validation ` +
+  `list so the two cannot drift apart.`;
+
+document.getElementById('sheathNote').innerHTML =
+  `<b>Sheathing quantity, and why the module is datumed from the front.</b> The roof measures ` +
+  `${inchStr(roofW)} &times; ${inchStr(roofD)} in plan, which is ${projectedArea.toFixed(0)} sq ft projected, but ` +
+  `sheathing follows the slope: the span direction stretches by the slope factor ${slopeFactor.toFixed(6)} while ` +
+  `the ridge direction does not, giving <b>${slopedArea.toFixed(1)} sq ft of actual roof surface</b> and ` +
+  `${minPanels} 4&times;8 sheets as an absolute minimum before any waste or edge support. Treat that as a lower ` +
+  `bound, not a material order. The ${RF.rafterSpacing}" module runs from the front face precisely so that the ` +
+  `panel end joints at 48" and 96" from the front land on rafter centrelines — both the left and right wall ` +
+  `sheets already assert this, and the panel layout toggle shows those two joint lines. Everything else about the ` +
+  `panel layout is indicative: staggering, blocking, edge support and the nailing schedule are per engineer.` +
+
+  `<div style="margin-top:6px;"><b>The panel is ${inchStr(WS.thickness)} (${WS.nominal} nominal), and the walls ` +
+  `get the same one.</b> The building takes a full plywood wrap: all four walls sheathed in the same panel as the ` +
+  `roof deck. On this sheet the wall sheathing is below the roof and hidden by it, so it is noted rather than ` +
+  `drawn, but the roof deck thickness is real geometry here and it moved the ridge ${inchStr(sheathRise)}. ` +
+  `Nothing in the panel layout changed with it: the ${inchStr(RF.sheathingPanel.w)} &times; ` +
+  `${inchStr(RF.sheathingPanel.l)} sheet size, the end joints at 48" and 96" from the front face, the ` +
+  `${inchStr(panelUpslopeRun)} horizontal that ${inchStr(RF.sheathingPanel.w)} up the slope works out to, and the ` +
+  `${minPanels}-sheet minimum are all set by panel size and slope, not by thickness. Worth being clear about what ` +
+  `the thicker panel does and does not buy: ${inchStr(WS.thickness)} is more than the 7/16" or 15/32" normally ` +
+  `run for shear, so panel shear capacity is not what constrains this building. The pier lengths and aspect ` +
+  `ratios on the wall sheets are, and a thicker panel does not relax either rule.</div>`;
+
+document.getElementById('sillNote').innerHTML =
+  `<b>Base of wall.</b> Nothing at the bottom of the building shows in a roof plan, but the load path above ends ` +
+  `there, so it is worth carrying the same statement the elevations make: every bottom / sill plate in this ` +
+  `building is pressure treated, over a capillary break, and the posts and framed corners bear on that ` +
+  `continuous plate rather than landing on the slab in standoff bases. Hardware in contact with treated lumber ` +
+  `has to be corrosion resistant. Anchor type, spacing, edge distance, embedment and hold-down selection are per ` +
+  `engineer and are drawn on the wall sheets, not here.`;
+
+document.getElementById('revTip').innerHTML =
+  `<b>Hanger at the beam tip</b>: two fly-rafter reactions on opposite faces ${inchStr(RF.rakeOverhang - t)} from ` +
+  `the beam end, required end distance, splitting, and whether a bearing block or wider beam end is needed`;
+
+/* ============================================================
+   LEGEND
+   ============================================================ */
+const legend = [
+  [C.beam, RF.ridgeBeamNominal + ' structural ridge beam (' + ftStr(beamLen) + ' overall)'],
+  [C.rafter, RF.rafterNominal + ' common rafters @ ' + RF.rafterSpacing + '" o.c.'],
+  [C.gableRaf, RF.rafterNominal + ' gable-end rafters, over the gable walls'],
+  [C.fly, RK.flyRafterNominal + ' fly / rake rafters at the beam tips'],
+  [C.lookout, RK.lookoutNominal + ' lookouts — spacing indicative'],
+  ['#fff|' + C.steel, 'Connector symbols — hangers, hurricane ties'],
+  ['#fff|' + C.steelLt, 'Bracket symbols at the ridge posts — beam-to-post cap, H-bracket'],
+  ['rgba(176,121,78,0.4)|' + C.postEdge, '6x6 ridge posts and three-stud framed corners below'],
+  [C.insul + '|' + C.insulEdge, 'Insulated pocket behind the flat corner nailer'],
+  ['rgba(154,163,173,0.13)|' + C.below, 'Walls below the roof, hidden-line'],
+  ['#fff|#b06a2a', 'Birdsmouth seat / plumb heel line'],
+  ['#fff|' + C.panel, 'Sheathing panel joints (toggle)'],
+  [C.field + '|#b9c0c8', 'Roof field — edge of ' + RF.sheathingNominal + ' sheathing'],
+  ['#fff|' + C.dim, 'Dimension lines']
+];
+document.getElementById('legend').innerHTML = legend.map(([c, txt]) => {
+  const [fill, stroke] = c.includes('|') ? c.split('|') : [c, '#333'];
+  const dash = c.includes('|') && stroke !== C.dim ? 'border-style:dashed;' : '';
+  return `<div><span class="sw" style="background:${fill};border-color:${stroke};${dash}"></span>${txt}</div>`;
+}).join('');
+
+/* ============================================================
+   RAFTER SCHEDULE TABLE
+   ============================================================ */
+let rt = `<tr><th>#</th><th>Member</th><th class="n">C.L. from front</th><th class="n">px from</th>` +
+         `<th class="n">px to</th><th class="n">Run</th><th class="n">Sloped</th></tr>`;
+RSTATIONS.forEach((s, i) => {
+  const pair = RAFTERS.filter(r => near(r.py, s.py));
+  rt += `<tr${s.kind === 'gable-end' ? ' class="grp"' : ''}><td>${i + 1}</td>` +
+        `<td>${s.kind === 'gable-end' ? RF.rafterNominal + ' gable-end rafter — ' + s.at
+                                      : RF.rafterNominal + ' common rafter, pair'}</td>` +
+        `<td class="n">${inchStr(s.d)}</td>` +
+        `<td class="n">${inchStr(pair[0].x0)} / ${inchStr(pair[1].x0)}</td>` +
+        `<td class="n">${inchStr(pair[0].x1)} / ${inchStr(pair[1].x1)}</td>` +
+        `<td class="n">${inchStr(pair[0].run)}</td>` +
+        `<td class="n">${inchStr(pair[0].len)}</td></tr>`;
+});
+FLY.filter(f => f.slope === 'left').forEach((f, i) => {
+  rt += `<tr class="grp"><td>F${i + 1}</td><td>${RK.flyRafterNominal} fly / rake rafter pair — ${f.end} gable, ` +
+        `outer face flush with the beam end</td><td class="n">${inchStr(f.py)}</td>` +
+        `<td class="n">${inchStr(eaveX0)} / ${inchStr(beamR)}</td>` +
+        `<td class="n">${inchStr(beamL)} / ${inchStr(eaveX1)}</td>` +
+        `<td class="n">${inchStr(f.run)}</td><td class="n">${inchStr(f.len)}</td></tr>`;
+});
+rt += `<tr><th colspan="2">Spacings, front to rear</th>` +
+      `<th class="n" colspan="5">${RSTATIONS.slice(1).map((s, i) => inchStr(s.py - RSTATIONS[i].py)).join(', ')}</th></tr>`;
+rt += `<tr><th colspan="2">TOTAL ${RF.rafterNominal} RAFTER PIECES</th>` +
+      `<th class="n">${RAFTERS.length + FLY.length}</th>` +
+      `<th colspan="4">${RAFTERS.filter(r => r.kind === 'common').length} common + ` +
+      `${RAFTERS.filter(r => r.kind === 'gable-end').length} gable-end + ${FLY.length} fly</th></tr>`;
+rt += `<tr class="grp"><td colspan="2">${RK.lookoutNominal} lookouts at the FRONT gable, ` +
+      `${inchStr(lookoutLenFront)} long (back-span ${inchStr(backspanFront)}, ` +
+      `${cantRatioFront.toFixed(2)}:1)</td><td class="n">${LOOKOUTS.filter(k => k.end === 'front').length}</td>` +
+      `<td colspan="4">${LOOKOUTS.length / 4} per slope @ ${inchStr(RK.lookoutSpacingIndicative)} o.c. shown — spacing T.B.D.</td></tr>`;
+rt += `<tr class="grp"><td colspan="2">${RK.lookoutNominal} lookouts at the REAR gable, ` +
+      `<b>${inchStr(lookoutLenRear)}</b> long (back-span only ${inchStr(backspanRear)}, ` +
+      `${cantRatioRear.toFixed(2)}:1)</td><td class="n">${LOOKOUTS.filter(k => k.end === 'rear').length}</td>` +
+      `<td colspan="4">shorter because the 16" module is datumed from the front face</td></tr>`;
+rt += `<tr class="grp"><td colspan="2">Sloped rafter hangers at the beam / hurricane ties at the walls</td>` +
+      `<td class="n">${HANGERS.length} / ${TIES.length}</td>` +
+      `<td colspan="4">symbols only, no product selected</td></tr>`;
+document.getElementById('rafterTable').innerHTML = rt;
+
+/* ============================================================
+   GEOMETRY TABLE
+   ============================================================ */
+let gt = `<tr><th>Roof geometry (plan)</th><th class="n">Value</th><th class="n">Ft-in</th></tr>`;
+[['Building width — roof span, wall face to wall face', W],
+ ['Building depth — ridge direction', D],
+ ['Overall roof width, eave edge to eave edge', roofW],
+ ['Overall roof depth, rake edge to rake edge', roofD],
+ ['Ridge beam length overall (= overall roof depth)', beamLen],
+ ['Ridge beam clear span between the post inner faces', beamClearSpan],
+ ['Ridge beam span, centre to centre of bearings', beamSpanCC],
+ ['Ridge beam cantilever past each gable wall face', beamCantilever],
+ ['Rafter horizontal run, eave edge to beam face', rafterRun],
+ ['Rafter length along the slope', rafterSlopedLen],
+ ['Half span, wall face to ridge centreline', halfSpan],
+ ['Eave overhang / rake overhang', RF.eaveOverhang],
+ ['Lookout length at the FRONT gable', lookoutLenFront],
+ ['Lookout length at the REAR gable (shorter — front-datumed module)', lookoutLenRear]
+].forEach(([txt, v]) => gt += `<tr><td>${txt}</td><td class="n">${inchStr(v)}</td><td class="n">${ftStr(v)}</td></tr>`);
+
+gt += `<tr><th>Vertical references (inherited)</th><th class="n">Inches</th><th class="n">Ft-in</th></tr>`;
+[['Top of slab / foundation (datum)', 0],
+ ['Top of double top plate = WALL HEIGHT', wallHeight],
+ ['Top of rafter at the heel = plate + H.A.P.', heelTop],
+ ['Bottom of rafter tail at the eave', tailUnder],
+ ['Top of sheathing at the eave edge', eaveEdge],
+ ['Underside of rafters at the ridge', underRidge],
+ ['Bottom of ridge beam', beamBot],
+ ['Top of ridge beam', beamTop],
+ ['Top of 2x8 rafters at the ridge', actualPeak],
+ ['TOP OF ' + RF.sheathingNominal + ' SHEATHING AT RIDGE (no roofing)', sheathingPeak]
+].forEach(([txt, v]) => gt += `<tr><td>${txt}</td><td class="n">${inchStr(v)}</td><td class="n">${ftStr(v)}</td></tr>`);
+
+gt += `<tr class="grp"><td>Pitch / slope factor &radic;(1+0.5&sup2;)</td><td class="n">${RF.rise}:${RF.run}</td><td class="n">${slopeFactor.toFixed(6)}</td></tr>`;
+gt += `<tr class="grp"><td>Birdsmouth seat / plumb drop / perpendicular notch</td><td class="n">${inchStr(seatCut)} / ${inchStr(seatPlumb)} / ${inchStr(seatPerp)}</td><td class="n">${(100 * seatPerp / RF.rafterDepth).toFixed(0)}% of depth</td></tr>`;
+gt += `<tr class="grp"><td>H.A.P. — plumb heel height above the plate</td><td class="n">${inchStr(hap)}</td><td class="n">&mdash;</td></tr>`;
+gt += `<tr class="grp"><td>Void between beam top and the ridge</td><td class="n">${inchStr(ridgeVoid)}</td><td class="n">bevel or blocking T.B.D.</td></tr>`;
+gt += `<tr class="grp"><td>Sheathing area — projected / actual sloped</td><td class="n">${projectedArea.toFixed(0)} / ${slopedArea.toFixed(1)} sq ft</td><td class="n">${minPanels} sheets min.</td></tr>`;
+gt += `<tr class="grp"><td>Panel end joints from the front face, both on rafters</td><td class="n">${panelCrossJoints.map(d => inchStr(d)).join(', ')}</td><td class="n">&mdash;</td></tr>`;
+gt += `<tr class="grp"><td>Roof deck / wall plywood wrap — the same panel on all six surfaces</td><td class="n">${inchStr(RF.sheathingThickness)}</td><td class="n">${WS.nominal} nominal</td></tr>`;
+gt += `<tr class="grp"><td>Ridge rise from the thicker deck (rafter tops unmoved)</td><td class="n">${inchStr(sheathRise)}</td><td class="n">15/32" &rarr; ${inchStr(WS.thickness)}</td></tr>`;
+gt += `<tr class="grp"><td>Framed corner block, all four corners: ${inchStr(CN.studWidth)} stud + ${inchStr(cornerNailerW)} flat nailer + ${inchStr(CN.studWidth)} stud</td><td class="n">${inchStr(cornerBlockW)} sq</td><td class="n">${CN.studs} members</td></tr>`;
+gt += `<tr class="grp"><td>Brackets at the ridge posts — beam-to-post cap / H-bracket at the plate</td><td class="n">${BEAM_POST_CAPS.length} / ${H_BRACKETS.length}</td><td class="n">symbols only</td></tr>`;
+document.getElementById('geomTable').innerHTML = gt;
+
+/* ============================================================
+   VALIDATION
+   Checks verify that the drawing measures and states a
+   condition. They never assert that the design is adequate.
+   ============================================================ */
+const RESULTS = [];
+function check(desc, ok, detail) { RESULTS.push({desc, ok: !!ok, detail: detail || ''}); return !!ok; }
+
+/* the rafter stations the left and right wall sheets lay out, hardcoded so any
+   future drift between the sheets trips the alarm */
+const EXPECTED_STATIONS = [0.75, 16, 32, 48, 64, 80, 96, 112, 119.25];
+
+/* Everything this sheet actually says, assembled from its own sources: the
+   keynote lines plus every block of prose the script writes into the page.
+   Scraping body.innerText alone only works once a browser has laid the sheet
+   out, and these checks have to read the same words wherever the script runs. */
+const docText = [
+  document.body.innerText || '',
+  ...['flag', 'orientNote', 'beamNote', 'tipNote', 'rakeNote', 'cornerNote', 'bracketNote',
+      'heightNote', 'sheathNote', 'sillNote', 'revTip', 'meta']
+    .map(id => document.getElementById(id).innerHTML),
+  ...KEYNOTES.map(k => k[1].join(' '))
+].join(' ');
+
+check('1. Overall roof width = 168" (14\'-0"): 144" building width + 12" eave overhang each side',
+      near(roofW, 168) && near(roofW, W + 2 * RF.eaveOverhang) &&
+      near(eaveX0, -12) && near(eaveX1, 156),
+      `${inchStr(eaveX0)} to ${inchStr(eaveX1)} = ${inchStr(roofW)} (${ftStr(roofW)})`);
+check('2. Overall roof depth = 144" (12\'-0"): 120" building depth + 12" rake overhang each end',
+      near(roofD, 144) && near(roofD, D + 2 * RF.rakeOverhang) &&
+      near(rakeY0, -12) && near(rakeY1, 132),
+      `${inchStr(rakeY0)} to ${inchStr(rakeY1)} = ${inchStr(roofD)} (${ftStr(roofD)})`);
+check('3. Ridge beam is 144" = 12\'-0" overall, and its length equals the overall roof depth',
+      near(beamLen, 144) && near(beamLen, roofD) && near(beamLen, D + 2 * RK.beamCantilever),
+      `${inchStr(beamY0)} to ${inchStr(beamY1)} = ${inchStr(beamLen)} (${ftStr(beamLen)}) = ` +
+      `${inchStr(D)} + 2 x ${inchStr(RK.beamCantilever)}`);
+check('4. Beam cantilevers 12" past each gable wall face, equal both ends',
+      near(beamCantilever, 12) && near(beamCantilever, RK.beamCantilever) &&
+      near(walls.front.y0 - beamY0, beamY1 - walls.rear.y1),
+      `front ${inchStr(walls.front.y0 - beamY0)}, rear ${inchStr(beamY1 - walls.rear.y1)}`);
+check('5. Beam is 5-1/2" wide and centred on the building centreline at px 72',
+      near(beamR - beamL, 5.5) && near(beamR - beamL, RF.ridgeBeamWidth) &&
+      near((beamL + beamR) / 2, ridgeCL) && near(ridgeCL, W / 2) &&
+      near(beamL, 69.25) && near(beamR, 74.75),
+      `${inchStr(beamL)} to ${inchStr(beamR)}, centre ${inchStr((beamL + beamR) / 2)}`);
+check('6. Beam bears 5-1/2" on a 6x6 ridge post in each gable wall, giving 109" clear span and 114-1/2" c/c of bearings',
+      ridgePosts.length === 2 && near(beamBearing, 5.5) &&
+      near(beamClearSpan, 109) && near(beamSpanCC, 114.5) &&
+      ridgePosts.every(p => near(p.x0, beamL) && near(p.x1, beamR)) &&
+      ridgePosts.every(p => near(p.y1 - p.y0, FR.ridgePostWidth)),
+      `bearing ${inchStr(beamBearing)} each end, clear span ${inchStr(beamClearSpan)}, ` +
+      `${inchStr(beamSpanCC)} centre to centre`);
+check('7. Nine rafter stations, matching the hardcoded layout from the left and right wall sheets exactly',
+      RSTATIONS.length === 9 && RSTATIONS.length === EXPECTED_STATIONS.length &&
+      RSTATIONS.every((s, i) => near(s.py, EXPECTED_STATIONS[i])),
+      `${RSTATIONS.map(s => inchStr(s.py)).join(', ')} from the front face`);
+check('8. No station-to-station spacing exceeds the 16" module',
+      RSTATIONS.slice(1).every((s, i) => s.py - RSTATIONS[i].py <= RF.rafterSpacing + 1e-9),
+      `spacings ${RSTATIONS.slice(1).map((s, i) => inchStr(s.py - RSTATIONS[i].py)).join(', ')} — widest ` +
+      `${inchStr(Math.max(...RSTATIONS.slice(1).map((s, i) => s.py - RSTATIONS[i].py)))}`);
+check('9. The 16" module is datumed from the FRONT face, and sheathing panel edges at 48" and 96" from the front land on a rafter centreline',
+      ORI.moduleDatum === 'front face of the building' &&
+      moduleFromFront.every(d => near(d % RF.rafterSpacing, 0)) &&
+      [48, 96].every(d => RSTATIONS.some(s => near(s.py, d))) &&
+      panelCrossJoints.length === 2,
+      `module at ${moduleFromFront.map(d => inchStr(d)).join(', ')} from the front; panel joints at ` +
+      `${panelCrossJoints.map(d => inchStr(d)).join(' and ')}, both rafter centrelines`);
+check('10. A gable-end rafter sits directly over each gable wall, centred 3/4" from the outside face',
+      RSTATIONS.filter(s => s.kind === 'gable-end').length === 2 &&
+      near(RSTATIONS[0].py, t / 2) && near(RSTATIONS[RSTATIONS.length - 1].py, D - t / 2) &&
+      near(RSTATIONS[0].y0, 0) && near(RSTATIONS[RSTATIONS.length - 1].y1, D),
+      `front ${inchStr(RSTATIONS[0].y0)}–${inchStr(RSTATIONS[0].y1)}, rear ` +
+      `${inchStr(RSTATIONS[RSTATIONS.length - 1].y0)}–${inchStr(RSTATIONS[RSTATIONS.length - 1].y1)}, both inside the wall thickness`);
+check('11. 18 common and gable-end rafters (two per station), plus 4 fly rafters = 22 2x8 rafter pieces',
+      RAFTERS.length === 18 && RAFTERS.length === RSTATIONS.length * 2 &&
+      FLY.length === 4 && RAFTERS.length + FLY.length === 22 &&
+      RAFTERS.filter(r => r.kind === 'common').length === 14 &&
+      RAFTERS.filter(r => r.kind === 'gable-end').length === 4,
+      `${RAFTERS.filter(r => r.kind === 'common').length} common + ` +
+      `${RAFTERS.filter(r => r.kind === 'gable-end').length} gable-end + ${FLY.length} fly = ` +
+      `${RAFTERS.length + FLY.length}`);
+check('12. Every rafter runs 81-1/4" horizontally to a beam face, = 90-13/16" along the slope',
+      near(rafterRun, 81.25) && near(rafterSlopedLen, 90.8402, 1e-3) &&
+      RAFTERS.every(r => near(r.run, rafterRun)) &&
+      RAFTERS.every(r => near(r.len, rafterSlopedLen)) &&
+      near(rafterRun, halfSpan + RF.eaveOverhang - RF.ridgeBeamWidth / 2),
+      `run ${inchStr(rafterRun)} = ${inchStr(halfSpan)} half span + ${inchStr(RF.eaveOverhang)} overhang - ` +
+      `${inchStr(RF.ridgeBeamWidth / 2)} half beam; sloped ${inchStr(rafterSlopedLen)}`);
+check('13. Left-slope rafters stop at the left beam face and right-slope rafters start at the right beam face — none crosses the beam',
+      RAFTERS.filter(r => r.slope === 'left').every(r => near(r.x0, eaveX0) && near(r.x1, beamL)) &&
+      RAFTERS.filter(r => r.slope === 'right').every(r => near(r.x0, beamR) && near(r.x1, eaveX1)),
+      `left ${inchStr(eaveX0)}–${inchStr(beamL)}, right ${inchStr(beamR)}–${inchStr(eaveX1)}`);
+check('14. Fly rafter outer faces are flush with the beam ends at py -12" and 132"',
+      FLY.length === 4 &&
+      FLY.filter(f => f.end === 'front').every(f => near(f.y0, rakeY0) && near(f.y0, beamY0)) &&
+      FLY.filter(f => f.end === 'rear').every(f => near(f.y1, rakeY1) && near(f.y1, beamY1)) &&
+      FLY.every(f => near(f.y1 - f.y0, t)),
+      `front fly outer face ${inchStr(rakeY0)} = beam end ${inchStr(beamY0)}; rear ${inchStr(rakeY1)} = ` +
+      `${inchStr(beamY1)}`);
+check('15. Fly rafters land on the beam SIDES at the cantilever tip, same length as a common rafter',
+      FLY.every(f => near(f.run, rafterRun) && near(f.len, rafterSlopedLen)) &&
+      FLY.filter(f => f.slope === 'left').every(f => near(f.x1, beamL)) &&
+      FLY.filter(f => f.slope === 'right').every(f => near(f.x0, beamR)),
+      `${inchStr(rafterSlopedLen)} each, landing on the beam faces ${inchStr(beamCantilever)} past the wall`);
+check('16. Lookouts run from the fly rafter outer face back to the inboard face of the first common rafter, and are measured as DIFFERENT lengths at the two gables: 28-3/4" front, 20-3/4" rear',
+      near(lookoutBackFront, firstCommonFront.py + t / 2) && near(lookoutBackFront, 16.75) &&
+      near(lookoutBackRear, firstCommonRear.py - t / 2) && near(lookoutBackRear, 111.25) &&
+      near(lookoutLenFront, 28.75) && near(lookoutLenRear, 20.75) &&
+      !near(lookoutLenFront, lookoutLenRear) &&
+      LOOKOUTS.filter(k => k.end === 'front').every(k => near(k.y0, rakeY0) && near(k.y1, lookoutBackFront)) &&
+      LOOKOUTS.filter(k => k.end === 'rear').every(k => near(k.y1, rakeY1) && near(k.y0, lookoutBackRear)),
+      `front ${inchStr(rakeY0)}–${inchStr(lookoutBackFront)} = ${inchStr(lookoutLenFront)}; rear ` +
+      `${inchStr(lookoutBackRear)}–${inchStr(rakeY1)} = ${inchStr(lookoutLenRear)} — an ` +
+      `${inchStr(lookoutLenFront - lookoutLenRear)} difference`);
+check('17. The lookout length difference is explained by the front-datumed module, and the resulting back-span to cantilever ratios are measured and reported, not hidden',
+      near(firstCommonFront.py - RSTATIONS[0].py, 15.25) &&
+      near(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py, 7.25) &&
+      near(backspanFront, 16.75) && near(backspanRear, 8.75) &&
+      near(cantRatioFront, backspanFront / RF.rakeOverhang) &&
+      near(cantRatioRear, backspanRear / RF.rakeOverhang) &&
+      cantRatioRear < cantRatioFront && cantRatioRear < 1,
+      `front bay ${inchStr(firstCommonFront.py - RSTATIONS[0].py)} vs rear bay ` +
+      `${inchStr(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py)}; back-span ` +
+      `${inchStr(backspanFront)} (${cantRatioFront.toFixed(2)}:1) vs ${inchStr(backspanRear)} ` +
+      `(${cantRatioRear.toFixed(2)}:1) against a ${inchStr(RF.rakeOverhang)} cantilever — adequacy not asserted`);
+check('18. 16 lookouts drawn — 4 per slope per gable — and each passes over the gable-end rafter rather than stopping at it',
+      LOOKOUTS.length === 16 && lookoutStationsLeft.length === 4 &&
+      LOOKOUTS.filter(k => k.end === 'front').every(k => k.y0 < RSTATIONS[0].y0 + 1e-9 &&
+                                                          k.y1 > RSTATIONS[0].y1 - 1e-9) &&
+      LOOKOUTS.filter(k => k.end === 'rear').every(k => k.y1 > RSTATIONS[RSTATIONS.length - 1].y1 - 1e-9 &&
+                                                         k.y0 < RSTATIONS[RSTATIONS.length - 1].y0 + 1e-9),
+      `${LOOKOUTS.length} lookouts at indicative px stations ` +
+      `${lookoutStationsLeft.map(x => inchStr(x)).join(', ')} and mirrored, each spanning past its gable-end rafter`);
+check('19. LOOKOUT SPACING IS STILL UNSET IN THE CONFIG — the sheet cannot claim it is decided',
+      RK.lookoutSpacing === null && RK.lookoutSpacingIndicative === 24 &&
+      /INDICATIVE ONLY/.test(docText) && /NOT A DESIGN VALUE/.test(docText),
+      `lookoutSpacing = null; ${inchStr(RK.lookoutSpacingIndicative)} o.c. drawn and labelled indicative only`);
+check('20. GABLE-END RAFTER DROP IS STILL UNSET, and the sheet states it depends on lookout orientation',
+      RK.gableRafterDrop === null &&
+      /drop is not determined/i.test(docText) && /lie flat/i.test(docText),
+      'gableRafterDrop = null; 1-1/2" if the lookouts lie flat, 5-1/2" if on edge — not selected');
+check('21. Eave overhang 12" past both bearing wall faces, equal',
+      near(RF.eaveOverhang, 12) && near(0 - eaveX0, RF.eaveOverhang) &&
+      near(eaveX1 - W, RF.eaveOverhang) && near(0 - eaveX0, eaveX1 - W),
+      `left ${inchStr(0 - eaveX0)}, right ${inchStr(eaveX1 - W)}`);
+check('22. Rake overhang 12" past both gable wall faces, equal',
+      near(RF.rakeOverhang, 12) && near(0 - rakeY0, RF.rakeOverhang) &&
+      near(rakeY1 - D, RF.rakeOverhang) && near(0 - rakeY0, rakeY1 - D),
+      `front ${inchStr(0 - rakeY0)}, rear ${inchStr(rakeY1 - D)}`);
+check('23. Birdsmouth seat 3-1/2" at both bearing walls, plumb heel cut at the outer wall face',
+      near(seatCut, 3.5) && near(seatLeft, 3.5) && near(seatRight, 140.5) &&
+      near(seatLeft - 0, seatCut) && near(W - seatRight, seatCut),
+      `seat lines at px ${inchStr(seatLeft)} and ${inchStr(seatRight)}, ${inchStr(seatCut)} inboard of each face`);
+check('24. Birdsmouth figures match the wall sheets: 1-3/4" plumb drop, 1-9/16" perpendicular notch, 6-3/8" H.A.P.',
+      near(seatPlumb, 1.75) && near(seatPerp, 1.5652, 1e-3) && near(hap, 6.3557, 1e-3) &&
+      near(hap, rafterPlumbDepth - seatPlumb) && seatPerp <= RF.rafterDepth / 4 + 1e-9,
+      `notch ${inchStr(seatPerp)} = ${(100 * seatPerp / RF.rafterDepth).toFixed(1)}% of ` +
+      `${inchStr(RF.rafterDepth)}, inside the quarter-depth limit`);
+check('25. Roof is symmetric about the ridge centreline at px 72',
+      near(ridgeCL, 72) && near(ridgeCL - eaveX0, eaveX1 - ridgeCL) &&
+      near(ridgeCL - beamL, beamR - ridgeCL) &&
+      near(seatLeft - eaveX0, eaveX1 - seatRight) &&
+      RAFTERS.filter(r => r.slope === 'left').length === RAFTERS.filter(r => r.slope === 'right').length,
+      `${inchStr(ridgeCL - eaveX0)} each side of the ridge; equal rafter counts per slope`);
+check('26. Pitch is 6:12 with a slope factor of 1.118034, and the roof rises 36" over the 72" half span',
+      near(slope, 0.5) && near(RF.rise / RF.run, 0.5) &&
+      near(slopeFactor, Math.sqrt(1.25)) && near(roofRise, 36) && near(halfSpan, 72),
+      `${RF.rise}:${RF.run}, factor ${slopeFactor.toFixed(6)}, rise ${inchStr(roofRise)} over ` +
+      `${inchStr(halfSpan)}`);
+check('27. Sheathing is 5/8" nominal / 21/32" actual, measured perpendicular to the roof plane',
+      RF.sheathingNominal === '5/8"' && near(RF.sheathingThickness, 21 / 32) &&
+      near(sheathPlumb, RF.sheathingThickness * slopeFactor),
+      `${inchStr(RF.sheathingThickness)} actual = ${inchStr(sheathPlumb)} measured plumb`);
+check('28. Sheathing area 187.8 sq ft sloped over 168 sq ft projected — the span direction stretches by the slope factor, the ridge direction does not',
+      near(slopedArea, 187.83, 0.02) && near(projectedArea, 168, 1e-9) &&
+      near(slopedArea, projectedArea * slopeFactor, 1e-6) && minPanels === 6,
+      `${projectedArea.toFixed(0)} sq ft x ${slopeFactor.toFixed(6)} = ${slopedArea.toFixed(2)} sq ft; ` +
+      `${minPanels} 4x8 sheets minimum before waste`);
+check('29. A sloped rafter hanger symbol at every rafter-to-beam connection — 22 places, including the 4 at the cantilever tips',
+      HANGERS.length === 22 && HANGERS.length === RAFTERS.length + FLY.length &&
+      HANGERS.filter(h => h.atTip).length === FLY.length &&
+      HANGERS.every(h => near(h.x, h.slope === 'left' ? beamL : beamR)) &&
+      /sloped rafter hanger/i.test(RF.ridgeConnection),
+      `${HANGERS.length} hangers, ${HANGERS.filter(h => h.atTip).length} of them at the beam tips`);
+check('30. A hurricane / rafter tie symbol at every rafter-to-wall connection — 18 places, 9 per bearing wall. The 4 fly rafters get none, because no wall runs under them',
+      TIES.length === 18 && TIES.length === RAFTERS.length &&
+      TIES.filter(x => x.slope === 'left').length === 9 &&
+      TIES.filter(x => x.slope === 'right').length === 9 &&
+      TIES.length === HANGERS.length - FLY.length &&
+      /tie/i.test(RF.wallUpliftConnection),
+      `${TIES.length} ties against ${HANGERS.length} hangers — the difference is exactly the ${FLY.length} fly rafters`);
+check('31. No connector product, model, capacity or fastener is selected anywhere',
+      RF.connectorProduct === null,
+      'connectorProduct = null; hangers and ties are drawn as hidden-line symbols only');
+check('32. Vertical references agree with the front wall sheet: rafter underside at the ridge 126-3/4", top of rafters 134-7/8", top of sheathing 135-9/16" (11\'-3-9/16")',
+      near(underRidge, 126.75) && near(actualPeak, 134.8557, 1e-3) &&
+      near(sheathingPeak, 135.5894, 1e-3) && near(rafterPlumbDepth, 7.25 * Math.sqrt(1.25)),
+      `underside ${inchStr(underRidge)}, rafter tops ${inchStr(actualPeak)}, sheathing ` +
+      `${ftStr(sheathingPeak)} above top of slab`);
+check('33. Beam top is flush with the rafter tops AT THE BEAM FACES, which leaves a 1-3/8" void below the peak — beam entirely inside the roof envelope',
+      near(beamTop, 133.4807, 1e-3) && near(beamBot, 123.9807, 1e-3) &&
+      near(ridgeVoid, 1.375, 1e-3) && ridgeVoid > 0 &&
+      near(beamTop, Math.min(roofTopAtX(beamL), roofTopAtX(beamR)), 1e-6) &&
+      near(beamTop - beamBot, RF.ridgeBeamDepth) && beamTop < actualPeak,
+      `beam ${inchStr(beamBot)} to ${inchStr(beamTop)}, peak ${inchStr(actualPeak)}, void ` +
+      `${inchStr(ridgeVoid)} — bevel or ridge blocking T.B.D.`);
+check('34. Wall height 92-1/2" inherited from the front wall sheet (82" R.O. head + 7-1/2" header + 3" plates) — a plan sets no heights',
+      near(wallHeight, 92.5) && near(INH.roHead + INH.headerDepth + topPlateThk, wallHeight) &&
+      near(topPlateThk, 3) && FR.topPlateCount === 2,
+      `${INH.roHead} + ${inchStr(INH.headerDepth)} + ${inchStr(topPlateThk)} = ${inchStr(wallHeight)} ` +
+      `(${ftStr(wallHeight)}), from the ${INH.source}`);
+check('35. Rafter tail figures match the wall sheets: underside 84-3/4", top 92-7/8" at the eave',
+      near(tailUnder, 84.75) && near(tailTop, 92.8557, 1e-3) && near(eaveEdge, 93.5894, 1e-3) &&
+      tailUnder < wallHeight,
+      `tail underside ${inchStr(tailUnder)}, top ${inchStr(tailTop)}, sheathing edge ${inchStr(eaveEdge)}`);
+check('36. Walls below are drawn 5-1/2" thick with the left and right as the bearing walls and the front and rear as the gable ends',
+      near(walls.left.x1 - walls.left.x0, wallThk) && near(walls.right.x1 - walls.right.x0, wallThk) &&
+      near(walls.front.y1 - walls.front.y0, wallThk) && near(walls.rear.y1 - walls.rear.y0, wallThk) &&
+      walls.left.kind === 'eave / bearing' && walls.right.kind === 'eave / bearing' &&
+      walls.front.kind === 'gable end' && walls.rear.kind === 'gable end',
+      `all four walls ${inchStr(wallThk)}; every rafter lands on the left or right wall, none on a gable wall`);
+check('37. Four framed corners and two 6x6 ridge posts shown below, the ridge posts directly under the beam',
+      cornerAssemblies.length === 4 && ridgePosts.length === 2 &&
+      cornerAssemblies.every(a => near(a.w, cornerBlockW) && near(a.d, cornerBlockW)) &&
+      ridgePosts.every(p => p.x0 >= beamL - 1e-9 && p.x1 <= beamR + 1e-9),
+      `${cornerAssemblies.length} framed corners, ${ridgePosts.length} ridge posts at the ` +
+      `${ridgePosts.map(p => p.at).join(' and ')}`);
+check('38. Orientation stated on the sheet with all four edge markers drawn: plan from above, front at the bottom, left wall at the left',
+      /plan/i.test(ORI.view) && ORI.frontAt === 'bottom' && ORI.rearAt === 'top' &&
+      ORI.leftWallAt === 'left' && ORI.rightWallAt === 'right' &&
+      edgeMarkers.length === 4 &&
+      ['front', 'rear', 'left', 'right'].every(s => edgeMarkers.some(m => m.side === s)),
+      `markers: ${edgeMarkers.map(m => m.label).join(', ')}`);
+check('39. The beam tip condition is called out specifically — two fly-rafter reactions on opposite faces of the beam, 10-1/2" from its end',
+      near(RF.rakeOverhang - t, 10.5) &&
+      FLY.filter(f => f.end === 'front').length === 2 &&
+      FLY.filter(f => f.end === 'front').map(f => f.slope).sort().join(',') === 'left,right' &&
+      /beam tip/i.test(docText) && /end distance/i.test(docText) && /splitting/i.test(docText),
+      `2 fly rafters per gable on opposite beam faces, ${inchStr(beamCantilever)} past the wall and ` +
+      `${inchStr(RF.rakeOverhang - t)} from the beam end`);
+check('40. Nothing is drawn outside the viewBox',
+      (() => {
+        const nums = [];
+        P.forEach(s => {
+          const m = s.match(/(?:^|\s)(?:x|x1|x2|cx)="(-?[\d.]+)"/g) || [];
+          m.forEach(q => nums.push(parseFloat(q.split('"')[1])));
+        });
+        return nums.length > 0 && nums.every(v => v >= -2 && v <= VBW + 2);
+      })(),
+      `viewBox 0 0 ${VBW.toFixed(0)} ${VBH.toFixed(0)}; all drawn x within it`);
+check('41. Described as a structural ridge beam with individual rafters, and every mention of the word "truss" on the sheet is an explicit denial that this is one',
+      /structural ridge beam/i.test(docText) && /individual rafters/i.test(docText) &&
+      (() => {
+        const hits = docText.match(/.{0,20}truss\w*/gi) || [];
+        return hits.length > 0 && hits.every(h => /not\s+a\s+truss/i.test(h));
+      })(),
+      `${(docText.match(/truss\w*/gi) || []).length} occurrences of "truss", each in the form "not a truss"`);
+check('42. Keynotes are numbered 1..22 with no gaps, and every bubble drawn on the plan has matching keynote text',
+      KEYNOTES.length === 22 &&
+      KEYNOTES.every((k, i) => k[0] === i + 1) &&
+      bubbles.length === KEYNOTES.length &&
+      bubbles.every(b => KEYNOTES.some(k => k[0] === b.n)),
+      `${KEYNOTES.length} keynotes, ${bubbles.length} bubbles, numbering 1..${KEYNOTES.length}`);
+
+/* ---- three-stud framed corners in place of the 6x6 ---- */
+const cornerPartsOK = cornerAssemblies.every(a => {
+  const p = a.parts;
+  return p.length === CN.studs &&
+    p[0].k === 'stud' && p[1].k === 'nailer' && p[2].k === 'stud' &&
+    near(p[0].w, CN.studWidth) && near(p[2].w, CN.studWidth) && near(p[1].w, cornerNailerW) &&
+    near(p[0].x0, a.x0) && near(p[2].x1, a.x1) &&
+    near(p.reduce((acc, m) => acc + m.w, 0), a.w, 1e-9);
+});
+const cornerHandOK = cornerAssemblies.every(a => {
+  const inner = a.gable === 'front' ? a.y1 : a.y0;   // interior face of the gable wall
+  const outer = a.gable === 'front' ? a.y0 : a.y1;
+  const n = a.parts[1], k = a.pocket;
+  return near(a.interiorFace, inner) && near(a.outsideFace, outer) &&
+    a.parts.filter(m => m.k === 'stud').every(m => near(m.d, cornerBlockW)) &&
+    near(n.d, CN.studWidth) && near(k.d, cornerBlockW - CN.studWidth) &&
+    near(n.x0, k.x0) && near(n.x1, k.x1) &&
+    (a.gable === 'front' ? near(n.y1, inner) && near(k.y0, outer)
+                         : near(n.y0, inner) && near(k.y1, outer));
+});
+check('43. Corners are three-stud 2x6 framed corners, not 6x6 posts: a 2x6 on edge at each end of the block and a 2x6 laid flat between them, the three widths solving exactly to the block',
+      cornerAssemblies.length === 4 && CN.studs === 3 && CN.nailerFlat === true &&
+      cornerPartsOK && FR.cornerPostWidth === undefined &&
+      near(cornerNailerW, cornerBlockW - 2 * CN.studWidth, 1e-9) && cornerNailerW > 0,
+      `${inchStr(CN.studWidth)} + ${inchStr(cornerNailerW)} flat nailer + ${inchStr(CN.studWidth)} = ` +
+      `${inchStr(cornerBlockW)} at all four corners; no 6x6 corner post left in the model`);
+check('44. Handedness is right at all four corners: the on-edge studs run the full wall depth of the gable wall that contains them, and the flat nailer lies against the interior face of that wall with the insulated pocket behind it',
+      cornerHandOK &&
+      cornerAssemblies.filter(a => a.gable === 'front').length === 2 &&
+      cornerAssemblies.filter(a => a.gable === 'rear').length === 2 &&
+      cornerAssemblies.filter(a => a.gable === 'front').every(a => near(a.interiorFace, cornerBlockW)) &&
+      cornerAssemblies.filter(a => a.gable === 'rear').every(a => near(a.interiorFace, D - cornerBlockW)),
+      `nailer face at py ${inchStr(cornerBlockW)} at the front corners and py ${inchStr(D - cornerBlockW)} at the ` +
+      `rear, so it faces the room in both cases; ${inchStr(cornerNailerW)} x ` +
+      `${inchStr(cornerBlockW - CN.studWidth)} insulated pocket behind it`);
+check('45. Replacing the corner posts moved nothing else: each block is still the same 5-1/2" square in the same corner, and the walls, rafter stations, beam and roof extents are exactly as before',
+      cornerAssemblies.every(a => near(a.w, cornerBlockW) && near(a.d, cornerBlockW) &&
+        near(a.w, wallThk) && near(a.d, wallThk)) &&
+      cornerAssemblies.every(a => (near(a.x0, 0) || near(a.x1, W)) && (near(a.y0, 0) || near(a.y1, D))) &&
+      near(W, 144) && near(D, 120) && near(roofW, 168) && near(roofD, 144) &&
+      RSTATIONS.length === 9 && near(beamLen, 144) && near(beamClearSpan, 109),
+      `four ${inchStr(cornerBlockW)} squares at ${cornerAssemblies.map(a => a.at).join(', ')}; building ` +
+      `${inchStr(W)} x ${inchStr(D)}, roof ${inchStr(roofW)} x ${inchStr(roofD)}, beam ${inchStr(beamLen)} unchanged`);
+
+/* ---- full plywood wrap, walls and roof on the same panel ---- */
+check('46. Walls get a full 21/32" (5/8" nominal) plywood wrap, the same panel as the roof deck',
+      near(WS.thickness, 21 / 32) && WS.nominal === '5/8"' && WS.fullWrap === true &&
+      near(WS.thickness, RF.sheathingThickness) && WS.nominal === RF.sheathingNominal &&
+      WS.nailing === null,
+      `${inchStr(WS.thickness)} on the walls and the roof alike; the wall panel is noted rather than drawn, ` +
+      `because in a roof plan it sits below the roof; nailing schedule per engineer`);
+check('47. The thicker deck moved the ridge and nothing else — top of rafters is where it was, and the panel layout is set by sheet size and slope, not by thickness',
+      near(sheathRise, (21 / 32 - 15 / 32) * slopeFactor) && sheathRise > 0 &&
+      near(sheathingPeak, actualPeak + sheathPlumb) &&
+      near(sheathingPeak - (actualPeak + (15 / 32) * slopeFactor), sheathRise, 1e-9) &&
+      near(actualPeak, 134.8557, 1e-3) && near(eaveEdge, tailTop + sheathPlumb) &&
+      near(panelUpslopeRun, RF.sheathingPanel.w / slopeFactor) &&
+      minPanels === 6 && panelCrossJoints.length === 2,
+      `ridge up ${inchStr(sheathRise)} to ${ftStr(sheathingPeak)}, rafter tops unmoved at ${ftStr(actualPeak)}; ` +
+      `panel joints still ${panelCrossJoints.map(d => inchStr(d)).join(' and ')} from the front face, ` +
+      `${minPanels} sheets minimum`);
+
+/* ---- brackets at the ridge posts ---- */
+check('48. Bracket counts agree with the gable elevations: a beam-to-post bracket where the 6x10 bears on each of the two 6x6 ridge posts, and an H-bracket at the base of each, with no product selected',
+      BEAM_POST_CAPS.length === 2 && H_BRACKETS.length === 2 &&
+      BEAM_POST_CAPS.length === ridgePosts.length && H_BRACKETS.length === ridgePosts.length &&
+      ['front gable wall', 'rear gable wall'].every(at =>
+        BEAM_POST_CAPS.some(b => b.at === at) && H_BRACKETS.some(h => h.at === at)) &&
+      BEAM_POST_CAPS.every(b => near(b.w, BPC.seatW) && near(b.d, BPC.seatD) &&
+                                near(b.w, RF.ridgeBeamWidth) && near(b.d, FR.ridgePostWidth)) &&
+      H_BRACKETS.every(h => h.style === 'H' && h.straps.length === 2 &&
+                            near(h.straps[0], h.x0) && near(h.straps[1] + h.strapW, h.x1) &&
+                            h.straps[0] < h.straps[1]) &&
+      CX.product === null,
+      `2 beam-to-post brackets and 2 H-brackets, one of each at the ` +
+      `${ridgePosts.map(p => p.at).join(' and ')}; ${inchStr(BPC.seatW)} x ${inchStr(BPC.seatD)} footprint, ` +
+      `${inchStr(HB.strapW)} straps; model and capacity T.B.D.`);
+check('49. Every bracket sits at a beam bearing, inboard of the 12" cantilevers — none is at a beam tip, so the concentrated fly-rafter reactions out there stay the separate problem this sheet already flags',
+      [...BEAM_POST_CAPS, ...H_BRACKETS].every(b =>
+        b.y0 >= walls.front.y0 - 1e-9 && b.y1 <= walls.rear.y1 + 1e-9 &&
+        Math.min(b.y0 - beamY0, beamY1 - b.y1) >= beamCantilever - 1e-9) &&
+      FLY.length === 4 && /beam tip/i.test(docText) && /end distance/i.test(docText),
+      `brackets between py ${inchStr(walls.front.y0)} and ${inchStr(walls.rear.y1)}, ` +
+      `${inchStr(beamCantilever)} clear of each beam end; the ${FLY.length} fly-rafter reactions at the tips are keynote 6`);
+
+document.getElementById('checkList').innerHTML = RESULTS.map(r =>
+  `<li class="${r.ok ? 'pass' : 'fail'}">${r.desc}${r.detail ? ' — <span style="color:#666">' + r.detail + '</span>' : ''}</li>`
+).join('');
+
+const failed = RESULTS.filter(r => !r.ok);
+if (failed.length) {
+  const a = document.getElementById('alarm');
+  a.className = 'show';
+  a.innerHTML = `VALIDATION FAILED (${failed.length}): <ul>` +
+    failed.map(f => `<li>${f.desc} — ${f.detail}</li>`).join('') + `</ul>`;
+}
+</script>
+</body>
+</html>
