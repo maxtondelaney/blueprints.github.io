@@ -1,0 +1,1458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material List — 12' x 10' Detached Backyard Office</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --dim: #3a3a3a;
+    --paper: #ffffff;
+    --rule: #d5d5d5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #f2f2f0;
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .sheet {
+    background: var(--paper);
+    max-width: 1400px;
+    margin: 16px auto;
+    padding: 20px 22px 26px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 6px rgba(0,0,0,.10);
+  }
+  header.title {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 8px 24px;
+    justify-content: space-between;
+  }
+  header.title h1 { font-size: 19px; margin: 0; letter-spacing: .04em; text-transform: uppercase; }
+  header.title .sub { font-size: 12px; color: #555; margin-top: 3px; }
+  .meta { font-size: 11px; color: #444; text-align: right; line-height: 1.5; }
+  .meta b { color: #000; }
+
+  .ui {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 10px 0 4px; padding: 8px 10px;
+    background: #fafaf8; border: 1px solid var(--rule);
+    font-size: 12px; align-items: center;
+  }
+  .ui label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .ui .spacer { flex: 1 1 auto; }
+  .ui button {
+    font: inherit; padding: 4px 10px; cursor: pointer;
+    background: #fff; border: 1px solid #999; border-radius: 3px;
+  }
+  .ui button:hover { background: #eee; }
+
+  #keyplan { width: 100%; overflow-x: auto; margin-top: 12px; }
+  svg { width: 100%; height: auto; display: block; background: #fff; max-width: 620px; margin: 0 auto; }
+
+  h2.band {
+    font-size: 13px; text-transform: uppercase; letter-spacing: .06em;
+    margin: 22px 0 0; padding: 6px 9px;
+    background: #1a1a1a; color: #fff;
+  }
+  h2.band span { float: right; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 11px; opacity: .82; }
+
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 14px; }
+  .panel { border: 1px solid var(--rule); padding: 10px 12px; }
+  .panel h3 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    margin: 0 0 8px; border-bottom: 1px solid var(--rule); padding-bottom: 5px;
+  }
+  .panel h3 span { float: right; text-transform: none; letter-spacing: 0; color: #666; font-weight: 400; }
+  .panel h4 {
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em;
+    margin: 11px 0 4px; color: #444;
+  }
+  .panel h4:first-of-type { margin-top: 2px; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 10.5px; }
+  th, td { text-align: left; padding: 2px 5px; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { background: #f5f5f3; font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.sz { white-space: nowrap; font-weight: 600; }
+  tr.grp td { background: #fbfbf7; }
+  tr.sum td { background: #f2f2ee; font-weight: 700; border-top: 1px solid #bbb; }
+  tr.tot td { background: #e8e8e2; font-weight: 700; border-top: 2px solid #555; }
+  td.sh { color: #7a5a10; }
+  .shflag { font-size: 9px; color: #7a5a10; font-weight: 700; }
+  .assembly-grid { display: grid; grid-template-columns: minmax(300px, .8fr) minmax(420px, 1.35fr); gap: 14px; }
+  .assembly-grid > section { min-width: 0; }
+  .assembly-grid > section.other { grid-column: 1 / -1; }
+  .stock { font-weight: 700; white-space: nowrap; }
+  .muted { color: #777; font-weight: 400; }
+  .purchase-panel { grid-column: 1 / -1; }
+  .purchase-panel > h3 { font-size: 13px; }
+  .purchase-total { font-size: 11px; color: #444; margin: 7px 0 0; text-align: right; }
+
+  ul.checks { list-style: none; margin: 0; padding: 0; font-size: 11px; }
+  ul.checks li { padding: 2px 0 2px 20px; position: relative; line-height: 1.35; }
+  ul.checks li::before { position: absolute; left: 0; font-weight: 700; }
+  li.pass::before { content: "OK"; color: #187a3c; font-size: 9px; top: 3px; }
+  li.fail::before { content: "X"; color: #b00000; }
+  li.fail { color: #b00000; font-weight: 600; }
+
+  #alarm {
+    display: none; margin: 12px 0; padding: 10px 12px;
+    background: #ffe8e8; border: 2px solid #b00000; color: #7a0000;
+    font-size: 13px; font-weight: 700;
+  }
+  #alarm.show { display: block; }
+
+  .note {
+    font-size: 11px; line-height: 1.5; color: #333;
+    border: 1px solid #bbb; background: #fbfbf7; padding: 9px 11px; margin-top: 14px;
+  }
+  .note b { color: #000; }
+  .note + .note { margin-top: 9px; }
+  .review { columns: 2 220px; column-gap: 22px; font-size: 10.5px; margin: 6px 0 0; padding-left: 18px; line-height: 1.45; }
+
+  @media (max-width: 700px) {
+    .sheet { margin: 0; border: 0; padding: 12px; }
+    .meta { text-align: left; }
+    .review { columns: 1; }
+    .assembly-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    @page { size: landscape; margin: 0.4in; }
+    html, body { background: #fff; }
+    .sheet { max-width: none; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    .ui { display: none !important; }
+    #keyplan { overflow: visible; }
+    .panels { grid-template-columns: 1fr 1fr; }
+    .assembly-grid { grid-template-columns: .8fr 1.35fr; }
+    .panel, .note, ul.checks, svg { break-inside: avoid; }
+    h2.band { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="title">
+    <div>
+      <h1>Material List — Framing Take-off</h1>
+      <div class="sub">Detached backyard office / accessory structure &middot; Vacaville, California</div>
+    </div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="ui">
+    <strong style="font-size:11px;letter-spacing:.04em;">VIEW:</strong>
+    <label><input type="checkbox" id="tPlan" checked> Key plan</label>
+    <label><input type="checkbox" id="tCut" checked> Cut plans &amp; member lengths</label>
+    <span class="spacer"></span>
+    <button onclick="window.print()">Print</button>
+  </div>
+
+  <div id="alarm"></div>
+
+  <div class="note">
+    <b>What this is.</b> An order-ready framing take-off read directly off the five framing sheets in this set
+    &mdash; <i>front_wall_framing.html</i>, <i>left_wall_framing.html</i>, <i>right_wall_framing.html</i>,
+    <i>rear_wall_framing.html</i> and <i>roof_framing.html</i>. Every count and length below is recomputed here
+    from the same dimension model those sheets use, so it moves if the design moves. Lumber is converted into
+    common stock lengths and paired with a cutting plan. The plan includes a 1/8&quot; saw kerf per cut but no spare
+    boards for damage, defects or field changes. Fasteners, adhesives, hangers' nails and blocking schedules remain
+    excluded because the drawings do not specify them. See <b>Purchase-plan assumptions</b>,
+    <b>Basis of quantities</b> and <b>Not included</b> below.
+  </div>
+
+  <div id="keyplan"></div>
+
+  <div class="note" id="basisNote"></div>
+
+  <div class="note" id="purchaseNote"></div>
+
+  <h2 class="band">Purchase lists by wall / roof <span>lumber stock separated from panels and hardware</span></h2>
+  <div class="panels" id="purchaseByScope"></div>
+
+  <h2 class="band">Final combined purchase list <span>all four walls and roof; shared items counted once</span></h2>
+  <div class="panels" id="purchaseCombined"></div>
+
+  <h2 class="band">Detailed member take-off &mdash; whole building <span id="ovlSub"></span></h2>
+  <div class="panels">
+    <div class="panel">
+      <h3>Lumber <span id="lumSub"></span></h3>
+      <table id="ovlLumber"></table>
+    </div>
+    <div class="panel">
+      <h3>Sheet goods <span id="shtSub"></span></h3>
+      <table id="ovlPanels"></table>
+      <h4>Panel count basis</h4>
+      <table id="ovlPanelCount"></table>
+    </div>
+    <div class="panel">
+      <h3>Brackets &amp; connectors <span id="conSub"></span></h3>
+      <table id="ovlConnectors"></table>
+    </div>
+  </div>
+
+  <h2 class="band">By wall <span>each sheet's own scope &mdash; corners are shared, see basis note</span></h2>
+  <div class="panels" id="wallPanels"></div>
+
+  <h2 class="band">Roof <span>ridge beam, rafters, rake framing and roof deck</span></h2>
+  <div class="panels" id="roofPanels"></div>
+
+  <h2 class="band">Validation</h2>
+  <div class="panels">
+    <div class="panel" style="grid-column:1/-1;">
+      <ul class="checks" id="checkList"></ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Concept framing layout.</b> Final member sizing, connections, shear/braced-wall requirements, base-of-wall
+    detailing, post bases, hold-downs and foundation load paths require code and engineering verification. This
+    take-off counts what the drawings show; it does not certify that what the drawings show is adequate. Quantities
+    requiring review before ordering:
+    <ul class="review">
+      <li>Ridge beam size &mdash; 6&times;10 shown, 6&times;12 flagged as the alternate on the roof sheet</li>
+      <li>6&times;8 door header under the concentrated ridge reaction</li>
+      <li>Window header sizing at all four openings</li>
+      <li>Rafter size and spacing (2&times;8 @ 16" o.c. maximum shown)</li>
+      <li>Through-lookout, gable-line blocking and roof-edge connection capacities</li>
+      <li>Whether one hold-down per building corner serves the piers in both wall directions</li>
+      <li>Hold-down, post-base, bracket, hanger and tie models &mdash; none selected anywhere in the set</li>
+      <li>Sheathing span rating, edge nailing, panel blocking and the bracing schedule</li>
+      <li>Plate splice locations and lap at the corners</li>
+      <li>Treated-lumber contact: corrosion resistance of every connector touching the P.T. sill plate</li>
+      <li>Whether the narrow shear piers can be qualified as drawn, which may add portal-frame hardware</li>
+    </ul>
+  </div>
+
+  <div class="note" id="exclNote"></div>
+
+<script>
+/* ============================================================
+   MATERIAL LIST — 12' x 10' DETACHED BACKYARD OFFICE
+   ------------------------------------------------------------
+   Quantities are DERIVED, not typed. The dimension model below
+   is the same one the five framing sheets use; every piece
+   count and cut length falls out of it. If a dimension changes
+   on a drawing, change it here and the take-off follows.
+
+   The only numbers entered by hand are the ones the drawings
+   themselves state as given: overall size, rough openings,
+   member nominals, pitch, overhangs and spacings.
+   ============================================================ */
+const OFFICE = {
+  width: 144,            // 12'-0" — the front and rear (gable) walls
+  depth: 120,            // 10'-0" — the left and right walls; ridge runs this way
+
+  framing: {
+    studThickness: 1.5,
+    plateThickness: 1.5,
+    wallDepth: 5.5,          // nominal 2x6 actual
+    topPlateCount: 2,        // double top plate = 3" total
+    bottomPlateCount: 1,     // single continuous P.T. sill plate
+    studSpacing: 16,
+    gableStudSpacing: 16,
+    headerNominal: '6x8',
+    headerWidth: 5.5,
+    headerDepth: 7.5,
+    doorPostWidth: 5.5,      // nominal 6x6 actual
+    centerPostWidth: 5.5,
+    ridgePostWidth: 5.5,
+    roughSillThickness: 1.5,
+    /* Three-stud framed corner resolved inside a 5.5" block: a 2x6 on edge at
+       each end plus a 2x6 laid flat as the interior nailer. Three pieces per
+       corner, all running the full height of the wall studs. */
+    corner: { blockWidth: 5.5, studWidth: 1.5, members: 3 }
+  },
+
+  roof: {
+    rise: 6, run: 12,                 // 6:12
+    ridgeBeamNominal: '6x10',
+    ridgeBeamWidth: 5.5,
+    ridgeBeamDepth: 9.5,
+    beamCantilever: 12,               // past each gable wall, carries the fly rafters
+    rafterNominal: '2x8',
+    rafterThickness: 1.5,
+    rafterDepth: 7.25,
+    rafterSpacing: 16,
+    rafterSeatCut: 3.5,               // horizontal birdsmouth seat
+    eaveOverhang: 12,
+    rakeOverhang: 12,
+    flyRafterNominal: '2x8',
+    lookoutNominal: '2x6',
+    lookoutDepth: 5.5,
+    lookoutSpacing: 24,
+    lookoutOrientation: 'on edge',
+    lookoutsPerFlyRafter: 4,
+    gableBlockingNominal: '2x6',
+    gableBlockingDepth: 5.5,
+    sheathingNominal: '5/8"',
+    sheathingThickness: 21 / 32,
+    sheathingPanel: { w: 48, l: 96 }  // 4x8 sheets
+  },
+
+  /* Wall sheathing is the same panel as the roof deck — full wrap, all four
+     walls. The wall sheets note it rather than drawing it, because in an
+     elevation the panel faces the viewer and has no visible thickness. */
+  wallSheathing: { nominal: '5/8"', thickness: 21 / 32, fullWrap: true },
+
+  /* Rough openings, exactly as each wall sheet states them. */
+  openings: {
+    front: [
+      {n: 1, w: 38.25, h: 82, head: 82, kind: 'door',   bearing: 'post'},
+      {n: 2, w: 24,    h: 48, head: 82, kind: 'window', bearing: 'jack', jacksPerSide: 1}
+    ],
+    left: [
+      {n: 1, w: 72,    h: 48, head: 82, kind: 'window', bearing: 'jack', jacksPerSide: 2}
+    ],
+    right: [],
+    rear: [
+      {n: 2, w: 36,    h: 12, head: 82, kind: 'window', bearing: 'jack', jacksPerSide: 1}
+    ]
+  },
+
+  /* Stud and full-height-king counts are taken from each wall sheet's solved
+     horizontal layout. The infill bays on these walls came out too narrow for
+     a stud on the gable walls, which is why those counts are zero. */
+  layout: {
+    front: {studs: 0, kings: 6, corners: 2},
+    left:  {studs: 2, kings: 2, corners: 2},
+    right: {studs: 7, kings: 0, corners: 2},
+    rear:  {studs: 0, kings: 4, corners: 2}
+  },
+
+  /* Connectors: symbols and keynotes on the drawings, no products selected. */
+  connectors: { product: null }
+};
+
+const FR = OFFICE.framing;
+const RF = OFFICE.roof;
+const CN = FR.corner;
+const WS = OFFICE.wallSheathing;
+const OP = OFFICE.openings;
+const LO = OFFICE.layout;
+
+const W       = OFFICE.width;
+const D       = OFFICE.depth;
+const halfRun = W / 2;
+const pitch   = RF.rise / RF.run;                     // 0.5
+
+/* ============================================================
+   FORMATTERS  (identical to the drawing sheets)
+   ============================================================ */
+function inchStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  let whole = Math.floor(v + 1e-9);
+  let f = Math.round((v - whole) * 16);
+  if (f === 16) { whole++; f = 0; }
+  let out;
+  if (f === 0) out = whole + '"';
+  else {
+    let n = f, d = 16;
+    while (n % 2 === 0) { n /= 2; d /= 2; }
+    out = (whole ? whole + '-' : '') + n + '/' + d + '"';
+  }
+  return (neg ? '-' : '') + out;
+}
+function ftStr(v) {
+  const neg = v < 0; v = Math.abs(v);
+  const ft = Math.floor(v / 12 + 1e-9);
+  const rem = v - ft * 12;
+  const r = Math.round(rem * 16) / 16;
+  return (neg ? '-' : '') + ft + "'-" + (r === 0 ? '0"' : inchStr(r));
+}
+/* Dimensions round to 1/16, which cannot represent the 21/32" panel actual —
+   it would print as 11/16. Panel thicknesses get a 32nd formatter. */
+function fracStr(v, den = 32) {
+  const neg = v < 0; v = Math.abs(v);
+  let whole = Math.floor(v + 1e-9);
+  let n = Math.round((v - whole) * den), d = den;
+  if (n === d) { whole++; n = 0; }
+  if (n === 0) return (neg ? '-' : '') + whole + '"';
+  while (n % 2 === 0) { n /= 2; d /= 2; }
+  return (neg ? '-' : '') + (whole ? whole + '-' : '') + n + '/' + d + '"';
+}
+const lf   = v => (v / 12).toFixed(1);                // inches -> linear feet
+const sqft = v => (v / 144).toFixed(1);               // sq in  -> sq ft
+const near = (a, b, tol = 1e-6) => Math.abs(a - b) <= tol;
+const wordNum = n => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+                      'eight', 'nine', 'ten', 'eleven', 'twelve'][n] || String(n);
+
+/* ============================================================
+   VERTICAL MODEL  (0" = TOP OF SLAB)
+   Same stack as every wall sheet: R.O. head + header + double
+   top plate, with all four walls the same height.
+   ============================================================ */
+const botPlateThk = FR.plateThickness * FR.bottomPlateCount;   // 1.5
+const botPlateTop = botPlateThk;                               // 1.5
+const topPlateThk = FR.plateThickness * FR.topPlateCount;      // 3.0
+const roHead      = OP.front[0].head;                          // 82
+const wallHeight  = roHead + FR.headerDepth + topPlateThk;     // 92.5
+const topPlateBot = wallHeight - topPlateThk;                  // 89.5
+const headerBot   = topPlateBot - FR.headerDepth;              // 82 == roHead
+const studLen     = topPlateBot - botPlateTop;                  // 88 — every full-height member
+const jackLen     = headerBot - botPlateTop;                    // 80.5
+const postBot     = botPlateTop;                                // posts bear on the plate
+const doorPostLen = headerBot - postBot;                        // 80.5
+
+/* ============================================================
+   ROOF MODEL
+   The birdsmouth drops the roof plane: a 3-1/2" horizontal seat
+   on a 6:12 lowers the rafter underside 1-3/4" below the top of
+   the double top plate. Everything else hangs off that plane.
+   ============================================================ */
+const slopeFactor      = Math.sqrt(1 + pitch * pitch);          // 1.11803
+const seatPlumbDrop    = RF.rafterSeatCut * pitch;              // 1.75
+const planeBase        = wallHeight - seatPlumbDrop;            // 90.75 at the wall face
+const roofYAtX         = x => planeBase + pitch * (halfRun - Math.abs(x - halfRun));
+const rafterPlumbDepth = RF.rafterDepth * slopeFactor;          // 8.1057
+const roofTopAtX       = x => roofYAtX(x) + rafterPlumbDepth;
+/* The 2x6 gable-line blocking is top-flush with the 2x8 roof framing, so its
+   underside is higher by the plumb projection of the 1-3/4" depth difference. */
+const gableSupportRise = (RF.rafterDepth - RF.gableBlockingDepth) * slopeFactor;
+const gableSupportYAtX = x => roofYAtX(x) + gableSupportRise;
+const sheathingPlumb   = RF.sheathingThickness * slopeFactor;
+const actualPeak       = roofTopAtX(halfRun);
+const sheathingPeak    = actualPeak + sheathingPlumb;
+
+/* Ridge beam sits below the roof peak, its top level with the lower of the two
+   rafter tops at its faces, exactly as the gable sheets set it. */
+const beamL   = halfRun - RF.ridgeBeamWidth / 2;
+const beamR   = halfRun + RF.ridgeBeamWidth / 2;
+const beamTop = Math.min(roofTopAtX(beamL), roofTopAtX(beamR));
+const beamBot = beamTop - RF.ridgeBeamDepth;
+const ridgePostLen = beamBot - wallHeight;                      // top plate to beam underside
+const beamLength   = D + 2 * RF.beamCantilever;                 // 144 — 12" past each gable
+
+/* Rafters: horizontal run from the beam face out to the end of the eave tail. */
+const rafterRun = halfRun - RF.ridgeBeamWidth / 2 + RF.eaveOverhang;   // 81.25
+const rafterLen = rafterRun * slopeFactor;                             // 90.84
+
+/* Seven full common-rafter stations march at 16" o.c. from the front face.
+   There is no continuous gable-end rafter: through-lookouts cross each gable
+   line and segmented 2x6 blocking fills between them. */
+const stations = [];
+for (let py = RF.rafterSpacing; py < D - 1e-9; py += RF.rafterSpacing) stations.push(py);
+const nStations   = stations.length;                            // 7
+const nRafters    = nStations * 2;                              // 14, both slopes
+const nGableEnd   = 0;
+const nCommon     = nRafters;
+const frontBay    = stations[0];                                // 16 from front wall face
+const rearBay     = D - stations[stations.length - 1];          // 8 from rear wall face
+
+/* Rake framing: a fly rafter at each gable on each slope, with lookouts tied
+   back over the first common rafter. The lookout reaches from the fly rafter,
+   across the rake, to the middle of that first common rafter. */
+const nFlyRafters = 4;
+const lookoutLen  = bay => RF.rakeOverhang + bay + RF.rafterThickness / 2;
+const lookoutFront = lookoutLen(frontBay);                      // 28.75
+const lookoutRear  = lookoutLen(rearBay);                       // 20.75
+const nLookoutsPerGable = nFlyRafters / 2 * RF.lookoutsPerFlyRafter;   // 8
+const gableBlockLongRun = RF.lookoutSpacing - RF.rafterThickness;       // 22.5
+const gableBlockLongLen = gableBlockLongRun * slopeFactor;              // 25.16
+const gableBlockRidgeRun = beamL - (3 * RF.lookoutSpacing - RF.eaveOverhang + RF.rafterThickness); // 7.75
+const gableBlockRidgeLen = gableBlockRidgeRun * slopeFactor;            // 8.67
+const nGableBlockLong = 12;
+const nGableBlockRidge = 4;
+
+/* Connector counts that live on the roof sheet. Every rafter hangs off the beam,
+   including the four fly rafters at the cantilever tips; the fly rafters have no
+   wall beneath them, so they take no uplift tie. */
+const nHangers = nRafters + nFlyRafters;                        // 18
+const nTies    = nRafters;                                      // 14
+
+/* ============================================================
+   GABLE STUD SCHEDULE
+   Real studs off real 16" centrelines, angled top cut, and none
+   through the centre ridge-post location.
+   ============================================================ */
+function gableStudSchedule() {
+  const t = FR.studThickness, out = [];
+  for (let cl = FR.gableStudSpacing; cl < W - 1e-9; cl += FR.gableStudSpacing) {
+    const x0 = cl - t / 2, x1 = cl + t / 2;
+    if (x1 > beamL + 1e-9 && x0 < beamR - 1e-9) continue;   // ridge post stands here
+    const highEdge = cl < halfRun ? x1 : x0;                // long point of the angled cut
+    out.push({cl, len: gableSupportYAtX(highEdge) - wallHeight});
+  }
+  return out;
+}
+const GABLE = gableStudSchedule();
+
+/* ============================================================
+   SHEATHING AREAS
+   Gross face area, measured to the gable-line blocking underside on the gable
+   walls, which is where the wall panel stops. Openings are
+   tallied separately: sheathing is normally ordered gross and cut
+   out on site, so the net figure is shown for information only.
+   ============================================================ */
+/* A symmetric gable face integrates to length x base + pitch x halfRun^2. */
+const gableWallArea = W * (planeBase + gableSupportRise) + pitch * halfRun * halfRun;
+const sideWallArea  = D * wallHeight;
+const roofPlaneLen  = (halfRun + RF.eaveOverhang) * slopeFactor;      // ridge to eave edge
+const roofDeckLen   = D + 2 * RF.rakeOverhang;                        // includes both rakes
+const roofArea      = 2 * roofPlaneLen * roofDeckLen;
+const panelArea     = RF.sheathingPanel.w * RF.sheathingPanel.l;      // 4608 sq in = 32 sq ft
+const openingArea   = w => w.reduce((a, o) => a + o.n * o.w * o.h, 0);
+
+/* ============================================================
+   ITEM LIST
+   group : 'lumber' | 'panel' | 'connector'
+   share : 1   = the item belongs entirely to this wall
+           0.5 = the item IS a building corner. Four corners exist,
+                 but each is drawn on both of the walls that meet
+                 there, so the whole-building roll-up halves it.
+   lap   : corner laps contained in a plate run, used to report the
+           double count without hiding it.
+   ============================================================ */
+const ITEMS = [];
+function add(scope, group, nominal, item, qty, lenIn, opts) {
+  const o = opts || {};
+  ITEMS.push({
+    scope, group, nominal, item, qty, lenIn: lenIn || 0,
+    share: o.share === undefined ? 1 : o.share,
+    area: o.area || 0, lap: o.lap || 0, note: o.note || ''
+  });
+}
+
+/* ---------- header lengths fall out of the bearing rule ----------
+   A header on jacks reaches the outside face of the outermost jack each side.
+   A header on posts reaches the outside face of the post each side. */
+function headerLen(o) {
+  return o.bearing === 'post'
+    ? o.w + 2 * FR.doorPostWidth
+    : o.w + 2 * o.jacksPerSide * FR.studThickness;
+}
+const crippleLen = o => (o.head - o.h) - FR.roughSillThickness - botPlateTop;
+const nJacks     = list => list.reduce((a, o) => a + o.n * 2 * (o.jacksPerSide || 0), 0);
+
+/* ---------- one builder, applied to all four walls ---------- */
+function buildWall(scope, len, isGable, openings, lay) {
+  const cornerLaps = 2;
+
+  /* plates */
+  const doorW = openings.filter(o => o.kind === 'door').reduce((a, o) => a + o.n * o.w, 0);
+  /* The front door is centred, so its interrupted sill is two physical cuts,
+     not one fictitious piece equal to the sum of both runs. */
+  add(scope, 'lumber', '2x6 P.T.',
+      doorW ? 'Sill plate — each side of centred door R.O.' : 'Sill plate — continuous run',
+      doorW ? 2 : 1, doorW ? (len - doorW) / 2 : len, {lap: cornerLaps});
+  add(scope, 'lumber', '2x6', 'Top plate — double, full wall length',
+      FR.topPlateCount, len, {lap: cornerLaps});
+
+  /* framed corners — shared with the adjoining wall */
+  add(scope, 'lumber', '2x6',
+      'Framed-corner members — ' + CN.members + ' per corner (two on edge, one flat nailer)',
+      lay.corners * CN.members, studLen, {share: 0.5, note: 'corner'});
+
+  /* field studs and full-height kings */
+  if (lay.studs) add(scope, 'lumber', '2x6', 'Studs — full height, ' + FR.studSpacing + '" o.c. module',
+                     lay.studs, studLen);
+  if (lay.kings) add(scope, 'lumber', '2x6', 'King studs — full height',
+                     lay.kings, studLen);
+
+  /* opening framing, one row per distinct rough opening */
+  openings.forEach(o => {
+    const label = o.kind === 'door' ? 'door' : inchStr(o.w) + ' x ' + inchStr(o.h) + ' window';
+    if (o.jacksPerSide) {
+      add(scope, 'lumber', '2x6', 'Jack studs — ' + label + ' (' + o.jacksPerSide + ' per side)',
+          o.n * 2 * o.jacksPerSide, jackLen);
+      add(scope, 'lumber', '2x6', 'Rough sill — ' + label, o.n, o.w);
+      add(scope, 'lumber', '2x6', 'Cripple studs below the ' + label + ' sill',
+          o.n * crippleCount(o), crippleLen(o));
+    }
+    if (o.bearing === 'post') {
+      add(scope, 'lumber', '6x6', 'Door posts — bottom plate to header underside',
+          o.n * 2, doorPostLen);
+    }
+    add(scope, 'lumber', FR.headerNominal, 'Header — ' + label, o.n, headerLen(o));
+  });
+
+  /* gable-only members */
+  if (isGable) {
+    groupBy(GABLE.map(g => g.len)).forEach(([l, q]) =>
+      add(scope, 'lumber', '2x6', 'Gable studs — ' + FR.gableStudSpacing +
+          '" o.c., angled top cut (long point)', q, l));
+    add(scope, 'lumber', '6x6', 'Gable ridge support post — top plate to beam underside',
+        1, ridgePostLen);
+  }
+
+  /* sheathing */
+  const gross = isGable ? gableWallArea : sideWallArea;
+  add(scope, 'panel', fracStr(WS.thickness) + ' ply',
+      'Wall sheathing — gross face area' + (isGable ? ', to the gable-line blocking underside' : ''),
+      0, 0, {area: gross});
+  const holes = openingArea(openings);
+  if (holes) add(scope, 'panel', fracStr(WS.thickness) + ' ply',
+                 'Less rough openings (cut from full sheets on site)', 0, 0, {area: -holes});
+}
+
+/* Cripples below a sill: one at each R.O. edge plus the intermediate 16" module
+   centres that clear those edges. Solved, not assumed. */
+function crippleCount(o) {
+  const t = FR.studThickness, n = [];
+  for (let cl = FR.studSpacing; cl < o.w - 1e-9; cl += FR.studSpacing) {
+    if (cl - t / 2 > t && cl + t / 2 < o.w - t) n.push(cl);
+  }
+  return 2 + n.length;
+}
+function groupBy(vals) {
+  const m = new Map();
+  vals.forEach(v => { const k = v.toFixed(4); m.set(k, (m.get(k) || 0) + 1); });
+  return [...m.entries()].map(([k, q]) => [parseFloat(k), q]).sort((a, b) => a[0] - b[0]);
+}
+
+buildWall('front', W, true,  OP.front, LO.front);
+buildWall('left',  D, false, OP.left,  LO.left);
+buildWall('right', D, false, OP.right, LO.right);
+buildWall('rear',  W, true,  OP.rear,  LO.rear);
+
+/* ---------- the rear wall's centre post, which the front wall does not have ----
+   With no door in the rear wall the ridge reaction runs straight down, so a 6x6
+   continues below the double top plate to the sill. The front wall routes the
+   same load through the door header instead. */
+add('rear', 'lumber', '6x6', 'Centre post — bottom plate to top plate, under the ridge post',
+    1, studLen);
+
+/* ---------- connectors, wall by wall ---------- */
+add('front', 'connector', 'Hold-down', 'At the framed-corner pier chords', 2, 0, {share: 0.5, note: 'corner'});
+add('front', 'connector', 'Hold-down', 'At the 6x6 door posts (pier chords)', 2, 0);
+add('front', 'connector', 'Post base', 'Post-to-base connector at the foot of each 6x6 door post', 2, 0);
+add('front', 'connector', 'Beam bracket', 'Header-to-post bracket — 6x8 door header onto each 6x6 door post', 2, 0);
+add('front', 'connector', 'Beam bracket', 'Beam-to-post cap — 6x10 ridge beam onto the 6x6 ridge post', 1, 0);
+add('front', 'connector', 'H-bracket', 'Ridge post base to double top plate', 1, 0);
+
+add('left',  'connector', 'Hold-down', 'At the framed-corner pier chords', 2, 0, {share: 0.5, note: 'corner'});
+add('right', 'connector', 'Hold-down', 'At the framed-corner pier chords', 2, 0, {share: 0.5, note: 'corner'});
+
+add('rear',  'connector', 'Hold-down', 'At the framed-corner pier chords', 2, 0, {share: 0.5, note: 'corner'});
+add('rear',  'connector', 'Post base', 'Post-to-base connector at the foot of the 6x6 centre post', 1, 0);
+add('rear',  'connector', 'Beam bracket', 'Beam-to-post cap — 6x10 ridge beam onto the 6x6 ridge post', 1, 0);
+add('rear',  'connector', 'H-bracket', 'Ridge post base to double top plate', 1, 0);
+
+/* ---------- roof ---------- */
+add('roof', 'lumber', RF.ridgeBeamNominal,
+    'Structural ridge beam — front to back, ' + inchStr(RF.beamCantilever) + ' cantilever each end',
+    1, beamLength);
+add('roof', 'lumber', RF.rafterNominal, 'Common rafters — birdsmouth, plumb tail cut', nCommon, rafterLen);
+add('roof', 'lumber', RF.flyRafterNominal, 'Fly / rake rafters — on the beam cantilever tips', nFlyRafters, rafterLen);
+add('roof', 'lumber', RF.lookoutNominal, 'Structural through-lookouts on edge — front gable to first common rafter',
+    nLookoutsPerGable, lookoutFront);
+add('roof', 'lumber', RF.lookoutNominal, 'Structural through-lookouts on edge — rear gable to first common rafter',
+    nLookoutsPerGable, lookoutRear);
+add('roof', 'lumber', RF.gableBlockingNominal, 'Gable-line blocking between lookouts — on edge, top flush',
+    nGableBlockLong, gableBlockLongLen);
+add('roof', 'lumber', RF.gableBlockingNominal, 'Gable-line blocking at ridge beam — on edge, top flush',
+    nGableBlockRidge, gableBlockRidgeLen);
+add('roof', 'panel', fracStr(RF.sheathingThickness) + ' ply',
+    'Roof deck — both planes, over eaves and rakes', 0, 0, {area: roofArea});
+add('roof', 'connector', 'Rafter hanger',
+    'Sloped hanger into the ridge beam sides — every rafter including the four fly rafters', nHangers, 0);
+add('roof', 'connector', 'Rafter tie',
+    'Hurricane / rafter tie at each rafter-to-wall connection', nTies, 0);
+
+/* ============================================================
+   ROLL-UPS
+   ============================================================ */
+const SCOPES = [
+  {key: 'front', label: 'Front wall — gable end', sub: ftStr(W) + ' long'},
+  {key: 'left',  label: 'Left wall',              sub: ftStr(D) + ' long'},
+  {key: 'right', label: 'Right wall',             sub: ftStr(D) + ' long, no openings'},
+  {key: 'rear',  label: 'Rear wall — gable end',  sub: ftStr(W) + ' long'},
+  {key: 'roof',  label: 'Roof',                   sub: RF.rise + ':' + RF.run + ' pitch'}
+];
+const SIZE_ORDER = ['2x6 P.T.', '2x6', '2x8', '6x6', '6x8', '6x10'];
+const sizeRank = s => { const i = SIZE_ORDER.indexOf(s); return i < 0 ? 99 : i; };
+
+const lumber     = ITEMS.filter(i => i.group === 'lumber');
+const panels     = ITEMS.filter(i => i.group === 'panel');
+const connectors = ITEMS.filter(i => i.group === 'connector');
+
+/* Overall lumber: a cut list keyed on size + length, with shares applied. */
+const cutMap = new Map();
+lumber.forEach(i => {
+  const k = i.nominal + '|' + i.lenIn.toFixed(4);
+  const e = cutMap.get(k) || {nominal: i.nominal, lenIn: i.lenIn, qty: 0, items: []};
+  e.qty += i.qty * i.share;
+  e.items.push(i);
+  cutMap.set(k, e);
+});
+const CUTS = [...cutMap.values()].sort((a, b) =>
+  sizeRank(a.nominal) - sizeRank(b.nominal) || b.lenIn - a.lenIn);
+
+const bySize = new Map();
+CUTS.forEach(c => {
+  const e = bySize.get(c.nominal) || {nominal: c.nominal, qty: 0, lin: 0};
+  e.qty += c.qty; e.lin += c.qty * c.lenIn;
+  bySize.set(c.nominal, e);
+});
+const SIZES = [...bySize.values()].sort((a, b) => sizeRank(a.nominal) - sizeRank(b.nominal));
+const totalPieces = SIZES.reduce((a, s) => a + s.qty, 0);
+const totalLin    = SIZES.reduce((a, s) => a + s.lin, 0);
+
+/* Overall connectors: keyed on type + description. */
+const conMap = new Map();
+connectors.forEach(i => {
+  const k = i.nominal + '|' + i.item;
+  const e = conMap.get(k) || {nominal: i.nominal, item: i.item, qty: 0, shared: i.share !== 1};
+  e.qty += i.qty * i.share;
+  conMap.set(k, e);
+});
+const CONS = [...conMap.values()].sort((a, b) =>
+  a.nominal.localeCompare(b.nominal) || b.qty - a.qty);
+const totalConnectors = CONS.reduce((a, c) => a + c.qty, 0);
+
+/* Sheathing roll-up, walls and roof kept apart because only the walls have
+   openings to deduct. */
+const wallGross = SCOPES.filter(s => s.key !== 'roof')
+  .reduce((a, s) => a + panels.filter(p => p.scope === s.key && p.area > 0)
+                              .reduce((b, p) => b + p.area, 0), 0);
+const wallHoles = -SCOPES.filter(s => s.key !== 'roof')
+  .reduce((a, s) => a + panels.filter(p => p.scope === s.key && p.area < 0)
+                              .reduce((b, p) => b + p.area, 0), 0);
+const wallNet     = wallGross - wallHoles;
+const roofGross   = roofArea;
+const panelsWallGross = Math.ceil(wallGross / panelArea);
+const panelsWallNet   = Math.ceil(wallNet / panelArea);
+const panelsRoof      = Math.ceil(roofGross / panelArea);
+
+/* Plate lap: every sheet draws its own wall at full nominal length, so the
+   5.5" corner block is claimed by both walls that meet there. */
+const platesAsDrawn = lumber.filter(i => i.lap)
+  .reduce((a, i) => a + i.qty * i.lenIn, 0);
+const cornerLapPerLayer = 4 * CN.blockWidth;                 // 22" of double count
+const plateLayers  = FR.bottomPlateCount + FR.topPlateCount; // 3 layers around the building
+const platesDeLap  = platesAsDrawn - plateLayers * cornerLapPerLayer;
+
+/* ============================================================
+   PURCHASE / CUTTING PLAN
+   Common stock lengths are an explicit purchasing assumption, not a hidden
+   conversion from linear feet. Plans are solved separately for each assembly
+   and once more across the whole project so offcuts can cross scope lines.
+   ============================================================ */
+const SAW_KERF = 1 / 8;
+const STOCK_LENGTHS = {
+  '2x6 P.T.': [96, 120, 144],
+  '2x6':      [96, 120, 144],
+  '2x8':      [96, 120, 144],
+  '6x6':      [96, 120, 144],
+  '6x8':      [96, 120, 144],
+  '6x10':     [144]
+};
+
+const isStudFamily = p => p.nominal === '2x6' &&
+  /(?:^|\b)(?:studs?|king studs?|jack studs?|cripple studs?|framed-corner members?|gable studs?)(?:\b|$)/i.test(p.item);
+const isPostFamily = p => p.nominal === '6x6' && /(?:^|\b)posts?(?:\b|$)/i.test(p.item);
+
+function purchasePieces(scope) {
+  const out = [];
+  lumber.filter(i => !scope || i.scope === scope).forEach(i => {
+    const q = i.qty * i.share;
+    if (!Number.isInteger(q)) throw new Error('Non-integral purchase quantity for ' + i.item);
+    for (let n = 0; n < q; n++) {
+      const piece = {nominal: i.nominal, lenIn: i.lenIn, item: i.item, scope: i.scope};
+      piece.stockClass = isStudFamily(piece) ? 'stud-family' :
+        isPostFamily(piece) ? 'post-family' : 'general';
+      out.push(piece);
+    }
+  });
+  return out;
+}
+
+/* Conservatively charge one kerf for every separated piece. A single member
+   that uses the full factory length needs no saw cut. */
+function usedLength(cuts, stockLen) {
+  const piecesLen = cuts.reduce((a, c) => a + c.lenIn, 0);
+  const kerfs = cuts.length === 1 && near(piecesLen, stockLen) ? 0 : cuts.length * SAW_KERF;
+  return piecesLen + kerfs;
+}
+
+function packAtLength(pieces, nominal, stockClass, targetLen) {
+  const available = STOCK_LENGTHS[nominal];
+  const work = pieces.filter(p => p.nominal === nominal && p.stockClass === stockClass).slice()
+    .sort((a, b) => b.lenIn - a.lenIn || a.item.localeCompare(b.item));
+  const bins = [];
+
+  work.forEach(piece => {
+    const choices = bins.map(bin => ({bin, used: usedLength(bin.cuts.concat(piece), bin.stockLen)}))
+      .filter(x => x.used <= x.bin.stockLen + 1e-9)
+      .sort((a, b) => (a.bin.stockLen - a.used) - (b.bin.stockLen - b.used));
+    let bin = choices.length ? choices[0].bin : null;
+    if (!bin) {
+      const stockLen = piece.lenIn > targetLen
+        ? available.find(v => v + 1e-9 >= piece.lenIn)
+        : targetLen;
+      if (!stockLen) throw new Error('No stock length fits ' + nominal + ' at ' + inchStr(piece.lenIn));
+      bin = {nominal, stockLen, cuts: []};
+      bins.push(bin);
+    }
+    bin.cuts.push(piece);
+  });
+
+  /* After packing, downgrade every board to the shortest listed stock length
+     that still holds its assigned cuts and kerfs. */
+  bins.forEach(bin => {
+    bin.stockLen = available.find(v => usedLength(bin.cuts, v) <= v + 1e-9);
+    bin.used = usedLength(bin.cuts, bin.stockLen);
+  });
+  return bins;
+}
+
+function optimizeStock(pieces) {
+  const plan = [];
+  [...new Set(pieces.map(p => p.nominal + '|' + p.stockClass))].forEach(group => {
+    const [nominal, stockClass] = group.split('|');
+    /* Every stud- and post-family cut starts on 8' stock. Keeping those pools
+       separate also prevents the optimizer from hiding them in other offcuts. */
+    const lengths = /^(?:stud|post)-family$/.test(stockClass) ? [96] : STOCK_LENGTHS[nominal];
+    const candidates = lengths.map(len => packAtLength(pieces, nominal, stockClass, len));
+    candidates.sort((a, b) =>
+      a.reduce((s, x) => s + x.stockLen, 0) - b.reduce((s, x) => s + x.stockLen, 0) ||
+      a.length - b.length ||
+      a.reduce((s, x) => s + x.stockLen - x.used, 0) - b.reduce((s, x) => s + x.stockLen - x.used, 0));
+    plan.push(...candidates[0]);
+  });
+  return plan.sort((a, b) => sizeRank(a.nominal) - sizeRank(b.nominal) || b.stockLen - a.stockLen);
+}
+
+const PURCHASE_BY_SCOPE = new Map(SCOPES.map(s => [s.key, optimizeStock(purchasePieces(s.key))]));
+const PURCHASE_ALL = optimizeStock(purchasePieces());
+const purchaseBoardCount = p => p.length;
+const purchaseLinearFeet = p => p.reduce((a, b) => a + b.stockLen, 0) / 12;
+const purchaseWaste = p => p.reduce((a, b) => a + b.stockLen - b.used, 0);
+
+function stockLabel(nominal, stockLen) {
+  const m = nominal.match(/^(\d+)x(\d+)/);
+  return m[1] + '&quot; x ' + m[2] + '&quot; x ' + (stockLen / 12) + '\'' +
+    (nominal.includes('P.T.') ? ' &mdash; P.T.' : '');
+}
+
+function purchaseStockTable(plan) {
+  const grouped = new Map();
+  plan.forEach(bin => {
+    const k = bin.nominal + '|' + bin.stockLen;
+    const row = grouped.get(k) || {nominal: bin.nominal, stockLen: bin.stockLen, qty: 0};
+    row.qty++;
+    grouped.set(k, row);
+  });
+  let h = '<tr><th>Stock size</th><th class="n">Order</th></tr>';
+  [...grouped.values()].sort((a, b) =>
+    sizeRank(a.nominal) - sizeRank(b.nominal) || b.stockLen - a.stockLen).forEach(r => {
+    h += '<tr><td class="stock">' + stockLabel(r.nominal, r.stockLen) +
+      '</td><td class="n"><b>Qty. ' + r.qty + '</b></td></tr>';
+  });
+  h += '<tr class="tot"><td>Stock lumber total</td><td class="n">' + purchaseBoardCount(plan) +
+    ' boards / ' + purchaseLinearFeet(plan).toFixed(0) + ' lf</td></tr>';
+  return h;
+}
+
+function cutPattern(bin) {
+  const m = new Map();
+  bin.cuts.forEach(c => {
+    const k = c.lenIn.toFixed(4);
+    const r = m.get(k) || {lenIn: c.lenIn, qty: 0};
+    r.qty++;
+    m.set(k, r);
+  });
+  return [...m.values()].sort((a, b) => b.lenIn - a.lenIn)
+    .map(r => (r.qty > 1 ? r.qty + ' @ ' : '') + inchStr(r.lenIn)).join(' + ');
+}
+
+function purchaseCutTable(plan) {
+  const grouped = new Map();
+  plan.forEach(bin => {
+    const pattern = cutPattern(bin);
+    const offcut = bin.stockLen - bin.used;
+    const k = bin.nominal + '|' + bin.stockLen + '|' + pattern + '|' + offcut.toFixed(4);
+    const r = grouped.get(k) || {nominal: bin.nominal, stockLen: bin.stockLen, pattern, offcut, qty: 0};
+    r.qty++;
+    grouped.set(k, r);
+  });
+  let h = '<tr><th>Stock board</th><th>Cut from each board</th><th class="n">Boards</th></tr>';
+  [...grouped.values()].sort((a, b) =>
+    sizeRank(a.nominal) - sizeRank(b.nominal) || b.stockLen - a.stockLen ||
+    b.pattern.localeCompare(a.pattern)).forEach(r => {
+    h += '<tr><td class="stock">' + stockLabel(r.nominal, r.stockLen) + '</td>' +
+      '<td>' + r.pattern + ' <span class="muted">(' + inchStr(Math.max(0, r.offcut)) +
+      ' offcut after kerf)</span></td><td class="n">' + r.qty + '</td></tr>';
+  });
+  return h;
+}
+
+function scopeOtherTable(key) {
+  const gross = panels.filter(p => p.scope === key && p.area > 0).reduce((a, p) => a + p.area, 0);
+  let h = '<tr><th>Material</th><th>Use</th><th class="n">Qty</th></tr>';
+  if (gross) {
+    h += '<tr><td class="sz">' + fracStr(RF.sheathingThickness) + ' plywood, ' +
+      ftStr(RF.sheathingPanel.w) + ' x ' + ftStr(RF.sheathingPanel.l) + '</td>' +
+      '<td>' + (key === 'roof' ? 'Roof deck' : 'Wall sheathing') +
+      ' <span class="muted">(minimum by gross area)</span></td><td class="n">' +
+      Math.ceil(gross / panelArea) + ' sheets</td></tr>';
+  }
+  connectors.filter(i => i.scope === key).forEach(i => {
+    h += '<tr><td class="sz">' + i.nominal + '</td><td>' + i.item +
+      (i.share !== 1 ? ' <span class="muted">(allocated shared-corner quantity)</span>' : '') +
+      '</td><td class="n">' + (i.qty * i.share) + '</td></tr>';
+  });
+  return h;
+}
+
+function combinedOtherTable() {
+  let h = '<tr><th>Material</th><th>Use</th><th class="n">Qty</th></tr>' +
+    '<tr><td class="sz">' + fracStr(WS.thickness) + ' plywood, 4\' x 8\'</td>' +
+    '<td>All four walls <span class="muted">(gross-area minimum)</span></td><td class="n">' +
+    panelsWallGross + ' sheets</td></tr>' +
+    '<tr><td class="sz">' + fracStr(RF.sheathingThickness) + ' plywood, 4\' x 8\'</td>' +
+    '<td>Roof deck <span class="muted">(gross-area minimum)</span></td><td class="n">' +
+    panelsRoof + ' sheets</td></tr>';
+  CONS.forEach(c => {
+    h += '<tr><td class="sz">' + c.nominal + '</td><td>' + c.item +
+      (c.shared ? ' <span class="muted">(four physical corners)</span>' : '') +
+      '</td><td class="n">' + c.qty + '</td></tr>';
+  });
+  h += '<tr class="tot"><td>Quantified non-lumber</td><td>Panels + connector locations</td>' +
+    '<td class="n">' + (panelsWallGross + panelsRoof) + ' sheets / ' + totalConnectors + ' connectors</td></tr>';
+  return h;
+}
+
+/* ============================================================
+   KEY PLAN  (small orientation diagram, not a framing plan)
+   ============================================================ */
+/* Top and bottom margins have to clear the ridge beam, which cantilevers
+   12" past both gable walls, before the wall labels go outside that. */
+const KP = {px: 3.1, m: {l: 78, r: 78, t: 66, b: 84}};
+const kw = KP.m.l + W * KP.px + KP.m.r;
+const kh = KP.m.t + D * KP.px + KP.m.b;
+const KX = x => KP.m.l + x * KP.px;
+const KY = y => KP.m.t + y * KP.px;      // plan y: 0 = front, D = rear
+const K = [];
+function kText(x, y, s, o) {
+  o = o || {};
+  K.push('<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" text-anchor="' +
+    (o.anchor || 'middle') + '" font-size="' + (o.size || 9) + '" font-weight="' + (o.weight || 400) +
+    '" fill="' + (o.fill || '#333') + '"' + (o.rotate ? ' transform="rotate(' + o.rotate + ' ' +
+    x.toFixed(1) + ' ' + y.toFixed(1) + ')"' : '') + '>' + s + '</text>');
+}
+function buildKeyPlan() {
+  const t = FR.wallDepth * KP.px;
+  /* wall bands */
+  const bands = [
+    ['front', KX(0), KY(0),          W * KP.px, t],
+    ['rear',  KX(0), KY(D) - t,      W * KP.px, t],
+    ['left',  KX(0), KY(0),          t,         D * KP.px],
+    ['right', KX(W) - t, KY(0),      t,         D * KP.px]
+  ];
+  bands.forEach(b => K.push('<rect x="' + b[1].toFixed(1) + '" y="' + b[2].toFixed(1) +
+    '" width="' + b[3].toFixed(1) + '" height="' + b[4].toFixed(1) +
+    '" fill="#e8dcc4" stroke="#8a7548" stroke-width="1"/>'));
+  /* footprint outline */
+  K.push('<rect x="' + KX(0) + '" y="' + KY(0) + '" width="' + (W * KP.px) +
+    '" height="' + (D * KP.px) + '" fill="none" stroke="#333" stroke-width="1.4"/>');
+  /* the four shared corners */
+  [[0, 0], [W - FR.wallDepth, 0], [0, D - FR.wallDepth], [W - FR.wallDepth, D - FR.wallDepth]]
+    .forEach(c => K.push('<rect x="' + KX(c[0]).toFixed(1) + '" y="' + KY(c[1]).toFixed(1) +
+      '" width="' + t.toFixed(1) + '" height="' + t.toFixed(1) +
+      '" fill="#b98b4e" stroke="#5d4322" stroke-width="1"/>'));
+  /* ridge beam, front to back, cantilevered past both gables */
+  const bw = RF.ridgeBeamWidth * KP.px;
+  K.push('<rect x="' + (KX(halfRun) - bw / 2).toFixed(1) + '" y="' +
+    KY(-RF.beamCantilever).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' +
+    (beamLength * KP.px).toFixed(1) + '" fill="#6b4a2a" stroke="#2a1708" stroke-width="1"/>');
+  kText(KX(halfRun) + 8, KY(D / 2), RF.ridgeBeamNominal + ' RIDGE BEAM ' + ftStr(beamLength),
+        {size: 8.5, weight: 700, fill: '#fff', anchor: 'middle', rotate: -90});
+  /* rafter direction arrows */
+  [D * 0.26, D * 0.74].forEach(py => {
+    [[beamL, 6], [beamR, W - 6]].forEach(seg => {
+      K.push('<line x1="' + KX(seg[0]).toFixed(1) + '" y1="' + KY(py).toFixed(1) +
+        '" x2="' + KX(seg[1]).toFixed(1) + '" y2="' + KY(py).toFixed(1) +
+        '" stroke="#9a9a9a" stroke-width="0.8" stroke-dasharray="4 3"/>');
+    });
+    kText(KX(halfRun / 2), KY(py) - 4, RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. MAX.',
+          {size: 7.5, fill: '#777'});
+  });
+  /* wall labels, kept clear of the cantilevered beam tips */
+  const tipT = KY(-RF.beamCantilever), tipB = KY(D + RF.beamCantilever);
+  kText(KX(halfRun), tipT - 9, 'FRONT WALL — GABLE  ' + ftStr(W), {size: 9.5, weight: 700});
+  kText(KX(halfRun), tipB + 17, 'REAR WALL — GABLE  ' + ftStr(W), {size: 9.5, weight: 700});
+  kText(KX(0) - 12, KY(D / 2), 'LEFT WALL  ' + ftStr(D), {size: 9.5, weight: 700, rotate: -90});
+  kText(KX(W) + 14, KY(D / 2), 'RIGHT WALL  ' + ftStr(D), {size: 9.5, weight: 700, rotate: 90});
+  kText(KX(halfRun), tipB + 32,
+    inchStr(RF.beamCantilever) + ' beam cantilever each end carries the fly rafters',
+    {size: 8, fill: '#777'});
+  kText(KX(halfRun), tipB + 44,
+    'Key plan only — orientation for the sub-lists. Shaded squares are the four shared framed corners.',
+    {size: 8, fill: '#777'});
+  return '<svg viewBox="0 0 ' + kw.toFixed(0) + ' ' + kh.toFixed(0) +
+    '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Key plan">' +
+    K.join('') + '</svg>';
+}
+document.getElementById('keyplan').innerHTML = buildKeyPlan();
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const cutCols = () =>
+  '<tr><th>Size</th><th>Member</th><th class="n">Qty</th>' +
+  '<th class="n cut">Length</th><th class="n cut">Total</th></tr>';
+
+function scopeLumberTable(key) {
+  let h = cutCols();
+  const rows = lumber.filter(i => i.scope === key)
+    .sort((a, b) => sizeRank(a.nominal) - sizeRank(b.nominal) || b.lenIn - a.lenIn);
+  let pcs = 0, lin = 0;
+  rows.forEach(i => {
+    pcs += i.qty; lin += i.qty * i.lenIn;
+    h += '<tr><td class="sz">' + i.nominal + '</td><td>' + i.item +
+         (i.note === 'corner' ? ' <span class="shflag">SHARED</span>' : '') +
+         '</td><td class="n">' + i.qty + '</td><td class="n cut">' + inchStr(i.lenIn) +
+         '</td><td class="n cut">' + lf(i.qty * i.lenIn) + ' lf</td></tr>';
+  });
+  h += '<tr class="sum"><td colspan="2">Wall total — as drawn on this sheet</td><td class="n">' +
+       pcs + ' pcs</td><td class="n cut"></td><td class="n cut">' + lf(lin) + ' lf</td></tr>';
+  return h;
+}
+function scopeConnectorTable(key) {
+  const rows = connectors.filter(i => i.scope === key);
+  if (!rows.length) return '<tr><td colspan="2" style="color:#777">None on this sheet.</td></tr>';
+  let h = '<tr><th>Type</th><th>Location</th><th class="n">Qty</th></tr>', q = 0;
+  rows.forEach(i => {
+    q += i.qty;
+    h += '<tr><td class="sz">' + i.nominal + '</td><td>' + i.item +
+         (i.note === 'corner' ? ' <span class="shflag">SHARED</span>' : '') +
+         '</td><td class="n">' + i.qty + '</td></tr>';
+  });
+  h += '<tr class="sum"><td colspan="2">Wall total — as drawn on this sheet</td><td class="n">' + q + '</td></tr>';
+  return h;
+}
+function scopePanelTable(key) {
+  const rows = panels.filter(i => i.scope === key);
+  if (!rows.length) return '';
+  let h = '<tr><th>Panel</th><th>Surface</th><th class="n">Area</th></tr>', a = 0;
+  rows.forEach(i => {
+    a += i.area;
+    h += '<tr><td class="sz">' + i.nominal + '</td><td>' + i.item + '</td><td class="n">' +
+         (i.area < 0 ? '&minus;' : '') + sqft(Math.abs(i.area)) + ' sq ft</td></tr>';
+  });
+  h += '<tr class="sum"><td colspan="2">Net</td><td class="n">' + sqft(a) +
+       ' sq ft &middot; ' + Math.ceil(a / panelArea) + ' sheets</td></tr>';
+  return h;
+}
+
+/* ---- order-ready purchase schedules ---- */
+document.getElementById('purchaseByScope').innerHTML = SCOPES.map(s => {
+  const plan = PURCHASE_BY_SCOPE.get(s.key);
+  return '<div class="panel purchase-panel"><h3>' + s.label + '<span>' + s.sub + '</span></h3>' +
+    '<div class="assembly-grid">' +
+      '<section><h4>Lumber to purchase</h4><table>' + purchaseStockTable(plan) + '</table></section>' +
+      '<section class="cut-plan"><h4>Cut plan</h4><table>' + purchaseCutTable(plan) + '</table></section>' +
+      '<section class="other"><h4>Other quantified materials</h4><table>' + scopeOtherTable(s.key) + '</table></section>' +
+    '</div></div>';
+}).join('');
+
+document.getElementById('purchaseCombined').innerHTML =
+  '<div class="panel purchase-panel"><h3>Whole building order<span>globally nested offcuts</span></h3>' +
+    '<div class="assembly-grid">' +
+      '<section><h4>Lumber to purchase</h4><table>' + purchaseStockTable(PURCHASE_ALL) + '</table>' +
+        '<p class="purchase-total">Finished members: ' + totalPieces + ' pieces / ' + lf(totalLin) + ' lf<br>' +
+        'Stock allowance from nesting + kerfs: ' +
+        (purchaseLinearFeet(PURCHASE_ALL) - totalLin / 12).toFixed(1) + ' lf</p></section>' +
+      '<section class="cut-plan"><h4>Combined cut plan</h4><table>' + purchaseCutTable(PURCHASE_ALL) + '</table></section>' +
+      '<section class="other"><h4>Other quantified materials</h4><table>' + combinedOtherTable() + '</table></section>' +
+    '</div></div>';
+
+/* ---- overall lumber ---- */
+let t1 = cutCols();
+SIZES.forEach(s => {
+  CUTS.filter(c => c.nominal === s.nominal).forEach(c => {
+    /* One cut-list line can serve several members that happen to share a size
+       and a length. Keep the full description when only one member lands here,
+       so the four 6x8 headers stay told apart; fall back to the short form when
+       several do, so the row does not run away. */
+    const full = [...new Set(c.items.map(i => i.item))];
+    const label = full.length === 1 ? full[0]
+      : [...new Set(c.items.map(i => i.item.split(' — ')[0]))].join(' / ');
+    const scopeTag = [...new Set(c.items.map(i => i.scope))].join(', ');
+    t1 += '<tr><td class="sz">' + c.nominal + '</td><td>' + label +
+          ' <span style="color:#888">(' + scopeTag + ')</span></td><td class="n">' + c.qty +
+          '</td><td class="n cut">' + inchStr(c.lenIn) + '</td><td class="n cut">' +
+          lf(c.qty * c.lenIn) + ' lf</td></tr>';
+  });
+  t1 += '<tr class="sum"><td class="sz">' + s.nominal + '</td><td>subtotal</td><td class="n">' +
+        s.qty + ' pcs</td><td class="n cut"></td><td class="n cut">' + lf(s.lin) + ' lf</td></tr>';
+});
+t1 += '<tr class="tot"><td colspan="2">All lumber</td><td class="n">' + totalPieces +
+      ' pcs</td><td class="n cut"></td><td class="n cut">' + lf(totalLin) + ' lf</td></tr>';
+document.getElementById('ovlLumber').innerHTML = t1;
+
+/* ---- overall sheet goods ---- */
+document.getElementById('ovlPanels').innerHTML =
+  '<tr><th>Panel</th><th>Surface</th><th class="n">Area</th></tr>' +
+  '<tr><td class="sz">' + fracStr(WS.thickness) + ' ply</td><td>Walls — gross face area, all four walls</td>' +
+    '<td class="n">' + sqft(wallGross) + ' sq ft</td></tr>' +
+  '<tr><td class="sz"></td><td>Less rough openings</td><td class="n">&minus;' + sqft(wallHoles) +
+    ' sq ft</td></tr>' +
+  '<tr><td class="sz"></td><td>Walls — net</td><td class="n">' + sqft(wallNet) + ' sq ft</td></tr>' +
+  '<tr><td class="sz">' + fracStr(RF.sheathingThickness) + ' ply</td>' +
+    '<td>Roof deck — both planes, over eaves and rakes</td><td class="n">' + sqft(roofGross) +
+    ' sq ft</td></tr>' +
+  '<tr class="tot"><td colspan="2">Total, gross basis</td><td class="n">' +
+    sqft(wallGross + roofGross) + ' sq ft</td></tr>';
+
+document.getElementById('ovlPanelCount').innerHTML =
+  '<tr><th>Basis</th><th class="n">Area</th><th class="n">' + inchStr(RF.sheathingPanel.w) + ' x ' +
+    inchStr(RF.sheathingPanel.l) + ' sheets</th></tr>' +
+  '<tr><td>Walls, gross &mdash; order basis</td><td class="n">' + sqft(wallGross) + ' sq ft</td>' +
+    '<td class="n">' + panelsWallGross + '</td></tr>' +
+  '<tr><td>Walls, net of openings &mdash; information only</td><td class="n">' + sqft(wallNet) +
+    ' sq ft</td><td class="n">' + panelsWallNet + '</td></tr>' +
+  '<tr><td>Roof deck</td><td class="n">' + sqft(roofGross) + ' sq ft</td><td class="n">' +
+    panelsRoof + '</td></tr>' +
+  '<tr class="tot"><td>Minimum sheets, gross basis, before waste</td><td class="n"></td>' +
+    '<td class="n">' + (panelsWallGross + panelsRoof) + '</td></tr>';
+
+/* ---- overall connectors ---- */
+let t3 = '<tr><th>Type</th><th>Location</th><th class="n">Qty</th></tr>';
+CONS.forEach(c => {
+  t3 += '<tr><td class="sz">' + c.nominal + '</td><td>' + c.item +
+        (c.shared ? ' <span class="shflag">4 CORNERS</span>' : '') +
+        '</td><td class="n">' + c.qty + '</td></tr>';
+});
+t3 += '<tr class="tot"><td colspan="2">All connectors &mdash; no product selected anywhere</td>' +
+      '<td class="n">' + totalConnectors + '</td></tr>';
+document.getElementById('ovlConnectors').innerHTML = t3;
+
+/* ---- per-wall panels ---- */
+document.getElementById('wallPanels').innerHTML = SCOPES.filter(s => s.key !== 'roof').map(s =>
+  '<div class="panel"><h3>' + s.label + '<span>' + s.sub + '</span></h3>' +
+  '<h4>Lumber</h4><table>' + scopeLumberTable(s.key) + '</table>' +
+  '<h4>Sheathing</h4><table>' + scopePanelTable(s.key) + '</table>' +
+  '<h4>Brackets &amp; connectors</h4><table>' + scopeConnectorTable(s.key) + '</table></div>'
+).join('');
+
+document.getElementById('roofPanels').innerHTML =
+  '<div class="panel"><h3>Roof lumber<span>' + RF.rise + ':' + RF.run + ' pitch</span></h3>' +
+    '<table>' + scopeLumberTable('roof') + '</table></div>' +
+  '<div class="panel"><h3>Roof deck<span>' + fracStr(RF.sheathingThickness) + ' plywood</span></h3>' +
+    '<table>' + scopePanelTable('roof') + '</table>' +
+    '<h4>Geometry behind the area</h4><table>' +
+    '<tr><th>Quantity</th><th class="n">Value</th></tr>' +
+    '<tr><td>Sloped length, ridge to eave edge</td><td class="n">' + inchStr(roofPlaneLen) + '</td></tr>' +
+    '<tr><td>Deck length along the ridge, both rakes</td><td class="n">' + inchStr(roofDeckLen) + '</td></tr>' +
+    '<tr><td>Slope factor on ' + RF.rise + ':' + RF.run + '</td><td class="n">' +
+      slopeFactor.toFixed(4) + '</td></tr>' +
+    '<tr><td>Rafter sloped length (' + inchStr(rafterRun) + ' run)</td><td class="n">' +
+      inchStr(rafterLen) + '</td></tr>' +
+    '<tr><td>Full common-rafter stations at ' + RF.rafterSpacing + '" o.c. max.</td><td class="n">' +
+    nStations + ' (rear wall-to-rafter bay ' + inchStr(rearBay) + ')</td></tr>' +
+    '</table></div>' +
+  '<div class="panel"><h3>Roof brackets &amp; connectors<span>symbols only</span></h3>' +
+    '<table>' + scopeConnectorTable('roof') + '</table>' +
+    '<h4>Note</h4><div style="font-size:10.5px;line-height:1.5;color:#333">The two 6x6 ridge posts and the ' +
+    'beam-to-post caps and H-brackets that serve them are counted under the <b>front</b> and <b>rear</b> gable ' +
+    'walls, because that is where they stand and where those sheets dimension them. The roof plan draws the same ' +
+    'items; they are not added again here.</div></div>';
+
+/* ---- meta block ---- */
+document.getElementById('meta').innerHTML =
+  'Footprint <b>' + ftStr(W) + ' x ' + ftStr(D) + '</b> &nbsp;|&nbsp; wall height <b>' + ftStr(wallHeight) +
+    '</b> &nbsp;|&nbsp; roof <b>' + RF.rise + ':' + RF.run + '</b><br>' +
+  'Lumber order <b>' + purchaseBoardCount(PURCHASE_ALL) + ' boards / ' +
+    purchaseLinearFeet(PURCHASE_ALL).toFixed(0) + ' lf stock</b> &nbsp;|&nbsp; finished members <b>' +
+    totalPieces + ' / ' + lf(totalLin) + ' lf</b><br>' +
+  'Connectors <b>' +
+    totalConnectors + '</b> &nbsp;|&nbsp; panels <b>' + (panelsWallGross + panelsRoof) + '</b><br>' +
+  'Sizes: ' + SIZES.map(s => s.nominal).join(' &middot; ') + '<br>' +
+  'Take-off derived from the five framing sheets &nbsp;|&nbsp; 0" datum = top of slab';
+
+document.getElementById('ovlSub').innerHTML =
+  'corners and plate laps de-duplicated &mdash; see basis note';
+document.getElementById('lumSub').innerHTML = totalPieces + ' pcs / ' + lf(totalLin) + ' lf';
+document.getElementById('shtSub').innerHTML = (panelsWallGross + panelsRoof) + ' sheets min';
+document.getElementById('conSub').innerHTML = totalConnectors + ' places';
+
+document.getElementById('basisNote').innerHTML =
+  '<b>Basis of quantities.</b> Three things in this building are drawn on more than one sheet, and a naive ' +
+  'sheet-by-sheet sum would count them twice. They are handled explicitly.<br>' +
+  '<b>1. The four framed corners.</b> Each corner is drawn on both walls that meet there, so the eight ' +
+  'wall-instances across the four wall sheets are <b>four physical corners</b>. At ' + CN.members +
+  ' pieces per corner that is <b>' + (4 * CN.members) + ' pieces of 2x6</b>, not ' + (8 * CN.members) +
+  '. The per-wall sub-lists show what each sheet draws and flag those rows SHARED; the overall list halves ' +
+  'them. The same halving applies to the corner hold-downs.<br>' +
+  '<b>2. Plate runs at the corners.</b> Every wall sheet draws its own wall at full nominal length, so the ' +
+  inchStr(CN.blockWidth) + ' corner block sits in two walls\u2019 plate runs at once. Summed as drawn the ' +
+  'plates come to <b>' + lf(platesAsDrawn) + ' lf</b>; removing the overlap once per plate layer (' +
+  plateLayers + ' layers x 4 corners x ' + inchStr(CN.blockWidth) + ' = ' + inchStr(plateLayers * cornerLapPerLayer) +
+  ') gives <b>' + lf(platesDeLap) + ' lf</b>. The tables carry the as-drawn figure, which is the safer ordering ' +
+  'basis: the upper of the two top plates is meant to lap the corner in the opposite direction to tie the walls ' +
+  'together, so some of that overlap is real material. Which pair of walls runs through, and where the splices ' +
+  'fall, is not scheduled on any sheet.<br>' +
+  '<b>3. The ridge posts and the ridge beam.</b> The 6x10 beam appears on both gable sheets and the roof plan ' +
+  'but is <b>one member</b>, counted once under Roof. The two 6x6 ridge posts and their beam-to-post caps and ' +
+  'H-brackets appear on the gable sheets and again on the roof plan; they are counted once, under the gable wall ' +
+  'they stand on.<br>' +
+  '<b>Lengths</b> are finished member lengths to the nearest 1/16", not stock lengths, and carry no allowance ' +
+  'for defect or field changes. The purchase and cut-plan tables above convert those member lengths to stock. ' +
+  'Gable stud lengths are the ' +
+  '<i>long point</i> of the angled top cut. Rafter lengths are along the slope from the beam face to the end of ' +
+  'the eave tail, before the birdsmouth and plumb tail cuts are taken out.';
+
+const scopedStockLf = SCOPES.reduce((a, s) => a + purchaseLinearFeet(PURCHASE_BY_SCOPE.get(s.key)), 0);
+document.getElementById('purchaseNote').innerHTML =
+  '<b>Purchase-plan assumptions.</b> Nominal lumber is packed into these assumed stock lengths: ' +
+  '<b>2x6, 2x8, 2x6 P.T., 6x6 and 6x8:</b> 8\', 10\' and 12\'; <b>6x10:</b> 12\'. ' +
+  '<b>No stock member exceeds 12\'. Every 2x6 stud-family piece and every 6x6 post starts on 8\' stock</b>. Studs include full-height ' +
+  'studs, kings, jacks, cripples, framed-corner members and the short gable studs above the top plate. That stock ' +
+  'pool is kept separate from plates, sills and roof lookouts; the post pool is likewise kept separate from other lumber. Verify species, grade, treatment and actual supplier availability before ordering; ' +
+  '6x8 and 6x10 members may be special-order. Each separated piece is charged a <b>' + inchStr(SAW_KERF) +
+  ' saw kerf</b>; an uncut factory-length member is not. The per-assembly lists keep offcuts within that wall or ' +
+  'roof. The final list repacks identical lumber across the whole job, reducing stock from <b>' +
+  scopedStockLf.toFixed(0) + ' lf to ' + purchaseLinearFeet(PURCHASE_ALL).toFixed(0) +
+  ' lf</b>. That final combined list is the efficient order. It is deliberately tight: add spare material if the ' +
+  'supplier grade, delivery damage or field conditions warrant it. The front sill is correctly treated as ' +
+  '<b>two ' + inchStr((W - OP.front[0].w) / 2) + ' P.T. pieces</b>, not one ' +
+  inchStr(W - OP.front[0].w) + ' piece.';
+
+document.getElementById('exclNote').innerHTML =
+  '<b>Not included.</b> Nothing below appears on any of the five framing sheets, so nothing below is quantified ' +
+  'here. Inventing numbers for them would be guessing:<br>' +
+  'Nails, screws, bolts, connector-specific fasteners and anchors &middot; sill anchor bolts or post-installed ' +
+  'anchors (type, size and spacing all T.B.D.) &middot; sill sealer / capillary break &middot; fire or draft ' +
+  'blocking and additional diaphragm or panel-edge blocking beyond the scheduled gable-line blocks &middot; ' +
+  'let-in or metal bracing &middot; portal-frame straps and hardware ' +
+  'if the narrow piers have to be qualified that way &middot; fascia, sub-fascia, soffit, vents and trim &middot; ' +
+  'roofing, underlayment, drip edge and flashing &middot; windows and the prehung door &middot; stucco, lath, ' +
+  'weep screed, the ' + inchStr(30) + ' stone veneer and window casing &middot; insulation, drywall, interior ' +
+  'finishes, electrical and mechanical &middot; the foundation itself, which is already poured, and any ' +
+  'footing, reinforcement or slab work.<br>' +
+  'The lumber plan includes only the stock offcut forced by available lengths plus a 1/8&quot; saw kerf per separated ' +
+  'piece; spare boards for defects, damage and field changes are excluded. Panel counts are minimums from bare ' +
+  'gross area and do not include a waste factor.';
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+const RESULTS = [];
+function check(desc, ok, detail) { RESULTS.push({desc, ok: !!ok, detail: detail || ''}); }
+
+/* ---- the model this take-off is built on ---- */
+check('1. Footprint matches the set: 12\'-0" x 10\'-0", gable walls on the 12\' faces',
+      near(W, 144) && near(D, 120),
+      `${ftStr(W)} wide x ${ftStr(D)} deep; ridge runs the ${ftStr(D)} direction`);
+check('2. Vertical stack reproduces the wall sheets: 82" R.O. head + 7-1/2" header + 3" double top plate',
+      near(roHead, 82) && near(FR.headerDepth, 7.5) && near(topPlateThk, 3) && near(wallHeight, 92.5),
+      `wall height ${inchStr(wallHeight)} = ${ftStr(wallHeight)}`);
+check('3. Full-height members are 88" and jacks 80-1/2", matching every wall sheet',
+      near(studLen, 88) && near(jackLen, 80.5) && near(doorPostLen, 80.5) &&
+      near(studLen, topPlateBot - botPlateTop),
+      `studs, kings, corner members and the rear centre post all ${inchStr(studLen)}; ` +
+      `jacks and door posts ${inchStr(jackLen)}`);
+check('4. Roof plane carries the birdsmouth drop, so peak and beam match the gable sheets',
+      near(RF.rafterSeatCut, 3.5) && near(seatPlumbDrop, 1.75) && near(planeBase, 90.75) &&
+      near(roofYAtX(halfRun), 126.75) && near(beamBot, 123.98074641843675, 1e-6),
+      `plane starts ${inchStr(seatPlumbDrop)} below the plate; top of rafters ${ftStr(actualPeak)}, ` +
+      `top of sheathing ${ftStr(sheathingPeak)}, beam underside ${inchStr(beamBot)}`);
+
+/* ---- header and opening framing derive from the bearing rule ---- */
+check('5. Header lengths fall out of the bearing rule rather than being typed in — door header on posts, window headers on jacks',
+      near(headerLen(OP.front[0]), 49.25) && near(headerLen(OP.front[1]), 27) &&
+      near(headerLen(OP.left[0]), 78) && near(headerLen(OP.rear[0]), 39),
+      `door ${inchStr(headerLen(OP.front[0]))} (R.O. + two ${inchStr(FR.doorPostWidth)} posts); ` +
+      `front windows ${inchStr(headerLen(OP.front[1]))}; left window ${inchStr(headerLen(OP.left[0]))} ` +
+      `(two jacks per side); rear windows ${inchStr(headerLen(OP.rear[0]))}`);
+check('6. Six 6x8 headers in the building, one per rough opening',
+      lumber.filter(i => i.nominal === FR.headerNominal).reduce((a, i) => a + i.qty, 0) === 6,
+      '1 door + 2 front windows + 1 left window + 2 rear windows');
+check('7. Cripple counts are solved from each opening width, and sill-to-plate lengths differ between the tall and the high openings',
+      crippleCount(OP.front[1]) === 3 && crippleCount(OP.left[0]) === 6 && crippleCount(OP.rear[0]) === 4 &&
+      near(crippleLen(OP.front[1]), 31) && near(crippleLen(OP.rear[0]), 67),
+      `${crippleCount(OP.front[1])} under each ${inchStr(OP.front[1].w)} window @ ${inchStr(crippleLen(OP.front[1]))}, ` +
+      `${crippleCount(OP.left[0])} under the ${inchStr(OP.left[0].w)} window, ` +
+      `${crippleCount(OP.rear[0])} under each ${inchStr(OP.rear[0].w)} window @ ${inchStr(crippleLen(OP.rear[0]))}`);
+
+/* ---- gable framing ---- */
+check('8. Gable studs are generated on real 16" centrelines, eight per gable wall, with none through the ridge-post location',
+      GABLE.length === 8 &&
+      GABLE.every(g => near(g.cl % FR.gableStudSpacing, 0)) &&
+      !GABLE.some(g => g.cl + FR.studThickness / 2 > beamL && g.cl - FR.studThickness / 2 < beamR),
+      `${GABLE.length} studs at ${GABLE.map(g => inchStr(g.cl)).join(', ')}; ` +
+      `ridge post occupies ${inchStr(beamL)}–${inchStr(beamR)}`);
+check('9. Gable stud lengths are symmetric and rise to the shallower, top-flush 2x6 gable-line blocking',
+      GABLE.every((g, i) => near(g.len, GABLE[GABLE.length - 1 - i].len)) &&
+      near(gableSupportRise, (7.25-5.5)*Math.sqrt(1.25)) &&
+      near(Math.max.apply(null, GABLE.map(g => g.len)), 32.5816, 1e-3),
+      `four lengths, two of each: ${groupBy(GABLE.map(g => g.len)).map(([l, q]) => q + ' @ ' + inchStr(l)).join(', ')}`);
+check('10. Both gable walls carry a 6x6 ridge post from the top plate to the beam underside',
+      lumber.filter(i => i.nominal === '6x6' && /ridge support post/.test(i.item))
+            .reduce((a, i) => a + i.qty, 0) === 2 &&
+      near(ridgePostLen, beamBot - wallHeight),
+      `2 posts, ${inchStr(ridgePostLen)} each; only the rear wall continues a 6x6 centre post below the plate`);
+
+/* ---- roof ---- */
+check('11. Rafter layout retains the original seven common stations at 16" through 112", with no continuous gable-end rafters',
+      nStations === 7 && nRafters === 14 && nGableEnd === 0 && nCommon === 14 &&
+      near(frontBay, 16) && near(rearBay, 8),
+      `${nCommon} common rafters = ${nStations} stations x 2 slopes; stations ${stations.map(x=>inchStr(x)).join(', ')}`);
+check('12. Rafter length is the sloped run from the beam face to the end of the eave tail',
+      near(rafterRun, halfRun - RF.ridgeBeamWidth / 2 + RF.eaveOverhang) && near(rafterRun, 81.25) &&
+      near(rafterLen, 90.84021, 1e-4),
+      `${inchStr(rafterRun)} run x ${slopeFactor.toFixed(4)} = ${inchStr(rafterLen)}; ` +
+      `all ${nRafters+nFlyRafters} common and fly rafters are the same length`);
+check('13. Ridge beam is one member, 12" past each gable wall',
+      lumber.filter(i => i.nominal === RF.ridgeBeamNominal).reduce((a, i) => a + i.qty, 0) === 1 &&
+      near(beamLength, D + 2 * RF.beamCantilever) && near(beamLength, 144),
+      `${ftStr(beamLength)} overall = ${ftStr(D)} + 2 x ${inchStr(RF.beamCantilever)}; ` +
+      `drawn on both gable sheets and the roof plan, counted once`);
+check('14. Rake framing has continuous on-edge through-lookouts at both gables plus segmented top-flush gable-line blocking',
+      nFlyRafters === 4 && nLookoutsPerGable === 8 &&
+      near(lookoutFront, 28.75) && near(lookoutRear, 20.75) &&
+      lookoutRear < lookoutFront && RF.lookoutSpacing === 24 && RF.lookoutOrientation === 'on edge' &&
+      nGableBlockLong === 12 && nGableBlockRidge === 4 &&
+      near(gableBlockLongLen,25.1558,1e-3) && near(gableBlockRidgeLen,8.665,1e-3),
+      `${nLookoutsPerGable} @ ${inchStr(lookoutFront)} front, ${nLookoutsPerGable} @ ${inchStr(lookoutRear)} rear ` +
+      `plus ${nGableBlockLong+nGableBlockRidge} gable-line blocks`);
+check('15. A hanger at every rafter-to-beam connection including the fly rafters, and a tie only where a wall is underneath',
+      nHangers === nRafters + nFlyRafters && nHangers === 18 && nTies === nRafters && nTies === 14 &&
+      nTies < nHangers,
+      `${nHangers} hangers, ${nTies} ties; the four fly rafters hang off the cantilever tips with no wall below`);
+
+/* ---- corner and plate de-duplication, the two ways this take-off could go wrong ---- */
+const cornerRows = lumber.filter(i => i.note === 'corner');
+const cornerDrawn = cornerRows.reduce((a, i) => a + i.qty, 0);
+const cornerReal  = cornerRows.reduce((a, i) => a + i.qty * i.share, 0);
+check('16. Four physical framed corners, not eight: the wall sheets draw eight instances and the overall roll-up halves them to a whole number of pieces',
+      cornerRows.length === 4 && cornerDrawn === 8 * CN.members && cornerReal === 4 * CN.members &&
+      Number.isInteger(cornerReal),
+      `${cornerDrawn} pieces summed sheet by sheet, ${cornerReal} pieces actually needed ` +
+      `(4 corners x ${CN.members})`);
+const hdRows = connectors.filter(i => i.note === 'corner');
+check('17. Corner hold-downs are de-duplicated the same way, giving one location per building corner',
+      hdRows.length === 4 && hdRows.reduce((a, i) => a + i.qty, 0) === 8 &&
+      hdRows.reduce((a, i) => a + i.qty * i.share, 0) === 4,
+      '8 instances across the four wall sheets, 4 corner locations; whether one device per corner serves the ' +
+      'piers in both wall directions is an engineering question, so the true count is 4 to 8');
+check('18. Plate double count is reported rather than buried, and equals exactly one corner block per plate layer',
+      near(platesAsDrawn - platesDeLap, plateLayers * cornerLapPerLayer) &&
+      near(cornerLapPerLayer, 4 * CN.blockWidth) && plateLayers === 3,
+      `as drawn ${lf(platesAsDrawn)} lf, de-lapped ${lf(platesDeLap)} lf, difference ` +
+      `${inchStr(plateLayers * cornerLapPerLayer)} over ${plateLayers} layers`);
+check('19. Every roll-up quantity is a whole number of pieces after the shares are applied',
+      CUTS.every(c => Number.isInteger(c.qty)) && Number.isInteger(totalPieces) &&
+      CONS.every(c => Number.isInteger(c.qty)),
+      `${CUTS.length} cut-list lines, ${totalPieces} pieces, ${totalConnectors} connectors, all integral`);
+
+/* ---- connectors ---- */
+check('20. Post-to-base connectors at all three posts that land on a sill plate — two front door posts and the rear centre post',
+      connectors.filter(i => i.nominal === 'Post base').reduce((a, i) => a + i.qty * i.share, 0) === 3,
+      '2 at the front door posts, 1 at the rear centre post; the side walls have no 6x6 post since the corners ' +
+      'became framed corners');
+check('21. Beam-to-post hardware matches the four beam-or-header-on-post joints in the building',
+      connectors.filter(i => i.nominal === 'Beam bracket').reduce((a, i) => a + i.qty * i.share, 0) === 4 &&
+      connectors.filter(i => i.nominal === 'H-bracket').reduce((a, i) => a + i.qty * i.share, 0) === 2,
+      '2 header-to-post at the door header, 2 beam-to-post caps at the ridge posts, plus 2 H-brackets at the ' +
+      'ridge post bases');
+check('22. No connector product is selected anywhere in the take-off, matching the drawings',
+      OFFICE.connectors.product === null &&
+      CONS.every(c => !/simpson|hdu|lstA|\bmodel\b/i.test(c.item)),
+      `${CONS.length} connector types by function only; model, capacity and fasteners per engineer`);
+
+/* ---- sheathing ---- */
+check('23. Walls and roof use the same 21/32" (5/8" nominal) panel, and it prints as 21/32 rather than rounding to 11/16',
+      near(WS.thickness, 21 / 32) && near(RF.sheathingThickness, 21 / 32) &&
+      WS.nominal === RF.sheathingNominal && fracStr(WS.thickness) === '21/32"' &&
+      inchStr(WS.thickness) === '11/16"',
+      `${fracStr(WS.thickness)} both, full wrap; the 1/16" formatter would print ${inchStr(WS.thickness)}, ` +
+      `which is why panel thicknesses use the 32nd formatter`);
+check('24. Gable wall area is integrated to the underside of the top-flush 2x6 gable-line blocking',
+      near(gableWallArea, W * (planeBase+gableSupportRise) + pitch*halfRun*halfRun) &&
+      near(gableSupportRise,(RF.rafterDepth-RF.gableBlockingDepth)*slopeFactor),
+      `${sqft(gableWallArea)} sq ft per gable wall; blocking underside is ${inchStr(gableSupportRise)} above ` +
+      `the former 2x8 gable-rafter underside`);
+check('25. Roof deck area covers both planes out over the eaves and both rakes',
+      near(roofPlaneLen, (halfRun + RF.eaveOverhang) * slopeFactor) &&
+      near(roofDeckLen, D + 2 * RF.rakeOverhang) && near(roofArea, 2 * roofPlaneLen * roofDeckLen) &&
+      panelsRoof === 6,
+      `${inchStr(roofPlaneLen)} up the slope x ${inchStr(roofDeckLen)} along the ridge x 2 planes = ` +
+      `${sqft(roofArea)} sq ft, ${panelsRoof} sheets minimum`);
+check('26. Panel counts are minimums from bare area and are stated as such, with the gross wall figure used as the order basis',
+      panelsWallGross >= panelsWallNet && panelsWallGross === Math.ceil(wallGross / panelArea) &&
+      near(panelArea, 4608),
+      `walls ${panelsWallGross} gross / ${panelsWallNet} net, roof ${panelsRoof}; ` +
+      `${panelsWallGross + panelsRoof} total before any waste allowance`);
+
+/* ---- take-off integrity ---- */
+check('27. Every lumber line has a positive length and a positive quantity',
+      lumber.every(i => i.lenIn > 0 && i.qty > 0),
+      `${lumber.length} lumber lines across ${SCOPES.length} scopes`);
+check('28. All five sheets in the set are represented, and each wall sub-list reconciles with the overall roll-up',
+      SCOPES.every(s => ITEMS.some(i => i.scope === s.key)) &&
+      near(totalLin, CUTS.reduce((a, c) => a + c.qty * c.lenIn, 0)),
+      `scopes: ${SCOPES.map(s => s.key).join(', ')}; ${lf(totalLin)} lf total after shares`);
+check('29. Nothing outside the drawings is quantified — fasteners, anchors, finishes and contingency are listed as exclusions instead of estimated',
+      /Nails, screws/.test(document.getElementById('exclNote').innerHTML) &&
+      /spare boards for defects/.test(document.getElementById('exclNote').innerHTML),
+      'exclusions stated rather than guessed, per the no-invented-dimensions rule for this set');
+
+const frontPtPieces = purchasePieces('front').filter(p => p.nominal === '2x6 P.T.');
+check('30. The interrupted front sill is two real cuts on either side of the centred door, not one summed length',
+      frontPtPieces.length === 2 && frontPtPieces.every(p => near(p.lenIn, 52.875)),
+      `${frontPtPieces.length} @ ${inchStr(frontPtPieces[0].lenIn)}; both fit one 10' P.T. board with kerfs`);
+check('31. Every purchase-plan board fits its assigned cuts and assumed kerfs',
+      PURCHASE_ALL.every(b => b.used <= b.stockLen + 1e-9) &&
+      [...PURCHASE_BY_SCOPE.values()].every(p => p.every(b => b.used <= b.stockLen + 1e-9)),
+      `${purchaseBoardCount(PURCHASE_ALL)} stock boards / ${purchaseLinearFeet(PURCHASE_ALL).toFixed(0)} lf in the combined plan`);
+check('32. The combined purchase plan contains every de-duplicated finished member exactly once',
+      PURCHASE_ALL.reduce((a, b) => a + b.cuts.length, 0) === totalPieces &&
+      near(PURCHASE_ALL.reduce((a, b) => a + b.cuts.reduce((s, c) => s + c.lenIn, 0), 0), totalLin),
+      `${totalPieces} finished pieces / ${lf(totalLin)} lf reconciled to the stock order`);
+check('33. No lumber stock length exceeds the requested 12-foot maximum',
+      PURCHASE_ALL.every(b => b.stockLen <= 144) &&
+      [...PURCHASE_BY_SCOPE.values()].every(p => p.every(b => b.stockLen <= 144)),
+      `longest stock member ${ftStr(Math.max(...PURCHASE_ALL.map(b => b.stockLen)))}`);
+const combinedStudBins = PURCHASE_ALL.filter(b => b.cuts.some(isStudFamily));
+check('34. Every 2x6 stud-family member is cut only from 8-foot stock',
+      combinedStudBins.length > 0 && combinedStudBins.every(b => b.stockLen === 96) &&
+      combinedStudBins.every(b => b.cuts.every(isStudFamily)),
+      `${combinedStudBins.length} dedicated 8' stud-stock boards; includes all gable studs above the plates`);
+const combinedPostBins = PURCHASE_ALL.filter(b => b.cuts.some(isPostFamily));
+check('35. Every 6x6 post is cut only from dedicated 8-foot stock',
+      combinedPostBins.length > 0 && combinedPostBins.every(b => b.stockLen === 96) &&
+      combinedPostBins.every(b => b.cuts.every(isPostFamily)),
+      `${combinedPostBins.length} dedicated 8' post-stock boards for five posts; the two short ridge posts share one board`);
+
+document.getElementById('checkList').innerHTML = RESULTS.map(r =>
+  `<li class="${r.ok ? 'pass' : 'fail'}">${r.desc}${r.detail ? ' — <span style="color:#666">' + r.detail + '</span>' : ''}</li>`
+).join('');
+
+const failed = RESULTS.filter(r => !r.ok);
+if (failed.length) {
+  const a = document.getElementById('alarm');
+  a.className = 'show';
+  a.innerHTML = `VALIDATION FAILED (${failed.length}): <ul>` +
+    failed.map(f => `<li>${f.desc} — ${f.detail}</li>`).join('') + `</ul>`;
+}
+
+/* ============================================================
+   VIEW TOGGLES
+   ============================================================ */
+function bind(id, fn) {
+  const el = document.getElementById(id);
+  el.addEventListener('change', () => fn(el.checked));
+  fn(el.checked);
+}
+bind('tPlan', on => { document.getElementById('keyplan').style.display = on ? '' : 'none'; });
+bind('tCut', on => {
+  document.querySelectorAll('td.cut, th.cut').forEach(e => { e.style.display = on ? '' : 'none'; });
+  document.querySelectorAll('.cut-plan').forEach(e => { e.style.display = on ? '' : 'none'; });
+});
+</script>
+</body>
+</html>
