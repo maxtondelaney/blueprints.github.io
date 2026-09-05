@@ -194,7 +194,7 @@
       <li>Sloped rafter hanger selection and capacity at the ridge beam</li>
       <li>Hurricane / rafter tie selection and uplift capacity</li>
       <li>Fly rafter and 2&times;6 lookout sizing, spacing and connections</li>
-      <li>Whether the gable-end rafter is dropped to receive the lookouts, and by how much</li>
+      <li>Through-lookout, gable-line blocking and roof-edge connection capacities</li>
       <li>Ridge beam end reactions into the 6&times;6 ridge posts and the load path below them</li>
       <li>Perpendicular-to-grain compression at the wall plates and at the beam bearings</li>
       <li>Roof sheathing span rating, edge support, panel blocking and diaphragm nailing</li>
@@ -293,15 +293,18 @@ const OFFICE = {
 
     /* Rake is framed off a cantilevered ridge beam, not off the gable wall:
        the 6x10 runs past each gable wall and carries a fly rafter at the outer
-       edge, with lookouts tied back to the first common rafter. */
+       edge. Structural lookouts run continuously through the gable line and
+       terminate at the first full common rafter; segmented on-edge blocking
+       replaces the former gable-end rafters. */
     rakeFraming: {
       beamCantilever: 12,        // each end, so the beam is 12'-0" overall
       flyRafterNominal: '2x8',
       lookoutNominal: '2x6',
       lookoutDepth: 5.5,
-      lookoutSpacing: null,      // along the rake — NOT SPECIFIED
-      lookoutSpacingIndicative: 24,  // what is DRAWN, so the sheet is honest about it
-      gableRafterDrop: null      // depends on lookout orientation — NOT SPECIFIED
+      lookoutSpacing: 24,
+      lookoutOrientation: 'on edge',
+      gableBlockingNominal: '2x6',
+      gableBlockingDepth: 5.5
     },
 
     /* 5/8" nominal plywood, 21/32" actual, matching the wall wrap. Thickness is
@@ -501,17 +504,14 @@ const seatRight = W - seatCut;                                   // 140.5
 /* ------------------------------------------------------------
    RAFTER STATIONS along py. The module runs 16" o.c. FROM THE
    FRONT FACE so that sheathing panel edges at 48" and 96" from
-   the front land on a rafter. Plus one rafter over each gable
-   end wall. Identical to the left and right wall sheets.
+   the front land on a rafter. The former gable-end rafter locations
+   are occupied by segmented 2x6 blocking between the through-lookouts.
+   Identical to the left and right wall sheets.
    ------------------------------------------------------------ */
 const moduleFromFront = [];
 for (let d = FR.studSpacing; d < D; d += FR.studSpacing) moduleFromFront.push(d);  // 16..112
 
-const RSTATIONS = [
-  {py: t / 2,     kind: 'gable-end', at: 'over the front gable wall'},
-  ...moduleFromFront.map(d => ({py: d, kind: 'common', at: null})),
-  {py: D - t / 2, kind: 'gable-end', at: 'over the rear gable wall'}
-].sort((a, b) => a.py - b.py);
+const RSTATIONS = moduleFromFront.map(d => ({py: d, kind: 'common', at: null}));
 
 RSTATIONS.forEach(s => { s.y0 = s.py - t / 2; s.y1 = s.py + t / 2; s.d = s.py; });
 
@@ -549,12 +549,9 @@ const FLY = [];
 
 /* ------------------------------------------------------------
    LOOKOUTS. 2x6 running in the py direction, cantilevering from
-   the first common rafter out to the fly rafter, passing over
-   the gable-end rafter.
-
-   SPACING ALONG THE RAKE IS NOT SPECIFIED. What is drawn is an
-   INDICATIVE 24" o.c. horizontal layout; RK.lookoutSpacing stays
-   null so nothing on this sheet can claim the value is settled.
+   the first common rafter out to the fly rafter. Each is continuous
+   through the former gable-end-rafter line, where segmented 2x6
+   blocking fills the spaces between lookouts.
    ------------------------------------------------------------ */
 const firstCommonFront = RSTATIONS.find(s => s.kind === 'common');            // py 16
 const firstCommonRear  = RSTATIONS.slice().reverse().find(s => s.kind === 'common');  // py 112
@@ -573,9 +570,9 @@ const backspanRear    = walls.rear.y1 - lookoutBackRear;         // 8.75
 const cantRatioFront  = backspanFront / RF.rakeOverhang;         // 1.40
 const cantRatioRear   = backspanRear / RF.rakeOverhang;          // 0.73
 
-/* indicative stations: start at the eave tail, then 24" in, on each slope */
+/* scheduled stations: start at the eave tail, then 24" in, on each slope */
 const lookoutStationsLeft = [];
-for (let x = eaveX0; x + t <= beamL + 1e-9; x += RK.lookoutSpacingIndicative) {
+for (let x = eaveX0; x + t <= beamL + 1e-9; x += RK.lookoutSpacing) {
   lookoutStationsLeft.push(x);                                   // -12, 12, 36, 60
 }
 const LOOKOUTS = [];
@@ -584,6 +581,30 @@ lookoutStationsLeft.forEach(a => {
    {x0: W - a - t, x1: W - a, slope: 'right'}].forEach(s => {
     LOOKOUTS.push({...s, end: 'front', y0: rakeY0, y1: lookoutBackFront, len: lookoutLenFront});
     LOOKOUTS.push({...s, end: 'rear',  y0: lookoutBackRear, y1: rakeY1, len: lookoutLenRear});
+  });
+});
+
+/* Segmented gable-line blocking. The 2x6 blocks stand on edge, top-flush with
+   the lookout system, and stop at every lookout crossing. Together the blocks
+   and through-lookouts form a continuous supported rake line over each gable. */
+const GABLE_BLOCKS = [];
+['front', 'rear'].forEach(end => {
+  const y0 = end === 'front' ? 0 : D - t;
+  const y1 = end === 'front' ? t : D;
+  const atEnd = LOOKOUTS.filter(k => k.end === end);
+  const left = atEnd.filter(k => k.slope === 'left').sort((a,b) => a.x0-b.x0);
+  left.forEach((k, i) => {
+    const x0 = k.x1;
+    const x1 = i + 1 < left.length ? left[i + 1].x0 : beamL;
+    if (x1 > x0 + 1e-9) GABLE_BLOCKS.push({end, slope:'left', x0, x1, y0, y1,
+      run:x1-x0, len:(x1-x0)*slopeFactor});
+  });
+  const right = atEnd.filter(k => k.slope === 'right').sort((a,b) => b.x0-a.x0);
+  right.forEach((k, i) => {
+    const x1 = k.x0;
+    const x0 = i + 1 < right.length ? right[i + 1].x1 : beamR;
+    if (x1 > x0 + 1e-9) GABLE_BLOCKS.push({end, slope:'right', x0, x1, y0, y1,
+      run:x1-x0, len:(x1-x0)*slopeFactor});
   });
 });
 
@@ -900,12 +921,12 @@ const mPanels1 = P.length;
 /* ============================================================
    RAFTERS, FLY RAFTERS, LOOKOUTS, BEAM, CONNECTORS
    ============================================================ */
-/* lookouts first, so the fly rafter and the rafters read over them */
+/* lookouts and the segmented top-flush gable-line blocking */
 LOOKOUTS.forEach(k => planRect(k.x0, k.x1, k.y0, k.y1, C.lookout, C.rafterEdge, 0.7));
+GABLE_BLOCKS.forEach(b => planRect(b.x0, b.x1, b.y0, b.y1, C.gableRaf, C.rafterEdge, 0.7));
 
-/* common and gable-end rafters */
-RAFTERS.forEach(r => planRect(r.x0, r.x1, r.y0, r.y1,
-  r.kind === 'gable-end' ? C.gableRaf : C.rafter, C.rafterEdge, 0.85));
+/* full common rafters; there is no continuous rafter at either gable line */
+RAFTERS.forEach(r => planRect(r.x0, r.x1, r.y0, r.y1, C.rafter, C.rafterEdge, 0.85));
 
 /* fly / rake rafters */
 FLY.forEach(f => planRect(f.x0, f.x1, f.y0, f.y1, C.fly, C.rafterEdge, 1.1));
@@ -1014,17 +1035,17 @@ const KEYNOTES = [
        'FACE TO CARRY THE FLY RAFTERS — SEE 6 AND 8. BEAM SIZE (' + RF.ridgeBeamAlternate +
        ' ALTERNATE), DEFLECTION AND THE',
        'CANTILEVER ARE NOT VERIFIED.']],
-  [2, [RF.rafterNominal + ' COMMON RAFTERS @ ' + RF.rafterSpacing + '" O.C. — ' + RAFTERS.length +
+  [2, [RF.rafterNominal + ' COMMON RAFTERS @ ' + RF.rafterSpacing + '" O.C. MAX. — ' + RAFTERS.length +
        ' RAFTERS AT ' + RSTATIONS.length + ' STATIONS, TWO PER STATION, ONE UP EACH',
        'SLOPE. EACH RUNS ' + inchStr(rafterRun) + ' HORIZONTALLY FROM THE EAVE EDGE TO A BEAM FACE = ' +
        inchStr(rafterSlopedLen) + ' ALONG THE',
        'SLOPE, WITH A PLUMB CUT AT THE BEAM AND A PLUMB TAIL CUT AT THE EAVE. THE MODULE RUNS FROM THE',
        'FRONT FACE SO SHEATHING PANEL EDGES AT 48" AND 96" FROM THE FRONT LAND ON A RAFTER — SEE 13.',
        'RAFTER SIZE AND SPAN ARE NOT VERIFIED. THIS IS NOT A TRUSS ROOF.']],
-  [3, ['GABLE-END RAFTER — ONE PER SLOPE OVER EACH GABLE WALL, ' +
-       RAFTERS.filter(r => r.kind === 'gable-end').length + ' IN TOTAL, CENTRED ' + inchStr(t / 2),
-       'FROM THE OUTSIDE FACE SO IT SITS DIRECTLY OVER THE WALL. THE LOOKOUTS PASS THIS RAFTER — SEE 9',
-       'AND 10. THE GABLE STUDS BELOW IT ARE SHOWN ON THE FRONT AND REAR WALL SHEETS.']],
+  [3, [RK.gableBlockingNominal + ' ON-EDGE GABLE-LINE BLOCKING REPLACES THE FOUR FORMER GABLE-END RAFTERS. ' +
+       GABLE_BLOCKS.length + ' PIECES TOTAL, EIGHT AT EACH GABLE,',
+       'SEGMENTED BETWEEN THE THROUGH-LOOKOUTS AND RIDGE BEAM. BLOCK TOPS ARE FLUSH WITH THE LOOKOUT TOPS;',
+       'BLOCKING BRACES THE GABLE-STUD TOPS AND PROVIDES THE ROOF-DECK EDGE. SEE 9 AND 10.']],
   [4, ['BIRDSMOUTH SEAT ON THE LEFT AND RIGHT WALL DOUBLE TOP PLATES: ' + inchStr(seatCut) +
        ' HORIZONTAL SEAT WITH A PLUMB',
        'HEEL CUT AT THE OUTER WALL FACE, SO IN PLAN THE SEAT OCCUPIES THE OUTER ' + inchStr(seatCut) +
@@ -1052,28 +1073,22 @@ const KEYNOTES = [
        ' PAST THE GABLE WALL. SAME ' + inchStr(rafterSlopedLen) + ' SLOPED',
        'LENGTH AS A COMMON RAFTER. NO WALL RUNS UNDER IT: IT IS CARRIED BY THE BEAM TIP AT THE TOP (SEE 6)',
        'AND BY THE LOOKOUTS ALONG ITS LENGTH (SEE 9). THE EAVE END IS A FREE CORNER.']],
-  [9, [RK.lookoutNominal + ' LOOKOUTS TYING THE FLY RAFTER BACK TO THE FIRST COMMON RAFTER, PASSING OVER THE',
-       'GABLE-END RAFTER. ' + LOOKOUTS.length + ' DRAWN, ' + LOOKOUTS.length / 4 + ' PER SLOPE PER GABLE.',
+  [9, [RK.lookoutNominal + ' STRUCTURAL LOOKOUTS RUN CONTINUOUSLY FROM THE FLY RAFTER, THROUGH THE GABLE-LINE',
+       'BLOCKING, TO THE FIRST FULL COMMON RAFTER. ' + LOOKOUTS.length + ' DRAWN, ' + LOOKOUTS.length / 4 + ' PER SLOPE PER GABLE,',
+       'ON EDGE AND TOP-FLUSH AT ' + inchStr(RK.lookoutSpacing) + ' O.C. THE LOOKOUTS TERMINATE AT — AND DO NOT NOTCH OR PASS THROUGH —',
+       'THE INBOARD COMMON RAFTER. CONNECTIONS AT THE FLY RAFTER, GABLE LINE AND COMMON RAFTER ARE PER ENGINEER.',
        '*** THEY ARE NOT THE SAME LENGTH AT BOTH GABLES: ' + inchStr(lookoutLenFront) + ' AT THE FRONT BUT ONLY ' +
        inchStr(lookoutLenRear) + ' AT THE REAR. ***',
-       'THE ' + RF.rafterSpacing + '" MODULE IS DATUMED FROM THE FRONT FACE, SO THE LEFTOVER BAY AT THE REAR IS ' +
-       inchStr(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py) + ' WHERE',
-       'THE FRONT ONE IS ' + inchStr(firstCommonFront.py - RSTATIONS[0].py) +
-       '. THE REAR LOOKOUT THEREFORE HAS ONLY ' + inchStr(backspanRear) + ' OF TAIL INSIDE THE WALL FACE TO',
+       'THE ' + RF.rafterSpacing + '" MODULE IS DATUMED FROM THE FRONT FACE, SO THE WALL-TO-COMMON BAY AT THE REAR IS ' +
+       inchStr(D - firstCommonRear.py) + ' WHERE',
+       'THE FRONT ONE IS ' + inchStr(firstCommonFront.py) +
+       '. THE REAR LOOKOUT THEREFORE HAS ' + inchStr(backspanRear) + ' INSIDE THE WALL FACE TO',
        'BE FASTENED TO, AGAINST ' + inchStr(backspanFront) + ' AT THE FRONT, TO CANTILEVER THE SAME ' +
-       inchStr(RF.rakeOverhang) + ' — RATIOS OF',
-       cantRatioRear.toFixed(2) + ':1 AND ' + cantRatioFront.toFixed(2) +
-       ':1 BACK-SPAN TO CANTILEVER. BOTH ARE SHORT OF THE USUAL RULE OF THUMB AND THE',
-       'REAR IS MUCH THE WORSE. IF THE ENGINEER WANTS MORE TAIL, RUN THE REAR LOOKOUTS BACK TO THE SECOND',
-       'COMMON RAFTER AT ' + inchStr(96) + ' INSTEAD — NOT DRAWN, BECAUSE IT IS A DESIGN CHANGE.',
-       '*** SPACING ALONG THE RAKE IS NOT SPECIFIED. THE ' + inchStr(RK.lookoutSpacingIndicative) +
-       ' O.C. SHOWN IS INDICATIVE ONLY AND IS NOT A',
-       'DESIGN VALUE. *** LOOKOUT SIZE, SPACING AND CONNECTIONS PER ENGINEER.']],
-  [10, ['GABLE-END RAFTER DROP IS NOT DETERMINED. IF THE LOOKOUTS RUN OVER THE TOP OF THIS RAFTER IT MUST',
-        'BE DROPPED FLUSH WITH THE LOOKOUT TOPS — ' + inchStr(1.5) + ' IF THE ' + RK.lookoutNominal +
-        ' LOOKOUTS LIE FLAT, ' + inchStr(RK.lookoutDepth) + ' IF THEY STAND',
-        'ON EDGE. THE ALTERNATIVE IS TO NOTCH THE RAFTER FOR EACH LOOKOUT. DROPPING IT SHORTENS THE GABLE',
-        'STUDS DRAWN ON THE FRONT AND REAR WALL SHEETS, SO RESOLVE THIS BEFORE CUTTING THOSE STUDS.']],
+       inchStr(RF.rakeOverhang) + '. THE GABLE-LINE BLOCKING IS THE INTERMEDIATE SUPPORT / RESTRAINT; ADEQUACY',
+       'OF THE SHORTER REAR TAIL AND ALL FASTENERS REMAINS SUBJECT TO ENGINEERING.']],
+  [10, [RK.gableBlockingNominal + ' GABLE-LINE BLOCKING STANDS ON EDGE, TOP-FLUSH WITH THE THROUGH-LOOKOUTS,',
+        'AND STOPS AT EVERY LOOKOUT CROSSING. IT IS NOT A CONTINUOUS RAFTER AND THE LOOKOUTS ARE NOT NOTCHED.',
+        'BLOCK-TO-STUD / TOP-PLATE RESTRAINT, ROOF-EDGE NAILING AND THE COMPLETE UPLIFT LOAD PATH ARE PER ENGINEER.']],
   [11, [inchStr(RF.eaveOverhang) + ' EAVE OVERHANG PAST THE LEFT AND RIGHT WALL FACES, PLUMB TAIL CUT, ' +
         'CARRIED BY THE RAFTER TAILS',
         'THEMSELVES. TAIL UNDERSIDE @ ' + inchStr(tailUnder) + ' AND TOP @ ' + inchStr(tailTop) +
@@ -1221,21 +1236,20 @@ RSTATIONS.forEach(s => drawLabel(X(eaveX0) + 4, Y(s.py) - 7, inchStr(s.d),
                                  {size: 8, anchor: 'start', fill: '#8a939c'}));
 drawLabel(colRaf, Y(rakeY0) + 16, 'FROM FRONT FACE', {size: 8, weight: 700, fill: '#666'});
 
-/* lookout spacing, called out along the front rake with its T.B.D. warning */
+/* scheduled lookout spacing, called out along the front rake */
 const rowLook = Y(rakeY0) - 34;
 lookoutStationsLeft.slice(1).forEach((x, i) =>
   drawDimension(lookoutStationsLeft[i], x, rowLook, inchStr(x - lookoutStationsLeft[i])));
 drawLabel(X(lookoutStationsLeft[0]) - 10, rowLook + 3.5, 'LOOKOUTS', {size: 9, anchor: 'end', weight: 600});
-boxedLabel(X(36), rowLook - 18, 'LOOKOUT SPACING T.B.D. — ' + inchStr(RK.lookoutSpacingIndicative) +
-           ' O.C. SHOWN IS INDICATIVE ONLY, NOT A DESIGN VALUE',
+boxedLabel(X(36), rowLook - 18, RK.lookoutNominal.toUpperCase() + ' LOOKOUTS ON EDGE @ ' +
+           inchStr(RK.lookoutSpacing) + ' O.C.',
            {size: 9, weight: 700, fill: '#b00000'});
 boxedLabel(X(36), Y(lookoutBackFront) + 15, 'FRONT LOOKOUTS ' + inchStr(lookoutLenFront) +
            ' — ' + inchStr(backspanFront) + ' BACK-SPAN INSIDE THE WALL FACE',
            {size: 8.5, weight: 600, fill: '#6b4600'});
-boxedLabel(X(36), Y(lookoutBackRear) - 8, 'REAR LOOKOUTS ONLY ' + inchStr(lookoutLenRear) +
-           ' — ' + inchStr(backspanRear) + ' BACK-SPAN, ' + cantRatioRear.toFixed(2) +
-           ':1 TO THE ' + inchStr(RF.rakeOverhang) + ' CANTILEVER. SEE 9',
-           {size: 8.5, weight: 700, fill: '#b00000'});
+boxedLabel(X(36), Y(lookoutBackRear) - 8, 'REAR LOOKOUTS ' + inchStr(lookoutLenRear) +
+           ' — ' + inchStr(backspanRear) + ' INSIDE WALL; GABLE-LINE BLOCKING PROVIDES INTERMEDIATE SUPPORT. SEE 9',
+           {size: 8.5, weight: 600, fill: '#6b4600'});
 
 /* beam bearing / cantilever callouts on the beam itself */
 drawVDim(rakeY0, walls.front.y0, X(beamR) + 44, 'CANT. ' + inchStr(beamCantilever), 'right');
@@ -1323,7 +1337,7 @@ bind('tDims', 'gDims');
 document.getElementById('meta').innerHTML =
   `<b>ROOF FRAMING PLAN</b><br>` +
   `Building ${ftStr(W)} x ${ftStr(D)} &middot; roof ${ftStr(roofW)} x ${ftStr(roofD)} in plan<br>` +
-  `${RF.rise}:${RF.run} &middot; ${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. &middot; ` +
+  `${RF.rise}:${RF.run} &middot; ${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. max. &middot; ` +
   `${RF.ridgeBeamNominal} ridge beam<br>` +
   `${inchStr(RF.sheathingThickness)} (${RF.sheathingNominal} nominal) plywood — roof deck and full wall wrap<br>` +
   `Dimensions in inches unless noted`;
@@ -1339,15 +1353,15 @@ document.getElementById('flag').innerHTML =
   `<li>${RF.rafterNominal} rafter sizing and span, and the birdsmouth notch ` +
   `(${inchStr(seatPerp)} perpendicular = ${(100 * seatPerp / RF.rafterDepth).toFixed(0)}% of the ` +
   `${inchStr(RF.rafterDepth)} depth).</li>` +
-  `<li><b>Lookout spacing is NOT specified.</b> The ${inchStr(RK.lookoutSpacingIndicative)} o.c. drawn is ` +
-  `indicative only and is not a design value.</li>` +
-  `<li><b>The rear lookouts are short.</b> Because the ${RF.rafterSpacing}" module is datumed from the front ` +
+  `<li><b>Structural lookout system.</b> ${RK.lookoutNominal} lookouts are shown on edge at ` +
+  `${inchStr(RK.lookoutSpacing)} o.c., top-flush and continuous through the gable-line blocking. Member adequacy ` +
+  `and all three connection points remain subject to engineering.</li>` +
+  `<li><b>The rear lookouts are shorter.</b> Because the ${RF.rafterSpacing}" module is datumed from the front ` +
   `face, the rear lookouts are only ${inchStr(lookoutLenRear)} long against ${inchStr(lookoutLenFront)} at the ` +
-  `front, leaving just ${inchStr(backspanRear)} of tail inside the wall to cantilever ` +
-  `${inchStr(RF.rakeOverhang)} — ${cantRatioRear.toFixed(2)}:1 back-span to cantilever, against ` +
-  `${cantRatioFront.toFixed(2)}:1 at the front. See keynote 9.</li>` +
-  `<li><b>The gable-end rafter drop is not determined</b>, and it depends on whether the lookouts lie flat or ` +
-  `stand on edge. Dropping it shortens the gable studs on the front and rear wall sheets.</li>` +
+  `front. The gable-line blocking supplies intermediate support/restraint, but the shorter rear tail and its ` +
+  `connections still require engineering. See keynote 9.</li>` +
+  `<li><b>Gable-line blocking.</b> ${RK.gableBlockingNominal} on-edge blocking replaces the former gable-end ` +
+  `rafters. Block-to-stud/wall restraint and roof-edge diaphragm nailing remain subject to engineering.</li>` +
   `<li>All connectors are symbols only: no hanger, tie, product, capacity or fastener has been selected.</li>` +
   `<li>Roof diaphragm blocking, edge nailing, chords and collectors are not designed.</li>` +
   `<li>Fascia, sub-fascia, soffit, venting and the ridge blocking / beam-top bevel are not shown.</li>` +
@@ -1387,33 +1401,17 @@ document.getElementById('tipNote').innerHTML =
   `before the beam is ordered, because the answer may change its size or length.`;
 
 document.getElementById('rakeNote').innerHTML =
-  `<b>Rake framing, and the two things still open.</b> The ${inchStr(RF.rakeOverhang)} rake is framed off the ` +
-  `cantilevered beam rather than off the gable wall: a ${RK.flyRafterNominal} fly rafter hangs on the beam tip ` +
-  `with its outer face flush with the beam end, and ${RK.lookoutNominal} lookouts tie it back to the first common ` +
-  `rafter, passing over the gable-end rafter. ` +
-
-  `<div style="margin-top:6px;"><b>The lookouts are not the same length at the two gables, and this plan is the ` +
-  `only view that shows why.</b> The ${RF.rafterSpacing}" module is datumed from the front face, so the leftover ` +
-  `bay at the rear is ${inchStr(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py)} where the front one is ` +
-  `${inchStr(firstCommonFront.py - RSTATIONS[0].py)}. The first common rafter therefore sits much closer to the ` +
-  `rear wall, and the lookout tied back to it is only ${inchStr(lookoutLenRear)} long against ` +
-  `${inchStr(lookoutLenFront)} at the front. Measured from the gable wall face inward, the rear lookout has just ` +
-  `${inchStr(backspanRear)} of tail to be fastened to while cantilevering the same ${inchStr(RF.rakeOverhang)} — ` +
-  `a back-span to cantilever ratio of ${cantRatioRear.toFixed(2)}:1, against ${cantRatioFront.toFixed(2)}:1 at ` +
-  `the front. Both are short of the usual rule of thumb of roughly twice the cantilever, and the rear is much the ` +
-  `worse. The straightforward fix, if the engineer wants more tail, is to run the rear lookouts back to the ` +
-  `second common rafter at 96" instead of the first at 112"; that is not drawn, because it is a design change ` +
-  `rather than a drafting one.</div>` +
-
-  `<div style="margin-top:6px;">Two further things are genuinely unresolved and are drawn as such. ` +
-  `<b>First, lookout spacing along the rake is not specified</b> — the ` +
-  `${inchStr(RK.lookoutSpacingIndicative)} o.c. shown is indicative only, chosen so the drawing can show the ` +
-  `members at all, and the config keeps the real value null so nothing here can be mistaken for a decision. ` +
-  `<b>Second, the gable-end rafter drop is not determined.</b> If the lookouts run over the top of that rafter it ` +
-  `has to be dropped flush with the lookout tops, ${inchStr(1.5)} if the lookouts lie flat and ` +
-  `${inchStr(RK.lookoutDepth)} if they stand on edge; the alternative is notching the rafter at each lookout. ` +
-  `That choice changes the gable stud lengths already drawn on the front and rear wall sheets, so it should be ` +
-  `settled before those studs are cut.`;
+  `<div><b>Rake framing — resolved geometry, connections still to be engineered.</b> The ` +
+  `${inchStr(RF.rakeOverhang)} rake is framed off the cantilevered ridge beam. A ${RK.flyRafterNominal} fly ` +
+  `rafter hangs at the beam tip, and ${RK.lookoutNominal} structural lookouts stand on edge at ` +
+  `${inchStr(RK.lookoutSpacing)} o.c. Each lookout runs continuously from the fly rafter, through the former ` +
+  `gable-end-rafter line, and terminates against the first full common rafter without notching it.</div>` +
+  `<div style="margin-top:6px;">The front lookouts are ${inchStr(lookoutLenFront)} long and the rear lookouts ` +
+  `are ${inchStr(lookoutLenRear)} long because the original 16" module remains datumed from the front face. ` +
+  `The rear has ${inchStr(backspanRear)} inside the gable-wall face. Segmented ${RK.gableBlockingNominal} ` +
+  `blocking, on edge and top-flush between the lookout crossings, supplies intermediate support/restraint and ` +
+  `braces the revised gable-stud tops. Lookout-to-fly, lookout-to-common, block-to-wall and roof-edge connections ` +
+  `for gravity and uplift remain per engineer.</div>`;
 
 document.getElementById('cornerNote').innerHTML =
   `<b>Framed corners, drawn rather than noted.</b> The four corners are standard three-stud 2&times;6 framed ` +
@@ -1501,10 +1499,10 @@ document.getElementById('revTip').innerHTML =
    ============================================================ */
 const legend = [
   [C.beam, RF.ridgeBeamNominal + ' structural ridge beam (' + ftStr(beamLen) + ' overall)'],
-  [C.rafter, RF.rafterNominal + ' common rafters @ ' + RF.rafterSpacing + '" o.c.'],
-  [C.gableRaf, RF.rafterNominal + ' gable-end rafters, over the gable walls'],
+  [C.rafter, RF.rafterNominal + ' common rafters @ ' + RF.rafterSpacing + '" o.c. max.'],
+  [C.gableRaf, RK.gableBlockingNominal + ' segmented gable-line blocking, on edge'],
   [C.fly, RK.flyRafterNominal + ' fly / rake rafters at the beam tips'],
-  [C.lookout, RK.lookoutNominal + ' lookouts — spacing indicative'],
+  [C.lookout, RK.lookoutNominal + ' continuous through-lookouts — 24" o.c.'],
   ['#fff|' + C.steel, 'Connector symbols — hangers, hurricane ties'],
   ['#fff|' + C.steelLt, 'Bracket symbols at the ridge posts — beam-to-post cap, H-bracket'],
   ['rgba(176,121,78,0.4)|' + C.postEdge, '6x6 ridge posts and three-stud framed corners below'],
@@ -1528,9 +1526,8 @@ let rt = `<tr><th>#</th><th>Member</th><th class="n">C.L. from front</th><th cla
          `<th class="n">px to</th><th class="n">Run</th><th class="n">Sloped</th></tr>`;
 RSTATIONS.forEach((s, i) => {
   const pair = RAFTERS.filter(r => near(r.py, s.py));
-  rt += `<tr${s.kind === 'gable-end' ? ' class="grp"' : ''}><td>${i + 1}</td>` +
-        `<td>${s.kind === 'gable-end' ? RF.rafterNominal + ' gable-end rafter — ' + s.at
-                                      : RF.rafterNominal + ' common rafter, pair'}</td>` +
+  rt += `<tr><td>${i + 1}</td>` +
+        `<td>${RF.rafterNominal} common rafter, pair</td>` +
         `<td class="n">${inchStr(s.d)}</td>` +
         `<td class="n">${inchStr(pair[0].x0)} / ${inchStr(pair[1].x0)}</td>` +
         `<td class="n">${inchStr(pair[0].x1)} / ${inchStr(pair[1].x1)}</td>` +
@@ -1548,16 +1545,18 @@ rt += `<tr><th colspan="2">Spacings, front to rear</th>` +
       `<th class="n" colspan="5">${RSTATIONS.slice(1).map((s, i) => inchStr(s.py - RSTATIONS[i].py)).join(', ')}</th></tr>`;
 rt += `<tr><th colspan="2">TOTAL ${RF.rafterNominal} RAFTER PIECES</th>` +
       `<th class="n">${RAFTERS.length + FLY.length}</th>` +
-      `<th colspan="4">${RAFTERS.filter(r => r.kind === 'common').length} common + ` +
-      `${RAFTERS.filter(r => r.kind === 'gable-end').length} gable-end + ${FLY.length} fly</th></tr>`;
+      `<th colspan="4">${RAFTERS.length} common + ${FLY.length} fly; no gable-end rafters</th></tr>`;
 rt += `<tr class="grp"><td colspan="2">${RK.lookoutNominal} lookouts at the FRONT gable, ` +
       `${inchStr(lookoutLenFront)} long (back-span ${inchStr(backspanFront)}, ` +
       `${cantRatioFront.toFixed(2)}:1)</td><td class="n">${LOOKOUTS.filter(k => k.end === 'front').length}</td>` +
-      `<td colspan="4">${LOOKOUTS.length / 4} per slope @ ${inchStr(RK.lookoutSpacingIndicative)} o.c. shown — spacing T.B.D.</td></tr>`;
+      `<td colspan="4">${LOOKOUTS.length / 4} per slope @ ${inchStr(RK.lookoutSpacing)} o.c., on edge and top-flush</td></tr>`;
 rt += `<tr class="grp"><td colspan="2">${RK.lookoutNominal} lookouts at the REAR gable, ` +
       `<b>${inchStr(lookoutLenRear)}</b> long (back-span only ${inchStr(backspanRear)}, ` +
       `${cantRatioRear.toFixed(2)}:1)</td><td class="n">${LOOKOUTS.filter(k => k.end === 'rear').length}</td>` +
       `<td colspan="4">shorter because the 16" module is datumed from the front face</td></tr>`;
+rt += `<tr class="grp"><td colspan="2">${RK.gableBlockingNominal} on-edge gable-line blocks</td>` +
+      `<td class="n">${GABLE_BLOCKS.length}</td><td colspan="4">continuous between through-lookouts; ` +
+      `replaces four former 2x8 gable-end rafters</td></tr>`;
 rt += `<tr class="grp"><td colspan="2">Sloped rafter hangers at the beam / hurricane ties at the walls</td>` +
       `<td class="n">${HANGERS.length} / ${TIES.length}</td>` +
       `<td colspan="4">symbols only, no product selected</td></tr>`;
@@ -1618,7 +1617,7 @@ function check(desc, ok, detail) { RESULTS.push({desc, ok: !!ok, detail: detail 
 
 /* the rafter stations the left and right wall sheets lay out, hardcoded so any
    future drift between the sheets trips the alarm */
-const EXPECTED_STATIONS = [0.75, 16, 32, 48, 64, 80, 96, 112, 119.25];
+const EXPECTED_STATIONS = [16, 32, 48, 64, 80, 96, 112];
 
 /* Everything this sheet actually says, assembled from its own sources: the
    keynote lines plus every block of prose the script writes into the page.
@@ -1660,8 +1659,8 @@ check('6. Beam bears 5-1/2" on a 6x6 ridge post in each gable wall, giving 109" 
       ridgePosts.every(p => near(p.y1 - p.y0, FR.ridgePostWidth)),
       `bearing ${inchStr(beamBearing)} each end, clear span ${inchStr(beamClearSpan)}, ` +
       `${inchStr(beamSpanCC)} centre to centre`);
-check('7. Nine rafter stations, matching the hardcoded layout from the left and right wall sheets exactly',
-      RSTATIONS.length === 9 && RSTATIONS.length === EXPECTED_STATIONS.length &&
+check('7. Seven full common-rafter stations match the left and right wall sheets exactly',
+      RSTATIONS.length === 7 && RSTATIONS.length === EXPECTED_STATIONS.length &&
       RSTATIONS.every((s, i) => near(s.py, EXPECTED_STATIONS[i])),
       `${RSTATIONS.map(s => inchStr(s.py)).join(', ')} from the front face`);
 check('8. No station-to-station spacing exceeds the 16" module',
@@ -1675,20 +1674,17 @@ check('9. The 16" module is datumed from the FRONT face, and sheathing panel edg
       panelCrossJoints.length === 2,
       `module at ${moduleFromFront.map(d => inchStr(d)).join(', ')} from the front; panel joints at ` +
       `${panelCrossJoints.map(d => inchStr(d)).join(' and ')}, both rafter centrelines`);
-check('10. A gable-end rafter sits directly over each gable wall, centred 3/4" from the outside face',
-      RSTATIONS.filter(s => s.kind === 'gable-end').length === 2 &&
-      near(RSTATIONS[0].py, t / 2) && near(RSTATIONS[RSTATIONS.length - 1].py, D - t / 2) &&
-      near(RSTATIONS[0].y0, 0) && near(RSTATIONS[RSTATIONS.length - 1].y1, D),
-      `front ${inchStr(RSTATIONS[0].y0)}–${inchStr(RSTATIONS[0].y1)}, rear ` +
-      `${inchStr(RSTATIONS[RSTATIONS.length - 1].y0)}–${inchStr(RSTATIONS[RSTATIONS.length - 1].y1)}, both inside the wall thickness`);
-check('11. 18 common and gable-end rafters (two per station), plus 4 fly rafters = 22 2x8 rafter pieces',
-      RAFTERS.length === 18 && RAFTERS.length === RSTATIONS.length * 2 &&
-      FLY.length === 4 && RAFTERS.length + FLY.length === 22 &&
-      RAFTERS.filter(r => r.kind === 'common').length === 14 &&
-      RAFTERS.filter(r => r.kind === 'gable-end').length === 4,
-      `${RAFTERS.filter(r => r.kind === 'common').length} common + ` +
-      `${RAFTERS.filter(r => r.kind === 'gable-end').length} gable-end + ${FLY.length} fly = ` +
-      `${RAFTERS.length + FLY.length}`);
+check('10. No gable-end rafters remain; segmented 2x6 blocking occupies both gable lines between through-lookouts',
+      RSTATIONS.every(s => s.kind === 'common') && GABLE_BLOCKS.length === 16 &&
+      GABLE_BLOCKS.filter(b => b.end === 'front').length === 8 &&
+      GABLE_BLOCKS.filter(b => b.end === 'rear').length === 8 &&
+      GABLE_BLOCKS.every(b => near(b.y1-b.y0,t)),
+      `${GABLE_BLOCKS.length} blocks total, eight per gable, replacing four former 2x8 rafters`);
+check('11. 14 common rafters at seven stations plus 4 fly rafters = 18 total 2x8 rafter pieces',
+      RAFTERS.length === 14 && RAFTERS.length === RSTATIONS.length * 2 &&
+      FLY.length === 4 && RAFTERS.length + FLY.length === 18 &&
+      RAFTERS.every(r => r.kind === 'common'),
+      `${RAFTERS.length} common + ${FLY.length} fly = ${RAFTERS.length + FLY.length}`);
 check('12. Every rafter runs 81-1/4" horizontally to a beam face, = 90-13/16" along the slope',
       near(rafterRun, 81.25) && near(rafterSlopedLen, 90.8402, 1e-3) &&
       RAFTERS.every(r => near(r.run, rafterRun)) &&
@@ -1722,33 +1718,27 @@ check('16. Lookouts run from the fly rafter outer face back to the inboard face 
       `front ${inchStr(rakeY0)}–${inchStr(lookoutBackFront)} = ${inchStr(lookoutLenFront)}; rear ` +
       `${inchStr(lookoutBackRear)}–${inchStr(rakeY1)} = ${inchStr(lookoutLenRear)} — an ` +
       `${inchStr(lookoutLenFront - lookoutLenRear)} difference`);
-check('17. The lookout length difference is explained by the front-datumed module, and the resulting back-span to cantilever ratios are measured and reported, not hidden',
-      near(firstCommonFront.py - RSTATIONS[0].py, 15.25) &&
-      near(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py, 7.25) &&
+check('17. The unequal through-lookout lengths retain the original front-datumed rafter module: 16" front wall-to-common and 8" rear wall-to-common',
+      near(firstCommonFront.py, 16) && near(D - firstCommonRear.py, 8) &&
       near(backspanFront, 16.75) && near(backspanRear, 8.75) &&
       near(cantRatioFront, backspanFront / RF.rakeOverhang) &&
       near(cantRatioRear, backspanRear / RF.rakeOverhang) &&
       cantRatioRear < cantRatioFront && cantRatioRear < 1,
-      `front bay ${inchStr(firstCommonFront.py - RSTATIONS[0].py)} vs rear bay ` +
-      `${inchStr(RSTATIONS[RSTATIONS.length - 1].py - firstCommonRear.py)}; back-span ` +
+      `front bay ${inchStr(firstCommonFront.py)} vs rear bay ${inchStr(D-firstCommonRear.py)}; back-span ` +
       `${inchStr(backspanFront)} (${cantRatioFront.toFixed(2)}:1) vs ${inchStr(backspanRear)} ` +
       `(${cantRatioRear.toFixed(2)}:1) against a ${inchStr(RF.rakeOverhang)} cantilever — adequacy not asserted`);
-check('18. 16 lookouts drawn — 4 per slope per gable — and each passes over the gable-end rafter rather than stopping at it',
+check('18. 16 structural lookouts are drawn on edge at 24" o.c.; each is continuous through its gable line and terminates at the first full common rafter',
       LOOKOUTS.length === 16 && lookoutStationsLeft.length === 4 &&
-      LOOKOUTS.filter(k => k.end === 'front').every(k => k.y0 < RSTATIONS[0].y0 + 1e-9 &&
-                                                          k.y1 > RSTATIONS[0].y1 - 1e-9) &&
-      LOOKOUTS.filter(k => k.end === 'rear').every(k => k.y1 > RSTATIONS[RSTATIONS.length - 1].y1 - 1e-9 &&
-                                                         k.y0 < RSTATIONS[RSTATIONS.length - 1].y0 + 1e-9),
-      `${LOOKOUTS.length} lookouts at indicative px stations ` +
-      `${lookoutStationsLeft.map(x => inchStr(x)).join(', ')} and mirrored, each spanning past its gable-end rafter`);
-check('19. LOOKOUT SPACING IS STILL UNSET IN THE CONFIG — the sheet cannot claim it is decided',
-      RK.lookoutSpacing === null && RK.lookoutSpacingIndicative === 24 &&
-      /INDICATIVE ONLY/.test(docText) && /NOT A DESIGN VALUE/.test(docText),
-      `lookoutSpacing = null; ${inchStr(RK.lookoutSpacingIndicative)} o.c. drawn and labelled indicative only`);
-check('20. GABLE-END RAFTER DROP IS STILL UNSET, and the sheet states it depends on lookout orientation',
-      RK.gableRafterDrop === null &&
-      /drop is not determined/i.test(docText) && /lie flat/i.test(docText),
-      'gableRafterDrop = null; 1-1/2" if the lookouts lie flat, 5-1/2" if on edge — not selected');
+      LOOKOUTS.filter(k=>k.end==='front').every(k=>k.y0<0 && k.y1>t) &&
+      LOOKOUTS.filter(k=>k.end==='rear').every(k=>k.y0<D-t && k.y1>D),
+      `${LOOKOUTS.length} lookouts at scheduled px stations ${lookoutStationsLeft.map(x=>inchStr(x)).join(', ')} and mirrored`);
+check('19. Lookout spacing and orientation are explicit design geometry: 2x6 on edge, top-flush, at 24" o.c.',
+      RK.lookoutSpacing === 24 && RK.lookoutOrientation === 'on edge' && RK.lookoutDepth === 5.5,
+      `${inchStr(RK.lookoutSpacing)} o.c., ${RK.lookoutOrientation}, top-flush`);
+check('20. Gable-line blocking is the same on-edge depth as the through-lookouts and is continuous between every crossing',
+      RK.gableBlockingNominal === '2x6' && near(RK.gableBlockingDepth,RK.lookoutDepth) &&
+      GABLE_BLOCKS.length===16 && GABLE_BLOCKS.every(b=>b.len>0),
+      `${GABLE_BLOCKS.length} top-flush block pieces; connections remain per engineer`);
 check('21. Eave overhang 12" past both bearing wall faces, equal',
       near(RF.eaveOverhang, 12) && near(0 - eaveX0, RF.eaveOverhang) &&
       near(eaveX1 - W, RF.eaveOverhang) && near(0 - eaveX0, eaveX1 - W),
@@ -1786,16 +1776,16 @@ check('28. Sheathing area 187.8 sq ft sloped over 168 sq ft projected — the sp
       near(slopedArea, projectedArea * slopeFactor, 1e-6) && minPanels === 6,
       `${projectedArea.toFixed(0)} sq ft x ${slopeFactor.toFixed(6)} = ${slopedArea.toFixed(2)} sq ft; ` +
       `${minPanels} 4x8 sheets minimum before waste`);
-check('29. A sloped rafter hanger symbol at every rafter-to-beam connection — 22 places, including the 4 at the cantilever tips',
-      HANGERS.length === 22 && HANGERS.length === RAFTERS.length + FLY.length &&
+check('29. A sloped rafter hanger symbol at every rafter-to-beam connection — 18 places, including the 4 at the cantilever tips',
+      HANGERS.length === 18 && HANGERS.length === RAFTERS.length + FLY.length &&
       HANGERS.filter(h => h.atTip).length === FLY.length &&
       HANGERS.every(h => near(h.x, h.slope === 'left' ? beamL : beamR)) &&
       /sloped rafter hanger/i.test(RF.ridgeConnection),
       `${HANGERS.length} hangers, ${HANGERS.filter(h => h.atTip).length} of them at the beam tips`);
-check('30. A hurricane / rafter tie symbol at every rafter-to-wall connection — 18 places, 9 per bearing wall. The 4 fly rafters get none, because no wall runs under them',
-      TIES.length === 18 && TIES.length === RAFTERS.length &&
-      TIES.filter(x => x.slope === 'left').length === 9 &&
-      TIES.filter(x => x.slope === 'right').length === 9 &&
+check('30. A hurricane / rafter tie symbol at every full common-rafter-to-wall connection — 14 places, 7 per bearing wall. The 4 fly rafters get none',
+      TIES.length === 14 && TIES.length === RAFTERS.length &&
+      TIES.filter(x => x.slope === 'left').length === 7 &&
+      TIES.filter(x => x.slope === 'right').length === 7 &&
       TIES.length === HANGERS.length - FLY.length &&
       /tie/i.test(RF.wallUpliftConnection),
       `${TIES.length} ties against ${HANGERS.length} hangers — the difference is exactly the ${FLY.length} fly rafters`);
@@ -1912,7 +1902,7 @@ check('45. Replacing the corner posts moved nothing else: each block is still th
         near(a.w, wallThk) && near(a.d, wallThk)) &&
       cornerAssemblies.every(a => (near(a.x0, 0) || near(a.x1, W)) && (near(a.y0, 0) || near(a.y1, D))) &&
       near(W, 144) && near(D, 120) && near(roofW, 168) && near(roofD, 144) &&
-      RSTATIONS.length === 9 && near(beamLen, 144) && near(beamClearSpan, 109),
+      RSTATIONS.length === 7 && near(beamLen, 144) && near(beamClearSpan, 109),
       `four ${inchStr(cornerBlockW)} squares at ${cornerAssemblies.map(a => a.at).join(', ')}; building ` +
       `${inchStr(W)} x ${inchStr(D)}, roof ${inchStr(roofW)} x ${inchStr(roofD)}, beam ${inchStr(beamLen)} unchanged`);
 
