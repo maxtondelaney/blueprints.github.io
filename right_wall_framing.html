@@ -553,13 +553,9 @@ const leftOverLimit  = leftPiers.filter(p => p.aspect > PIER_ASPECT_LIMIT + 1e-9
 const leftPortalFrame = OFFICE.otherWalls.left.qualifiesBy === 'portal-frame';
 const leftPanelTotal = leftPiers.reduce((a, p) => a + p.w, 0);
 
-/* rafter stations along this wall: a rafter over each gable end wall, then the
-   16" module in between */
-const RAFTERS = [
-  {x0: 0, x1: t, cl: t / 2, kind: 'gable-end', note: 'over the rear gable wall'},
-  ...moduleCLs.map(c => ({x0: c - t / 2, x1: c + t / 2, cl: c, d: fromFront(c), kind: 'common'})),
-  {x0: L - t, x1: L, cl: L - t / 2, kind: 'gable-end', note: 'over the front gable wall'}
-];
+/* Seven full common-rafter stations. At each gable, through-lookouts cross the
+   wall line and segmented blocking replaces the former continuous end rafter. */
+const RAFTERS = moduleCLs.map(c => ({x0:c-t/2,x1:c+t/2,cl:c,d:fromFront(c),kind:'common'}));
 
 /* ============================================================
    FORMATTING HELPERS
@@ -949,14 +945,14 @@ keynote(11, [L - 1, 84],                          [MB_R, 88]);
 keynote(13, [0, 45],                              [MB_L, 45]);
 
 const KEYNOTES = [
-  [1, [RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. BEARING ON THIS WALL — ' + RAFTERS.length +
+  [1, [RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. MAX. BEARING ON THIS WALL — ' + RAFTERS.length +
        ' SHOWN, SEEN IN SECTION AT THE',
        'BIRDSMOUTH SEAT. ' + inchStr(seatCut) + ' HORIZONTAL SEAT ON THE PLATE, ' + inchStr(seatPlumb) +
        ' PLUMB HEEL DROP, ' + inchStr(hap) + ' H.A.P. THE NOTCH IS',
        inchStr(seatPerp) + ' PERPENDICULAR TO THE RAFTER = ' + (100 * seatPerp / RF.rafterDepth).toFixed(0) +
        '% OF THE ' + inchStr(RF.rafterDepth) + ' DEPTH — CONFIRM PER CRC AND ENGINEER.',
-       'A RAFTER SITS OVER EACH GABLE END WALL; THE MODULE RUNS ' + FR.studSpacing +
-       '" O.C. FROM THE FRONT FACE (SHEET RIGHT) SO',
+       'NO CONTINUOUS RAFTER SITS OVER A GABLE WALL; THROUGH-LOOKOUTS AND SEGMENTED BLOCKING FORM THOSE',
+       'ROOF EDGES. THE MODULE RUNS ' + FR.studSpacing + '" O.C. FROM THE FRONT FACE (SHEET RIGHT) SO',
        'ROOF SHEATHING PANEL EDGES AT 48" AND 96" FROM THE FRONT LAND ON A RAFTER. SAME LAYOUT AS THE LEFT WALL,',
        'MIRRORED. ROOF GEOMETRY IS IDENTICAL TO THE FRONT AND LEFT WALL SHEETS.']],
   [2, ['UPLIFT: HURRICANE / RAFTER TIE AT EVERY RAFTER-TO-WALL CONNECTION, OVER THE SEAT AND ONTO THE',
@@ -1201,7 +1197,7 @@ document.getElementById('meta').innerHTML =
   `${fracStr(WS.thickness)} (${WS.nominal}) plywood, full wrap on walls and roof<br>` +
   `Three-stud 2x6 framed corners &nbsp;|&nbsp; no posts, no headers and no openings anywhere on this wall ` +
   `&nbsp;|&nbsp; corners and studs bear on a continuous 2x6 P.T. sill plate<br>` +
-  `${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. on ${inchStr(seatCut)} birdsmouth seat, ` +
+  `${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. max. on ${inchStr(seatCut)} birdsmouth seat, ` +
   `${inchStr(hap)} H.A.P. &nbsp;|&nbsp; 0" datum = top of slab`;
 
 /* ============================================================
@@ -1244,8 +1240,8 @@ document.getElementById('orientNote').innerHTML =
   `the studs have to land under the rafters, so module positions are labelled by their distance from the front ` +
   `face rather than by raw sheet x. Stud and rafter centrelines fall at ` +
   `${studs.map(s => inchStr(s.d)).join(', ')} from the front face, which is sheet x of ` +
-  `${studs.slice().sort((a, b) => b.c - a.c).map(s => inchStr(s.c)).join(', ')}, plus a gable-end rafter at each ` +
-  `end of the wall. That produces exactly the mirror of the left wall's layout: a <b>${inchStr(frontBay.w)}</b> ` +
+  `${studs.slice().sort((a, b) => b.c - a.c).map(s => inchStr(s.c)).join(', ')}. There is no continuous gable-end ` +
+  `rafter. That produces exactly the mirror of the left wall's layout: a <b>${inchStr(frontBay.w)}</b> ` +
   `bay between the front corner and the first stud, and a <b>${inchStr(rearBay.w)}</b> leftover bay between ` +
   `the last stud and the rear corner.</div>`;
 
@@ -1438,7 +1434,7 @@ vt += `<tr class="grp"><td>Birdsmouth seat / plumb heel drop</td><td class="n">$
 vt += `<tr class="grp"><td>Notch perpendicular to rafter (${(100 * seatPerp / RF.rafterDepth).toFixed(0)}% of ${inchStr(RF.rafterDepth)} depth)</td><td class="n">${inchStr(seatPerp)}</td><td class="n">&mdash;</td></tr>`;
 vt += `<tr class="grp"><td>H.A.P. — plumb heel height above the plate</td><td class="n">${inchStr(hap)}</td><td class="n">&mdash;</td></tr>`;
 vt += `<tr class="grp"><td>2x8 rafter plumb depth: 7.25 x &radic;(1+0.5&sup2;)</td><td class="n">${inchStr(rafterPlumbDepth)}</td><td class="n">&mdash;</td></tr>`;
-vt += `<tr class="grp"><td>Rafters bearing on this wall @ ${RF.rafterSpacing}" o.c.</td><td class="n">${RAFTERS.length}</td><td class="n">${RAFTERS.filter(r => r.kind === 'gable-end').length} over the gable end walls</td></tr>`;
+vt += `<tr class="grp"><td>Full common rafters bearing on this wall @ ${RF.rafterSpacing}" o.c. max.</td><td class="n">${RAFTERS.length}</td><td class="n">no continuous gable-end rafters</td></tr>`;
 vt += `<tr class="grp"><td>Roof tributary to this wall (half of ${ftStr(OFFICE.width)} span)</td><td class="n">${inchStr(halfRun)}</td><td class="n">${ftStr(halfRun)}</td></tr>`;
 vt += `<tr class="grp"><td>Eave overhang (toward viewer) / rake overhang (each end)</td><td class="n">${inchStr(RF.eaveOverhang)} / ${inchStr(RF.rakeOverhang)}</td><td class="n">&mdash;</td></tr>`;
 vt += `<tr class="grp"><td>${WS.nominal} roof sheathing: ${fracStr(RF.sheathingThickness)} actual, measured plumb</td><td class="n">${fracStr(sheathingPlumb)}</td><td class="n">&mdash;</td></tr>`;
@@ -1531,10 +1527,9 @@ check('12. Infill bays mirror the left wall: 9-3/4" between the front corner and
       near(frontBay.x1, postFaceX1) && near(rearBay.x0, postFaceX0),
       `front bay ${inchStr(frontBay.w)} (${inchStr(frontBay.x0)}–${inchStr(frontBay.x1)}), ` +
       `rear bay ${inchStr(rearBay.w)} (${inchStr(rearBay.x0)}–${inchStr(rearBay.x1)})`);
-check('13. 9 rafters at the 16" o.c. module, with one over each gable end wall',
-      RAFTERS.length === 9 &&
-      RAFTERS.filter(r => r.kind === 'common').length === moduleCLs.length &&
-      RAFTERS.filter(r => r.kind === 'gable-end').length === 2 &&
+check('13. Seven full common rafters bear on this wall; gable-end rafters are replaced by through-lookouts and blocking',
+      RAFTERS.length === 7 && RAFTERS.every(r=>r.kind==='common') &&
+      near(fromFront(RAFTERS[RAFTERS.length-1].cl),16) && near(fromFront(RAFTERS[0].cl),112) &&
       RAFTERS.every((r, i) => i === 0 || r.cl - RAFTERS[i - 1].cl <= FR.studSpacing + 1e-9),
       `${RAFTERS.length} rafters bearing on this wall; widest spacing ` +
       `${inchStr(Math.max(...RAFTERS.slice(1).map((r, i) => r.cl - RAFTERS[i].cl)))}`);

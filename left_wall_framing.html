@@ -638,13 +638,9 @@ const crippleXs = [roX0, ...moduleCLs.filter(c => c - t / 2 > roX0 + t && c + t 
 const crippleClear = crippleXs.slice(1).map((x, i) => x - (crippleXs[i] + t));
 const crippleMaxClear = Math.max(...crippleClear);
 
-/* rafter stations along this wall: a rafter over each gable end wall, then the
-   16" module in between */
-const RAFTERS = [
-  {x0: 0, x1: t, cl: t / 2, kind: 'gable-end'},
-  ...moduleCLs.map(c => ({x0: c - t / 2, x1: c + t / 2, cl: c, kind: 'common'})),
-  {x0: L - t, x1: L, cl: L - t / 2, kind: 'gable-end'}
-];
+/* Seven full common-rafter stations. At each gable, through-lookouts cross the
+   wall line and segmented blocking replaces the former continuous end rafter. */
+const RAFTERS = moduleCLs.map(c => ({x0:c-t/2,x1:c+t/2,cl:c,kind:'common'}));
 /* Measured against the ROUGH OPENING extents, not the header extents: a rafter
    landing over a jack group bears on the jacks, not on the header span. */
 const raftersOverHeader = RAFTERS.filter(r => r.x0 >= roX0 && r.x1 <= roX1);
@@ -1139,14 +1135,14 @@ keynote(18, [kn18x, sillBot],                    [kn18x, 12]);
 keynote(19, [L, 45],                             [MB_R, 45]);
 
 const KEYNOTES = [
-  [1, [RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. BEARING ON THIS WALL — ' + RAFTERS.length +
+  [1, [RF.rafterNominal + ' RAFTERS @ ' + RF.rafterSpacing + '" O.C. MAX. BEARING ON THIS WALL — ' + RAFTERS.length +
        ' SHOWN, SEEN IN SECTION AT THE',
        'BIRDSMOUTH SEAT. ' + inchStr(seatCut) + ' HORIZONTAL SEAT ON THE PLATE, ' + inchStr(seatPlumb) +
        ' PLUMB HEEL DROP, ' + inchStr(hap) + ' H.A.P. THE NOTCH IS',
        inchStr(seatPerp) + ' PERPENDICULAR TO THE RAFTER = ' + (100 * seatPerp / RF.rafterDepth).toFixed(0) +
        '% OF THE ' + inchStr(RF.rafterDepth) + ' DEPTH — CONFIRM PER CRC AND ENGINEER.',
-       'A RAFTER SITS OVER EACH GABLE END WALL; THE MODULE RUNS ' + FR.studSpacing +
-       '" O.C. FROM THE FRONT FACE SO ROOF',
+       'NO CONTINUOUS RAFTER SITS OVER A GABLE WALL; THROUGH-LOOKOUTS AND SEGMENTED BLOCKING FORM THOSE',
+       'ROOF EDGES. THE MODULE RUNS ' + FR.studSpacing + '" O.C. FROM THE FRONT FACE SO ROOF',
        'SHEATHING PANEL EDGES AT 48" AND 96" LAND ON A RAFTER.']],
   [2, ['UPLIFT: HURRICANE / RAFTER TIE AT EVERY RAFTER-TO-WALL CONNECTION, OVER THE SEAT AND ONTO THE',
        'DOUBLE TOP PLATE — ' + RAFTERS.length + ' PLACES ON THIS WALL. SYMBOL ONLY, SHOWN HIDDEN-LINE;',
@@ -1457,7 +1453,7 @@ document.getElementById('meta').innerHTML =
   `window R.O. <b>${inchStr(WIN.roughWidth)} x ${inchStr(WIN.roughHeight)}</b>, head @ ${inchStr(roHead)}<br>` +
   `${FR.headerNominal} header (${inchStr(FR.headerWidth)} x ${inchStr(headerDepth)}) &nbsp;|&nbsp; ` +
   `${inchStr(headerClearSpan)} clear span on ${nJ} jacks each side &nbsp;|&nbsp; <b>bearing wall</b><br>` +
-  `${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. on ${inchStr(seatCut)} birdsmouth seat, ` +
+  `${RF.rafterNominal} rafters @ ${RF.rafterSpacing}" o.c. max. on ${inchStr(seatCut)} birdsmouth seat, ` +
   `${inchStr(hap)} H.A.P. &nbsp;|&nbsp; 0" datum = top of slab<br>` +
   `${fracStr(WS.thickness)} (${WS.nominal}) plywood, full wrap on walls and roof &nbsp;|&nbsp; ` +
   `top of sheathing at the ridge <b>${ftStr(ridgeTop)}</b> above slab<br>` +
@@ -1695,7 +1691,7 @@ vt += `<tr class="grp"><td>Three-stud corner block: ${inchStr(CN.studWidth)} on 
 vt += `<tr class="grp"><td>Birdsmouth seat / plumb heel drop</td><td class="n">${inchStr(seatCut)} / ${inchStr(seatPlumb)}</td><td class="n">&mdash;</td></tr>`;
 vt += `<tr class="grp"><td>H.A.P. — plumb heel height above the plate</td><td class="n">${inchStr(hap)}</td><td class="n">&mdash;</td></tr>`;
 vt += `<tr class="grp"><td>Header clear span / overall length</td><td class="n">${inchStr(headerClearSpan)} / ${inchStr(headerX1 - headerX0)}</td><td class="n">${ftStr(headerClearSpan)}</td></tr>`;
-vt += `<tr class="grp"><td>Rafters bearing on this wall @ ${RF.rafterSpacing}" o.c.</td><td class="n">${RAFTERS.length}</td><td class="n">${raftersOverHeader.length} over the header</td></tr>`;
+vt += `<tr class="grp"><td>Full common rafters bearing on this wall @ ${RF.rafterSpacing}" o.c. max.</td><td class="n">${RAFTERS.length}</td><td class="n">${raftersOverHeader.length} over the header</td></tr>`;
 vt += `<tr class="grp"><td>Roof tributary to this wall (half of ${ftStr(OFFICE.width)} span)</td><td class="n">${inchStr(halfRun)}</td><td class="n">${ftStr(halfRun)}</td></tr>`;
 vt += `<tr class="grp"><td>Clear between stone top and casing bottom</td><td class="n">${inchStr(winRoSill - EX.casingWidth - EX.stoneHeight)}</td><td class="n">&mdash;</td></tr>`;
 vt += `<tr class="grp"><td>${WS.nominal} roof sheathing: ${fracStr(RF.sheathingThickness)} actual, measured plumb</td><td class="n">${fracStr(sheathingPlumb)}</td><td class="n">&mdash;</td></tr>`;
@@ -1806,9 +1802,9 @@ check('20. Two field studs on the 16" module fall clear of the opening assembly,
       studs.every(s => s.x1 <= kingL.x0 + 1e-9 || s.x0 >= kingR.x1 - 1e-9),
       `studs at c.l. ${studs.map(s => inchStr(s.c)).join(', ')}; the ${WIN.roughWidth}" opening assembly ` +
       `takes the module studs between them`);
-check('21. Rafters at 16" o.c. module, one over each gable end wall',
-      RAFTERS.filter(r => r.kind === 'common').length === moduleCLs.length &&
-      RAFTERS.filter(r => r.kind === 'gable-end').length === 2 &&
+check('21. Seven full common rafters bear on this wall; gable-end rafters are replaced by through-lookouts and blocking',
+      RAFTERS.length === 7 && RAFTERS.every(r=>r.kind==='common') &&
+      near(RAFTERS[0].cl,16) && near(RAFTERS[RAFTERS.length-1].cl,112) &&
       RAFTERS.every((r, i) => i === 0 || r.cl - RAFTERS[i - 1].cl <= FR.studSpacing + 1e-9),
       `${RAFTERS.length} rafters bearing on this wall`);
 check('22. Roof sheathing panel edges at 48" and 96" land on a rafter',
